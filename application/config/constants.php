@@ -83,3 +83,12 @@ defined('EXIT_USER_INPUT')     OR define('EXIT_USER_INPUT', 7); // invalid user 
 defined('EXIT_DATABASE')       OR define('EXIT_DATABASE', 8); // database error
 defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
+
+
+/*
+ * DB CONFIG
+ */
+define('DB_HOST', isset($_SERVER['DB_HOST']) ? $_SERVER['DB_HOST'] : 'localhost');
+define('DB_UNAME', isset($_SERVER['DB_UNAME']) ? $_SERVER['DB_UNAME'] : 'root');
+define('DB_PASS', isset($_SERVER['DB_PASS']) ? $_SERVER['DB_PASS'] : '');
+define('DB_NAME', isset($_SERVER['DB_NAME']) ? $_SERVER['DB_NAME'] : 'banksys');

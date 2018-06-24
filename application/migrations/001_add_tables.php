@@ -41,6 +41,12 @@ class Migration_Add_Tables extends CI_Migration {
 			'last_name' => [
 				'type' => 'VARCHAR',
 				'constraint' => 200
+			],
+			'date_created' => [
+				'type' => 'DATETIME'
+			],
+			'date_updated' => [
+				'type' => 'DATETIME'
 			]
 		]);
 
@@ -69,12 +75,6 @@ class Migration_Add_Tables extends CI_Migration {
 			'user_type' => [
 				'type' => 'VARCHAR',
 				'constraint' => 11
-			],
-			'date_created' => [
-				'type' => 'DATETIME'
-			],
-			'date_updated' => [
-				'type' => 'DATETIME'
 			],
 			'last_login' => [
 				'type' => 'DATETIME'
@@ -158,12 +158,6 @@ class Migration_Add_Tables extends CI_Migration {
 			'source_of_funds' => [
 				'type' => 'VARCHAR',
 				'constraint' => 50
-			],
-			'date_created' => [
-				'type' => 'DATETIME'
-			],
-			'date_updated' => [
-				'type' => 'DATETIME'
 			],
 			'CONSTRAINT `tbl_customers_ibfk_1` FOREIGN KEY (`person_id`) REFERENCES `tbl_person` (`person_id`) ON DELETE CASCADE ON UPDATE CASCADE'
 		]);
@@ -310,17 +304,16 @@ class Migration_Add_Tables extends CI_Migration {
 				'type' => 'VARCHAR',
 				'constraint' => 11
 			],
-			'user_id' => [
+			'person_id' => [
 				'type' => 'VARCHAR',
-				'constraint' => 50,
-				'null' => TRUE
+				'constraint' => 11
 			],
 			'date' => [
 				'type' => 'DATETIME'
 			],
 
 			'CONSTRAINT `tbl_transactions_ibfk_1` FOREIGN KEY (`account_id`) REFERENCES `tbl_accounts` (`account_id`) ON DELETE CASCADE ON UPDATE CASCADE',
-			'CONSTRAINT `tbl_transactions_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `tbl_users` (`username`) ON DELETE CASCADE ON UPDATE CASCADE'
+			'CONSTRAINT `tbl_transactions_ibfk_2` FOREIGN KEY (`person_id`) REFERENCES `tbl_person` (`person_id`) ON DELETE CASCADE ON UPDATE CASCADE'
 		]);
 
 		$this->dbforge->add_key('transaction_id', TRUE);

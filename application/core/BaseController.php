@@ -15,6 +15,6 @@ class BaseController extends CI_Controller {
 
 	public function is_user($user_type) {
 		$current_user = $this->current_user();
-		return $current_user and $user_type == $current_user->user_type);
+		return $current_user and $user_type == $current_user->user_type;
 	}
 }

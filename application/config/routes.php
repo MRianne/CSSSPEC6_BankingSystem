@@ -60,3 +60,8 @@ $route['translate_uri_dashes'] = FALSE;
 $route["migrate"] = "MigrationController/index";
 $route["migrate/(:any)"] = "MigrationController/index/$1";
 $route["migrate/(:any)/(:num)"] = "MigrationController/index/$1/$2";
+
+/*
+*ATM Routes
+*/
+$route["ATM"] = "ATMController";

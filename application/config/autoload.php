@@ -62,7 +62,8 @@ $autoload['libraries'] = [
 	'migration',
 	'form_validation',
 	'encryption',
-	'database'
+	'database',
+	'utilities'
 ];
 
 /*

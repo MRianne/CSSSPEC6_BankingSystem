@@ -77,7 +77,8 @@ class Migration_Add_Tables extends CI_Migration {
 				'constraint' => 11
 			],
 			'last_login' => [
-				'type' => 'DATETIME'
+				'type' => 'DATETIME',
+				'null' => TRUE
 			],
 			'login_attempts' => [
 				'type' => 'TINYINT',

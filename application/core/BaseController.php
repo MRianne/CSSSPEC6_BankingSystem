@@ -10,7 +10,8 @@ class BaseController extends CI_Controller {
 
 	public function create_person($person) {
 		$person['person_id'] = $this->utilities->create_random_string(11);
-		return $this->person->insert($person);
+		$this->person->insert($person);
+		return $person['person_id'];
 	}
 
 	public function current_user() {

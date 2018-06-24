@@ -8,7 +8,7 @@ class UserController extends BaseController {
 	}
 
 	public function create() {
-		// if (parent::is_user('admin') || parent::is_user('teller')) {
+		if (parent::is_user('admin') || parent::is_user('teller')) {
 
 			$current_user = parent::current_user();
 
@@ -31,20 +31,20 @@ class UserController extends BaseController {
 				$this->user->insert([
 					'username' => $this->input->post('username'),
 					'password' => $this->encryption->encrypt($this->input->post('password')),
-					'email_address' => $this->input->post('email_address'),
+					'email' => $this->input->post('email'),
 					'person_id' => $person_id,
 					'user_type' => $this->input->post('user_type'),
-					'last_login_at' => null,
+					'last_login' => null,
 					'login_attempts' => 0,
 					'last_password_change' => date('Y-m-d H:i:s')
 				]);
-				return $this->load->view('formsuccess'); // redirect to success
+				return TRUE; // redirect to success
 			}
 
-			return $this->load->view('myform'); // return to fail
-		// } else {
-		// 	return FALSE; // return to page
-		// }
+			return FALSE; // return to fail
+		} else {
+			return FALSE; // return to page
+		}
 	}
 
 	public function type_check($str) {

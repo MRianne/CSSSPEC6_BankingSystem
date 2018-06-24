@@ -41,7 +41,7 @@ class UserController extends BaseController {
 				return TRUE; // redirect to success
 			}
 
-			return FALSE; // return to fail
+			return FALSE; // render create form w/ errors
 		} else {
 			return FALSE; // return to page
 		}
@@ -50,4 +50,22 @@ class UserController extends BaseController {
 	public function type_check($str) {
 		return in_array($str, ['admin', 'teller', 'user']);
 	}
+
+	public function login() {
+		if (!parent::current_user()) {
+			$username = $_POST['username'] ?? null;
+			$password = $_POST['password'] ?? null;
+
+			if (!$this->user->authenticate_user($username, $password)) {
+				return TRUE; // render login page
+			}
+		}
+		return FALSE; // render dashboard
+	}
+
+	public function logout() {
+		$this->session->unset_userdata("user");
+		return TRUE; // render landing page
+	}
+
 }

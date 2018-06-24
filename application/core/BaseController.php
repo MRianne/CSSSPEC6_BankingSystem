@@ -14,6 +14,9 @@ class BaseController extends CI_Controller {
 		return $person['person_id'];
 	}
 
+	public function update_person($id, $data) {
+		$this->person->update($id, $data);
+	}
 	public function current_user() {
 		$user = $this->session->userdata("user");
 		return $user;

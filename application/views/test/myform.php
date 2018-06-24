@@ -5,18 +5,19 @@
 <body>
 
 <?php echo validation_errors(); ?>
+<?= $this->session->flashdata("message") ?? null ?>
 
-<?php echo form_open('user'); ?>
+<?php echo form_open('user/login'); ?>
 
-<input type="text" name="first_name" placeholder="First name" />
+<!-- <input type="text" name="first_name" placeholder="First name" />
 
 <input type="text" name="middle_name" placeholder="Middle Name" />
 
-<input type="text" name="last_name" placeholder="Last Name" />
+<input type="text" name="last_name" placeholder="Last Name" /> -->
 
 <input type="text" name="username" placeholder="Username" />
 
-<input type="password" name="password" placeholder="Password" />
+<input type="password" name="password" placeholder="Password" /><!-- 
 
 <input type="password" name="passconf" placeholder="Confirm Password" />
 
@@ -26,7 +27,7 @@
 	<option value="admin">Admin</option>
 	<option value="teller">Teller</option>
 	<option value="user">User</option>
-</select>
+</select> -->
 
 <div><input type="submit" value="Submit" /></div>
 

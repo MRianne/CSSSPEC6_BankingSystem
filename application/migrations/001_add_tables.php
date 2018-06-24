@@ -5,6 +5,7 @@ class Migration_Add_Tables extends CI_Migration {
 
 
 	public function up() {
+		$this->person();
 		$this->users();
 		$this->customers();
 		$this->customer_users();
@@ -20,6 +21,31 @@ class Migration_Add_Tables extends CI_Migration {
 		$this->dbforge->drop_table('tbl_customer_users', TRUE);
 		$this->dbforge->drop_table('tbl_customers', TRUE);
 		$this->dbforge->drop_table('tbl_users', TRUE);
+		$this->dbforge->drop_table('tbl_person', TRUE);
+	}
+
+	public function person() {
+		$this->dbforge->add_field([
+			'person_id' => [
+				'type' => 'VARCHAR',
+				'constraint' => 11
+			],
+			'first_name' => [
+				'type' => 'VARCHAR',
+				'constraint' => 200
+			],
+			'middle_name' => [
+				'type' => 'VARCHAR',
+				'constraint' => 200
+			],
+			'last_name' => [
+				'type' => 'VARCHAR',
+				'constraint' => 200
+			]
+		]);
+
+		$this->dbforge->add_key('person_id', TRUE);
+		$this->dbforge->create_table('tbl_person', TRUE);
 	}
 
 	public function users() {
@@ -36,17 +62,9 @@ class Migration_Add_Tables extends CI_Migration {
 				'type' => 'VARCHAR',
 				'constraint' => 255
 			],
-			'first_name' => [
+			'person_id' => [
 				'type' => 'VARCHAR',
-				'constraint' => 200
-			],
-			'middle_name' => [
-				'type' => 'VARCHAR',
-				'constraint' => 200
-			],
-			'last_name' => [
-				'type' => 'VARCHAR',
-				'constraint' => 200
+				'constraint' => 11
 			],
 			'user_type' => [
 				'type' => 'VARCHAR',
@@ -67,10 +85,12 @@ class Migration_Add_Tables extends CI_Migration {
 			],
 			'last_password_change' => [
 				'type' => 'DATETIME'
-			]
+			],
+			'CONSTRAINT `tbl_users_ibfk_1` FOREIGN KEY (`person_id`) REFERENCES `tbl_person` (`person_id`) ON DELETE CASCADE ON UPDATE CASCADE'
 		]);
 
 		$this->dbforge->add_key('username', TRUE);
+		$this->dbforge->add_key('person_id');
 		$this->dbforge->create_table('tbl_users', TRUE);
 	}
 
@@ -80,17 +100,9 @@ class Migration_Add_Tables extends CI_Migration {
 				'type' => 'VARCHAR',
 				'constraint' => 11
 			],
-			'first_name' => [
+			'person_id' => [
 				'type' => 'VARCHAR',
-				'constraint' => 200
-			],
-			'middle_name' => [
-				'type' => 'VARCHAR',
-				'constraint' => 200
-			],
-			'last_name' => [
-				'type' => 'VARCHAR',
-				'constraint' => 200
+				'constraint' => 11
 			],
 			'gender' => [
 				'type' => 'CHAR',
@@ -152,10 +164,12 @@ class Migration_Add_Tables extends CI_Migration {
 			],
 			'date_updated' => [
 				'type' => 'DATETIME'
-			]
+			],
+			'CONSTRAINT `tbl_customers_ibfk_1` FOREIGN KEY (`person_id`) REFERENCES `tbl_person` (`person_id`) ON DELETE CASCADE ON UPDATE CASCADE'
 		]);
 
 		$this->dbforge->add_key('customer_id', TRUE);
+		$this->dbforge->add_key('person_id');
 		$this->dbforge->create_table('tbl_customers', TRUE);
 	}
 
@@ -171,8 +185,8 @@ class Migration_Add_Tables extends CI_Migration {
 				'constraint' => 11,
 				'unique' => TRUE
 			],
-			'CONSTRAINT `tbl_users_ibfk_1` FOREIGN KEY (`username`) REFERENCES `tbl_users` (`username`) ON DELETE CASCADE ON UPDATE CASCADE',
-			'CONSTRAINT `tbl_users_ibfk_2` FOREIGN KEY (`customer_id`) REFERENCES `tbl_customers` (`customer_id`) ON DELETE CASCADE ON UPDATE CASCADE'
+			'CONSTRAINT `tbl_customer_users_ibfk_1` FOREIGN KEY (`username`) REFERENCES `tbl_users` (`username`) ON DELETE CASCADE ON UPDATE CASCADE',
+			'CONSTRAINT `tbl_customer_users_ibfk_2` FOREIGN KEY (`customer_id`) REFERENCES `tbl_customers` (`customer_id`) ON DELETE CASCADE ON UPDATE CASCADE'
 		]);
 
 		$this->dbforge->add_key('username', TRUE);

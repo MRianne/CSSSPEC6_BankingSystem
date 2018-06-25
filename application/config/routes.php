@@ -55,6 +55,12 @@ $route['translate_uri_dashes'] = FALSE;
 
 
 /*
+ * User routes
+ */
+$route['user/login'] = "UserController/login";
+$route['user/logout'] = "UserController/logout";
+
+/*
  * Migration Routes
  */
 $route["migrate"] = "MigrationController/index";

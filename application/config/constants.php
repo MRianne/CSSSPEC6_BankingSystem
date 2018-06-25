@@ -92,3 +92,8 @@ define('DB_HOST', isset($_SERVER['DB_HOST']) ? $_SERVER['DB_HOST'] : 'localhost'
 define('DB_UNAME', isset($_SERVER['DB_UNAME']) ? $_SERVER['DB_UNAME'] : 'root');
 define('DB_PASS', isset($_SERVER['DB_PASS']) ? $_SERVER['DB_PASS'] : '');
 define('DB_NAME', isset($_SERVER['DB_NAME']) ? $_SERVER['DB_NAME'] : 'banksys');
+
+/*
+ * KEYS
+ */
+define('ENC_KEY', isset($_SERVER['ENC_KEY']) ? $_SERVER['ENC_KEY'] : '9fb7a091da095f9feac20fb38d24082d');

@@ -47,6 +47,50 @@ class UserController extends BaseController {
 		}
 	}
 
+	public function update($id) {
+		if (parent::is_user('admin') || parent::is_user('teller')) {
+			$customer = $this->user->with('person')->get($id);
+			$current_user = parent::current_user();
+
+			$this->form_validation->set_rules('first_name', 'First name', 'trim|required');
+			$this->form_validation->set_rules('middle_name', 'Middle name', 'trim|required');
+			$this->form_validation->set_rules('last_name', 'Last name', 'trim|required');
+			$this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[4]|max_length[50]');
+			if($customer['email'] === $this->input->post('email'))
+				$this->form_validation->set_rules('email', 'E-mail address', 'trim|required|valid_email');
+			else	
+				$this->form_validation->set_rules('email', 'E-mail address', 'trim|required|valid_email|is_unique[tbl_users.email]');
+			$this->form_validation->set_rules('user_type', 'User Type', 'trim|required|callback_type_check');
+
+			if ($this->form_validation->run()) {
+				parent::upate_person($customer['person_id'], [
+					'first_name' => $this->input->post('first_name'),
+					'middle_name' => $this->input->post('middle_name'),
+					'last_name' => $this->input->post('last_name')
+				]);
+
+				$this->user->update($id, [
+					'username' => $this->input->post('username'),
+					'email' => $this->input->post('email'),
+					'user_type' => $this->input->post('user_type'),
+				]);
+				return TRUE; // redirect to success
+			}
+
+			return FALSE; // render create form w/ errors
+		} else {
+			return FALSE; // return to page
+		}
+	}
+
+	public function get_all() {
+		return $this->user->get_all();
+	}
+
+	public function delete($id) {
+		return $this->user->delete($id);
+	}
+
 	public function type_check($str) {
 		return in_array($str, ['admin', 'teller', 'user']);
 	}

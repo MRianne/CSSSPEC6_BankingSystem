@@ -12,9 +12,11 @@ class Migration_Add_Tables extends CI_Migration {
 		$this->account_types();
 		$this->accounts();
 		$this->transactions();
+		$this->settings();
 	}
 
 	public function down() {
+		$this->dbforge->drop_table('tbl_settings', TRUE);
 		$this->dbforge->drop_table('tbl_transactions', TRUE);
 		$this->dbforge->drop_table('tbl_accounts', TRUE);
 		$this->dbforge->drop_table('tbl_account_types', TRUE);
@@ -22,6 +24,42 @@ class Migration_Add_Tables extends CI_Migration {
 		$this->dbforge->drop_table('tbl_customers', TRUE);
 		$this->dbforge->drop_table('tbl_users', TRUE);
 		$this->dbforge->drop_table('tbl_person', TRUE);
+	}
+
+	public function settings() {
+		$this->db_forge->add_field([
+			'id' => [
+				'type' => 'INT',
+				'auto_increment' => TRUE 
+			],
+			'min_withdraw' => [
+				'type' => 'DECIMAL',
+				'constraint' => '17,2'
+			],
+			'max_withdraw' => [
+				'type' => 'DECIMAL',
+				'constraint' => '17,2'
+			],
+			'max_withdraw_per_day' => [
+				'type' => 'DECIMAL',
+				'constraint' => '17,2'
+			],
+			'sc_below_req_adb' => [
+				'type' => 'DECIMAL',
+				'constraint' => '17,2'
+			],
+			'monthly_dormancy_charge' => [
+				'type' => 'DECIMAL',
+				'constraint' => '17,2'
+			],
+			'otc_withdrawal_fee' => [
+				'type' => 'DECIMAL',
+				'constraint' => '17,2'
+			]
+		]);
+
+		$this->dbforge->add_key('id', TRUE);
+		$this->dbforge->create_table('tbl_settings', TRUE);
 	}
 
 	public function person() {
@@ -199,14 +237,6 @@ class Migration_Add_Tables extends CI_Migration {
 				'constraint' => 100
 			],
 			'initial_deposit' => [
-				'type' => 'DECIMAL',
-				'constraint' => '17,2'
-			],
-			'min_withdraw' => [
-				'type' => 'DECIMAL',
-				'constraint' => '17,2'
-			],
-			'max_withdraw' => [
 				'type' => 'DECIMAL',
 				'constraint' => '17,2'
 			],

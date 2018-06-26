@@ -30,4 +30,8 @@ class Account_Model extends BaseModel {
 		$account['date_updated'] = date('Y-m-d H:i:s');
 		return $account;
 	}
+
+	protected function validate_balance($id, $amount) {
+		return $this->account->get($id)['balance'] > $amount ? TRUE : FALSE;
+	}
 }

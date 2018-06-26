@@ -111,4 +111,17 @@ defined('DORMANT')		OR defined('DORMANT', 'DORMANT');
  *	User Account Status
  */
 defined('LOCKED')		OR define('LOCKED', 'LOCK');
-defined('OK')			OR define('OK', 'OK')
+defined('OK')			OR define('OK', 'OK');
+
+/*
+ *	Transaction Descriptions
+ */
+defined('INITIAL_DEPOSIT')	OR define('INITIAL_DEPOSIT', 'Initial Deposit');
+defined('ATM_WITHDRAWAL')	OR define('ATM_WITHDRAWAL', 'ATM Withdrawal');
+defined('ATM_DEPOSIT')		OR define('ATM_DEPOSIT', 'ATM Deposit');
+defined('OTC_WITHDRAWAL')	OR define('OTC_WITHDRAWAL', 'Over-the-counter Withdrawal');
+defined('OTC_DEPOSIT')		OR define('OTC_DEPOSIT', 'Over-the-counter Deposit');
+defined('SC_TRANS_FEE')		OR define('SC_TRANS_FEE', 'Transaction Fee');
+defined('SC_BELOW_ADB')		OR define('SC_BELOW_ADB', 'Service Charge for Falling Below the Required ADB')
+defined('SC_DORMANCY')		OR define('SC_DORMANCY', 'Dormancy Charge');
+defined('INTEREST')			OR define('INTEREST', 'Interest');

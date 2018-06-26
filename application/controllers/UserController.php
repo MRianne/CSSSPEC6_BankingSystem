@@ -85,11 +85,15 @@ class UserController extends BaseController {
 	}
 
 	public function get_all() {
-		return $this->user->get_all();
+		if(parent::is_user('admin') || parent::is_user('teller'))
+			return $this->user->get_all();
+		return FALSE;
 	}
 
 	public function delete($id) {
-		return $this->user->delete($id);
+		if(parent::is_user('admin'))
+			return $this->user->delete($id);
+		return FALSE;
 	}
 
 	public function type_check($str) {

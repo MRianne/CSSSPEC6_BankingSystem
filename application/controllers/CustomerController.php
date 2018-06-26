@@ -120,15 +120,14 @@ class CustomerController extends BaseController {
 	}
 
 	public function get_all() {
-		return $this->customer->get_all();
+		if(parent::is_user('admin') || parent::is_user('teller'))
+			return $this->customer->get_all();
+		return FALSE;
 	}
 
 	public function delete($id) {
-		return $this->customer->delete($id);
-	}
-
-	public function type_check($str) {
-
-		return parent::is_user('admin') ? in_array($str, ['admin', 'teller', 'user']) : $str === 'user';
+		if(parent::is_user('admin'))
+			return $this->customer->delete($id);
+		return FALSE;
 	}
 }

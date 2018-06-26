@@ -67,10 +67,14 @@ class AccountTypeController extends BaseController {
 	}
 
 	public function get_all() {
-		return $this->account_type->get_all();
+		if(parent::is_user('admin'))
+			return $this->account_type->get_all();
+		return FALSE;
 	}
 
 	public function delete($id) {
-		return $this->account_type->delete($id);
+		if(parent::is_user('admin'))
+			return $this->account_type->delete($id);
+		return FALSE;
 	}
 }

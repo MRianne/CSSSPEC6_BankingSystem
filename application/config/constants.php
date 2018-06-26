@@ -130,3 +130,9 @@ defined('INTEREST')			OR define('INTEREST', 'Interest');
  */
 defined('DEBIT')	OR define('DEBIT', 'DEBIT');
 defined('CREDIT')	OR define('CREDIT', 'CREDIT');
+
+/*
+ *	Transaction Status
+ */
+defined('SUCCESSFUL')	OR define('SUCCESSFUL', 'SUCCESSFUL');
+defined('FAILED')		OR define('FAILED', 'FAILED');

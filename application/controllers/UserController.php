@@ -36,7 +36,8 @@ class UserController extends BaseController {
 					'user_type' => $this->input->post('user_type'),
 					'last_login' => null,
 					'login_attempts' => 0,
-					'last_password_change' => date('Y-m-d H:i:s')
+					'last_password_change' => date('Y-m-d H:i:s'),
+					'status' => OK
 				]);
 				return TRUE; // redirect to success
 			}

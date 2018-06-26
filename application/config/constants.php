@@ -99,9 +99,16 @@ define('DB_NAME', isset($_SERVER['DB_NAME']) ? $_SERVER['DB_NAME'] : 'banksys');
 define('ENC_KEY', isset($_SERVER['ENC_KEY']) ? $_SERVER['ENC_KEY'] : '9fb7a091da095f9feac20fb38d24082d');
 
 /*
- *	Account Status
+ *	Bank Account Status
  */
 defined('PENDING')		OR define('PENDING', 'PENDING');
 defined('OPEN')			OR define('OPEN', 'OPEN');
 defined('CLOSED')		OR define('CLOSED', 'CLOSED');
 defined('DORMANT')		OR defined('DORMANT', 'DORMANT');
+
+
+/*
+ *	User Account Status
+ */
+defined('LOCKED')		OR define('LOCKED', 'LOCK');
+defined('OK')			OR define('OK', 'OK')

@@ -125,6 +125,10 @@ class Migration_Add_Tables extends CI_Migration {
 			'last_password_change' => [
 				'type' => 'DATETIME'
 			],
+			'status' => [
+				'type' => 'VARCHAR',
+				'constraint' => 11
+			],
 			'CONSTRAINT `tbl_users_ibfk_1` FOREIGN KEY (`person_id`) REFERENCES `tbl_person` (`person_id`) ON DELETE CASCADE ON UPDATE CASCADE'
 		]);
 

@@ -34,7 +34,7 @@ class AccountController extends BaseController {
 
 	public function approve_account($id) {
 		if (parent::is_user('admin') || parent::is_user('teller')) {
-			$account = $this->account->with('account_type')->get($id);
+			$account = $this->account->get_protected($id);
 			$current_user = parent::current_user();
 
 			$this->form_validation->set_rules('status', 'Account Status', 'trim|required');
@@ -45,7 +45,7 @@ class AccountController extends BaseController {
 					'balance' => $account['balance'] + $account['account_type']['initial_deposit']
 				]);
 
-				$updated_account = $this->account->get($id);
+				$updated_account = $this->account->get_protected($id);
 				$this->transaction->insert([
 					'transaction_id' => $this->utilities->create_random_string(),
 					'account_id' => $id,
@@ -67,7 +67,7 @@ class AccountController extends BaseController {
 
 	public function update_status($id) {
 		if (parent::is_user('admin') || parent::is_user('teller')) {
-			$account = $this->account->get($id);
+			$account = $this->account->get_protected($id);
 			$current_user = parent::current_user();
 
 			$this->form_validation->set_rules('status', 'Account Status', 'trim|required');
@@ -107,7 +107,7 @@ class AccountController extends BaseController {
 
 	public function get_all() {
 		if(parent::is_user('admin') || parent::is_user('teller'))
-			return $this->account->get_all();
+			return $this->account->get_all_protected();
 		return FALSE;
 	}
 

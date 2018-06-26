@@ -12,10 +12,10 @@ class UserController extends BaseController {
 
 			$current_user = parent::current_user();
 
-			$this->form_validation->set_rules('first_name', 'First name', 'trim|required');
-			$this->form_validation->set_rules('middle_name', 'Middle name', 'trim|required');
-			$this->form_validation->set_rules('last_name', 'Last name', 'trim|required');
-			$this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[4]|max_length[50]');
+			$this->form_validation->set_rules('first_name', 'First name', 'trim|required|alpha');
+			$this->form_validation->set_rules('middle_name', 'Middle name', 'trim|required|alpha');
+			$this->form_validation->set_rules('last_name', 'Last name', 'trim|required|alpha');
+			$this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[4]|max_length[50]|alpha_numeric');
 			$this->form_validation->set_rules('email', 'E-mail address', 'trim|required|valid_email|is_unique[tbl_users.email]');
 			$this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[8]|max_length[30]');
 			$this->form_validation->set_rules('passconf', 'Confirm Password', 'trim|required|matches[password]');
@@ -49,21 +49,21 @@ class UserController extends BaseController {
 
 	public function update($id) {
 		if (parent::is_user('admin') || parent::is_user('teller')) {
-			$customer = $this->user->with('person')->get($id);
+			$user = $this->user->get($id);
 			$current_user = parent::current_user();
 
-			$this->form_validation->set_rules('first_name', 'First name', 'trim|required');
-			$this->form_validation->set_rules('middle_name', 'Middle name', 'trim|required');
-			$this->form_validation->set_rules('last_name', 'Last name', 'trim|required');
+			$this->form_validation->set_rules('first_name', 'First name', 'trim|required|alpha');
+			$this->form_validation->set_rules('middle_name', 'Middle name', 'trim|required|alpha');
+			$this->form_validation->set_rules('last_name', 'Last name', 'trim|required|alpha');
 			$this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[4]|max_length[50]');
-			if($customer['email'] === $this->input->post('email'))
+			if($user['email'] === $this->input->post('email'))
 				$this->form_validation->set_rules('email', 'E-mail address', 'trim|required|valid_email');
 			else	
 				$this->form_validation->set_rules('email', 'E-mail address', 'trim|required|valid_email|is_unique[tbl_users.email]');
 			$this->form_validation->set_rules('user_type', 'User Type', 'trim|required|callback_type_check');
 
 			if ($this->form_validation->run()) {
-				parent::upate_person($customer['person_id'], [
+				parent::upate_person($user['person_id'], [
 					'first_name' => $this->input->post('first_name'),
 					'middle_name' => $this->input->post('middle_name'),
 					'last_name' => $this->input->post('last_name')
@@ -92,7 +92,8 @@ class UserController extends BaseController {
 	}
 
 	public function type_check($str) {
-		return in_array($str, ['admin', 'teller', 'user']);
+
+		return parent::is_user('admin') ? in_array($str, ['admin', 'teller', 'user']) : $str === 'user';
 	}
 
 	public function login() {

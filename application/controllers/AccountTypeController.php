@@ -13,7 +13,7 @@ class AccountTypeController extends BaseController {
 			$current_user = parent::current_user();
 
 			$this->form_validation->set_rules('type_id', 'ID', 'trim|required|is_unique[tbl_account_types.type_id]');
-			$this->form_validation->set_rules('description', 'Name', 'trim|required');
+			$this->form_validation->set_rules('description', 'Name', 'trim|required|alpha_numeric_spaces');
 			$this->form_validation->set_rules('initial_deposit', 'Initial Deposit', 'trim|required|decimal');
 			$this->form_validation->set_rules('min_monthly_adb', 'Required Minimum Monthly ADB', 'trim|required|decimal');
 			$this->form_validation->set_rules('req_daily_bal', 'Required Daily Balance to Earn Interest', 'trim|required|decimal');
@@ -43,7 +43,7 @@ class AccountTypeController extends BaseController {
 			$current_user = parent::current_user();
 			$account_type = $this->account_type->get($id);
 			
-			$this->form_validation->set_rules('description', 'Name', 'trim|required');
+			$this->form_validation->set_rules('description', 'Name', 'trim|required|alpha_numeric_spaces');
 			$this->form_validation->set_rules('initial_deposit', 'Initial Deposit', 'trim|required|decimal');
 			$this->form_validation->set_rules('min_monthly_adb', 'Required Minimum Monthly ADB', 'trim|required|decimal');
 			$this->form_validation->set_rules('req_daily_bal', 'Required Daily Balance to Earn Interest', 'trim|required|decimal');

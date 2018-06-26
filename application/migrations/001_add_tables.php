@@ -296,7 +296,8 @@ class Migration_Add_Tables extends CI_Migration {
 				'type' => 'DATETIME'
 			],
 			'date_expiry' => [
-				'type' => 'DATETIME'
+				'type' => 'DATETIME',
+				'null' => TRUE
 			],
 
 			'CONSTRAINT `tbl_accounts_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `tbl_customers` (`customer_id`) ON DELETE CASCADE ON UPDATE CASCADE',

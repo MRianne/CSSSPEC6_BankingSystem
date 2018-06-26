@@ -106,7 +106,6 @@ defined('OPEN')			OR define('OPEN', 'OPEN');
 defined('CLOSED')		OR define('CLOSED', 'CLOSED');
 defined('DORMANT')		OR defined('DORMANT', 'DORMANT');
 
-
 /*
  *	User Account Status
  */
@@ -125,3 +124,9 @@ defined('SC_TRANS_FEE')		OR define('SC_TRANS_FEE', 'Transaction Fee');
 defined('SC_BELOW_ADB')		OR define('SC_BELOW_ADB', 'Service Charge for Falling Below the Required ADB')
 defined('SC_DORMANCY')		OR define('SC_DORMANCY', 'Dormancy Charge');
 defined('INTEREST')			OR define('INTEREST', 'Interest');
+
+/*
+ *	Transaction Type
+ */
+defined('DEBIT')	OR define('DEBIT', 'DEBIT');
+defined('CREDIT')	OR define('CREDIT', 'CREDIT');

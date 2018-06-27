@@ -8,15 +8,6 @@ class BaseController extends CI_Controller {
 		parent::__construct();
 	}
 
-	public function create_person($person) {
-		$person['person_id'] = $this->utilities->create_random_string(11);
-		$this->person->insert($person);
-		return $person['person_id'];
-	}
-
-	public function update_person($id, $data) {
-		$this->person->update($id, $data);
-	}
 	public function current_user() {
 		$user = $this->session->userdata("user");
 		return $user;

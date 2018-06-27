@@ -1,0 +1,49 @@
+.border-round{
+	border-radius: 1rem!important;
+}
+.btn-bg{
+	background-color: #3CB878;
+	color: white;
+	border-color: #3CB878;
+}
+.btn-bg:hover, .btn-bg:active{
+	background-color: #287A50!important;
+	color: white!important;
+	border-color: #287A50!important;
+}
+.loginbg{
+	background: url("../img/login_bg.jpg")!important;
+
+}
+body{
+	background: none!important;
+}
+.login-bg { 
+  background: url("../../img/website/login_bg.jpg") no-repeat center center fixed !important	; 
+  -webkit-background-size: cover!important;
+  -moz-background-size: cover!important;
+  -o-background-size: cover!important;
+  background-size: cover!important;
+
+}
+.sidebar-dark-primary{
+	background-color: #272727!important;
+}
+#account_table{
+	border-collapse: collapse;
+	width: 100%;
+}
+.cat{
+	width: 20%;
+}
+.table_head{
+	align-self: center;
+	background-color: #0072BC;
+	text-align: center;
+	color: white;
+	text-transform: uppercase;
+}
+.sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link.active{
+	background-color: #0072bc!important;
+
+}

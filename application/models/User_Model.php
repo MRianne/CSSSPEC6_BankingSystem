@@ -15,17 +15,17 @@ class User_Model extends BaseModel {
 	}
 
 	public function authenticate_user($username, $password) {
-		$user = $this->user->as_object()->with('person')->get_by(['username' => $username]);
+		$user = $this->db->get_where($_table, ['username' => $username])->row();
+
 		if ($user && $this->encryption->decrypt($user->password) === $password) {
 			unset($user->password);
 			$this->session->set_userdata("user", $user);
-			$this->user->update($user->username, ['last_login' => date("Y-m-d H:i:s")]);
-			$this->user->update($user->username, ['login_attempts' => 0]);
+			$this->user->update($user->id, ['last_login_at' => date("Y-m-d H:i:s")]);
+			$this->user->update($user->id, ['login_attempts' => 0]);
 			return TRUE;
 		}
 		$this->session->set_flashdata("message", "Incorrect email address or password.");
-		if($user)
-			$this->user->update($user->username, ['login_attempts' => $user->login_attempts+1]);
+		$this->user->update($user->id, ['login_attempts' => $user->login_attempts+1]);
 		return FALSE;
 	}
 }

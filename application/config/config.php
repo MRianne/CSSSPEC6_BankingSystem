@@ -7,7 +7,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |--------------------------------------------------------------------------
 |
 | URL to your CodeIgniter root. Typically this will be your base URL,
-| WITH a trailing slash:
+| WITH a trailiing slash:
 |
 |	http://example.com/
 |
@@ -324,7 +324,7 @@ $config['cache_query_string'] = FALSE;
 | https://codeigniter.com/user_guide/libraries/encryption.html
 |
 */
-$config['encryption_key'] = hex2bin(ENC_KEY);
+$config['encryption_key'] = '';
 
 /*
 |--------------------------------------------------------------------------

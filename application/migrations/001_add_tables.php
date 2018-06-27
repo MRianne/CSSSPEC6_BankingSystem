@@ -239,10 +239,6 @@ class Migration_Add_Tables extends CI_Migration {
 				'type' => 'VARCHAR',
 				'constraint' => 12
 			],
-			'account_pin' => [
-				'type' => 'VARCHAR',
-				'constraint' => 255
-			],
 			'customer_id' => [
 				'type' => 'VARCHAR',
 				'constraint' => 11

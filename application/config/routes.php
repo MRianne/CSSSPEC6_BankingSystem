@@ -55,14 +55,31 @@ $route['translate_uri_dashes'] = FALSE;
 
 
 /*
- * User routes
- */
-$route['user/login'] = "UserController/login";
-$route['user/logout'] = "UserController/logout";
-
-/*
  * Migration Routes
  */
 $route["migrate"] = "MigrationController/index";
 $route["migrate/(:any)"] = "MigrationController/index/$1";
 $route["migrate/(:any)/(:num)"] = "MigrationController/index/$1/$2";
+
+/*
+*ATM Routes
+*/
+$route["ATM"] = "ATMController";
+
+/*
+*Website Routes
+*/
+$route["website"] = "WebsiteController";
+$route["profile"] = "WebsiteController/loadView/profile";
+$route["balanceInquiry"] = "WebsiteController/loadView/balInq";
+$route["transferFunds"] = "WebsiteController/loadView/transfer";
+$route["transactionList"] = "WebsiteController/loadView/list";
+
+$route["teller/createAccount"] = "WebsiteController/tellerView/createAccount";
+$route["teller/viewAccounts"] = "WebsiteController/tellerView/viewAccounts";
+$route["teller/checkAccountBalance"] = "WebsiteController/tellerView/checkAccountBal";
+$route["teller/withdrawFromAccount"] = "WebsiteController/tellerView/withdrawAccount";
+$route["teller/depositToAccount"] = "WebsiteController/tellerView/depositAccount";
+$route["teller/transferFunds"] = "WebsiteController/tellerView/transferFunds";
+$route["teller/approveTransfers"] = "WebsiteController/tellerView/approveTransfers";
+$route["teller"] = "WebsiteController/tellerView/profile";

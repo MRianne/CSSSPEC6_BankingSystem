@@ -92,3 +92,47 @@ define('DB_HOST', isset($_SERVER['DB_HOST']) ? $_SERVER['DB_HOST'] : 'localhost'
 define('DB_UNAME', isset($_SERVER['DB_UNAME']) ? $_SERVER['DB_UNAME'] : 'root');
 define('DB_PASS', isset($_SERVER['DB_PASS']) ? $_SERVER['DB_PASS'] : '');
 define('DB_NAME', isset($_SERVER['DB_NAME']) ? $_SERVER['DB_NAME'] : 'banksys');
+
+/*
+ * KEYS
+ */
+define('ENC_KEY', isset($_SERVER['ENC_KEY']) ? $_SERVER['ENC_KEY'] : '9fb7a091da095f9feac20fb38d24082d');
+
+/*
+ *	Bank Account Status
+ */
+defined('PENDING')		OR define('PENDING', 'PENDING');
+defined('OPEN')			OR define('OPEN', 'OPEN');
+defined('CLOSED')		OR define('CLOSED', 'CLOSED');
+defined('DORMANT')		OR define('DORMANT', 'DORMANT');
+
+/*
+ *	User Account Status
+ */
+defined('LOCKED')		OR define('LOCKED', 'LOCK');
+defined('OK')			OR define('OK', 'OK');
+
+/*
+ *	Transaction Descriptions
+ */
+defined('INITIAL_DEPOSIT')	OR define('INITIAL_DEPOSIT', 'Initial Deposit');
+defined('ATM_WITHDRAWAL')	OR define('ATM_WITHDRAWAL', 'ATM Withdrawal');
+defined('ATM_DEPOSIT')		OR define('ATM_DEPOSIT', 'ATM Deposit');
+defined('OTC_WITHDRAWAL')	OR define('OTC_WITHDRAWAL', 'Over-the-counter Withdrawal');
+defined('OTC_DEPOSIT')		OR define('OTC_DEPOSIT', 'Over-the-counter Deposit');
+defined('SC_TRANS_FEE')		OR define('SC_TRANS_FEE', 'Transaction Fee');
+defined('SC_BELOW_ADB')		OR define('SC_BELOW_ADB', 'Service Charge for Falling Below the Required ADB');
+defined('SC_DORMANCY')		OR define('SC_DORMANCY', 'Dormancy Charge');
+defined('INTEREST')			OR define('INTEREST', 'Interest');
+
+/*
+ *	Transaction Type
+ */
+defined('DEBIT')	OR define('DEBIT', 'DEBIT');
+defined('CREDIT')	OR define('CREDIT', 'CREDIT');
+
+/*
+ *	Transaction Status
+ */
+defined('SUCCESSFUL')	OR define('SUCCESSFUL', 'SUCCESSFUL');
+defined('FAILED')		OR define('FAILED', 'FAILED');

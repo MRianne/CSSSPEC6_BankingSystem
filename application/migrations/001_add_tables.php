@@ -12,9 +12,11 @@ class Migration_Add_Tables extends CI_Migration {
 		$this->account_types();
 		$this->accounts();
 		$this->transactions();
+		$this->settings();
 	}
 
 	public function down() {
+		$this->dbforge->drop_table('tbl_settings', TRUE);
 		$this->dbforge->drop_table('tbl_transactions', TRUE);
 		$this->dbforge->drop_table('tbl_accounts', TRUE);
 		$this->dbforge->drop_table('tbl_account_types', TRUE);
@@ -22,6 +24,42 @@ class Migration_Add_Tables extends CI_Migration {
 		$this->dbforge->drop_table('tbl_customers', TRUE);
 		$this->dbforge->drop_table('tbl_users', TRUE);
 		$this->dbforge->drop_table('tbl_person', TRUE);
+	}
+
+	public function settings() {
+		$this->dbforge->add_field([
+			'id' => [
+				'type' => 'INT',
+				'auto_increment' => TRUE 
+			],
+			'min_withdraw' => [
+				'type' => 'DECIMAL',
+				'constraint' => '17,2'
+			],
+			'max_withdraw' => [
+				'type' => 'DECIMAL',
+				'constraint' => '17,2'
+			],
+			'max_withdraw_per_day' => [
+				'type' => 'DECIMAL',
+				'constraint' => '17,2'
+			],
+			'sc_below_req_adb' => [
+				'type' => 'DECIMAL',
+				'constraint' => '17,2'
+			],
+			'monthly_dormancy_charge' => [
+				'type' => 'DECIMAL',
+				'constraint' => '17,2'
+			],
+			'otc_withdrawal_fee' => [
+				'type' => 'DECIMAL',
+				'constraint' => '17,2'
+			]
+		]);
+
+		$this->dbforge->add_key('id', TRUE);
+		$this->dbforge->create_table('tbl_settings', TRUE);
 	}
 
 	public function person() {
@@ -86,6 +124,10 @@ class Migration_Add_Tables extends CI_Migration {
 			],
 			'last_password_change' => [
 				'type' => 'DATETIME'
+			],
+			'status' => [
+				'type' => 'VARCHAR',
+				'constraint' => 11
 			],
 			'CONSTRAINT `tbl_users_ibfk_1` FOREIGN KEY (`person_id`) REFERENCES `tbl_person` (`person_id`) ON DELETE CASCADE ON UPDATE CASCADE'
 		]);
@@ -202,14 +244,6 @@ class Migration_Add_Tables extends CI_Migration {
 				'type' => 'DECIMAL',
 				'constraint' => '17,2'
 			],
-			'min_withdraw' => [
-				'type' => 'DECIMAL',
-				'constraint' => '17,2'
-			],
-			'max_withdraw' => [
-				'type' => 'DECIMAL',
-				'constraint' => '17,2'
-			],
 			'min_monthly_adb' => [
 				'type' => 'DECIMAL',
 				'constraint' => '17,2'
@@ -239,6 +273,10 @@ class Migration_Add_Tables extends CI_Migration {
 				'type' => 'VARCHAR',
 				'constraint' => 12
 			],
+			'account_pin' => [
+				'type' => 'VARCHAR',
+				'constraint' => 255
+			],
 			'customer_id' => [
 				'type' => 'VARCHAR',
 				'constraint' => 11
@@ -262,7 +300,8 @@ class Migration_Add_Tables extends CI_Migration {
 				'type' => 'DATETIME'
 			],
 			'date_expiry' => [
-				'type' => 'DATETIME'
+				'type' => 'DATETIME',
+				'null' => TRUE
 			],
 
 			'CONSTRAINT `tbl_accounts_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `tbl_customers` (`customer_id`) ON DELETE CASCADE ON UPDATE CASCADE',

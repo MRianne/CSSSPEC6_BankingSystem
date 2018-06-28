@@ -14,10 +14,39 @@ class Account_Model extends BaseModel {
 
 	public $_table = 'tbl_accounts';
 	public $primary_key = 'account_id';
-	public $before_create = ['date_created', 'date_updated'];
-	public $before_update = ['date_updated'];
+	public $before_create = ['log_create'];
+	public $before_update = ['log_update'];
 
 	public function __construct() {
 		parent::__construct();
+	}
+
+	protected function log_create($account) {
+		$account['date_created'] = $account['date_updated'] = date('Y-m-d H:i:s');
+		return $account;
+	}
+
+	protected function log_update($account) {
+		$account['date_updated'] = date('Y-m-d H:i:s');
+		return $account;
+	}
+
+	protected function validate_balance($id, $amount) {
+		return $this->account->get($id)['balance'] > $amount ? TRUE : FALSE;
+	}
+
+	public function validate_account($id, $pin) {
+		$account = $this->account->get($id);
+		if ($account && $this->encryption->decrypt($account['account_pin']) === $pin) {
+			unset($account['account_pin']);
+			return TRUE;
+		}
+		return FALSE;
+	}
+
+	public function get_protected($id) {
+		$account = $this->account->with('account_type')->get($id);
+		unset($account['account_pin']);
+		return $account;
 	}
 }

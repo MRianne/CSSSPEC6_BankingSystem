@@ -11,10 +11,20 @@ class Person_Model extends BaseModel {
 
 	public $_table = 'tbl_person';
 	public $primary_key = 'person_id';
-	public $before_create = ['date_created', 'date_updated'];
-	public $before_update = ['date_updated'];
+	public $before_create = ['log_create'];
+	public $before_update = ['log_update'];
 
 	public function __construct() {
 		parent::__construct();
+	}
+
+	protected function log_create($person) {
+		$person['date_created'] = $person['date_updated'] = date('Y-m-d H:i:s');
+		return $person;
+	}
+
+	protected function log_update($person) {
+		$person['date_updated'] = date('Y-m-d H:i:s');
+		return $person;
 	}
 }

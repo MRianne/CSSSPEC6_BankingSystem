@@ -24,4 +24,16 @@ class Utilities
 
     	return $string;
 	}
+
+	public function create_random_number($length = 12)
+	{
+		$string = "";
+	    $characters = "0123456789";
+
+	    for ($i = 0; $i < $length; $i++) {
+	        $string .= $characters[rand(0, strlen($characters) - 1)];
+	    }
+
+    	return $string;
+	}
 }

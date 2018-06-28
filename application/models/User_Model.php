@@ -23,7 +23,7 @@ class User_Model extends BaseModel {
 			$this->user->update($user->username, ['login_attempts' => 0]);
 			return TRUE;
 		}
-		$this->session->set_flashdata("message", "Incorrect email address or password.");
+		$this->session->set_flashdata("error_message", "Incorrect email address or password.");
 		if($user)
 			$this->user->update($user->username, ['login_attempts' => $user->login_attempts+1]);
 		return FALSE;

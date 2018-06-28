@@ -38,24 +38,35 @@ class WebsiteController extends BaseController {
     $this->load->view('website/'.$type);
     $this->load->view('website/footer'); 
   }
+  public function createAccountView(){
+    $temporary_password = $this->utilities->create_random_string(8);
+    $this->load->view('website/header');
+    $this->load->view('website/teller_navbar');
+    $this->load->view('website/createAccount', ['temporary_password' => $temporary_password]);
+    $this->load->view('website/footer');
+  }
+
   public function submitLogin(){
     $this->form_validation->set_rules('username','Username','required');
     $this->form_validation->set_rules('password','Password','required');
     if($this->form_validation->run()){
-      if($this->input->post('username') == 'teller')
-        redirect('teller');
-      else
-        redirect('profile');
-    }
-    else{
+      if($this->user->authenticate_user($this->input->post('username'), $this->input->post('password'))) {
+        $current_user = parent::current_user();
+        if($current_user->user_type === 'admin' || $current_user->user_type === 'teller')
+          return redirect('teller');
+        else if ($current_user->user_type === 'user')
+          return redirect('profile');
+      }
+      return redirect('website');
+    } else{
       $data['error_message'] = validation_errors();
       $data['error_message'] = explode("</p>", $data['error_message']);
       $this->session->set_flashdata('error_message',  $data['error_message'][0]);
       $this->session->set_flashdata('login_data',  $this->input->post());
-      redirect('WebsiteController');
+      return redirect('website');
     }
   }
   private function _logout(){
-    redirect('website');
+    return redirect('website');
   }
 }

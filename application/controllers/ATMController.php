@@ -13,8 +13,7 @@ class ATMController extends BaseController {
 
   public function signIn(){
     $this->form_validation->set_rules('accountnum','Account Number','required|exact_length[12]');
-    $this->form_validation->set_rules('pass','Password','required|min_length[4]');
-
+    
     if($this->form_validation->run()){
 
     }

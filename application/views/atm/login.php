@@ -116,14 +116,6 @@ input:focus {
 							?>"
 		>
 	  <br>
-	  <input type="password" name="pass" id="pass"
-			value="<?php
-								if(isset($this->session->userdata['login_data']['pass']))
-									echo $this->session->userdata['login_data']['pass'];
-								else
-									echo "password";
-							?>"
-		>
 	  <br>
 	  <input type="submit" value="SIGN IN">
   </form>

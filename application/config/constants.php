@@ -104,7 +104,7 @@ define('ENC_KEY', isset($_SERVER['ENC_KEY']) ? $_SERVER['ENC_KEY'] : '9fb7a091da
 defined('PENDING')		OR define('PENDING', 'PENDING');
 defined('OPEN')			OR define('OPEN', 'OPEN');
 defined('CLOSED')		OR define('CLOSED', 'CLOSED');
-defined('DORMANT')		OR defined('DORMANT', 'DORMANT');
+defined('DORMANT')		OR define('DORMANT', 'DORMANT');
 
 /*
  *	User Account Status
@@ -121,7 +121,7 @@ defined('ATM_DEPOSIT')		OR define('ATM_DEPOSIT', 'ATM Deposit');
 defined('OTC_WITHDRAWAL')	OR define('OTC_WITHDRAWAL', 'Over-the-counter Withdrawal');
 defined('OTC_DEPOSIT')		OR define('OTC_DEPOSIT', 'Over-the-counter Deposit');
 defined('SC_TRANS_FEE')		OR define('SC_TRANS_FEE', 'Transaction Fee');
-defined('SC_BELOW_ADB')		OR define('SC_BELOW_ADB', 'Service Charge for Falling Below the Required ADB')
+defined('SC_BELOW_ADB')		OR define('SC_BELOW_ADB', 'Service Charge for Falling Below the Required ADB');
 defined('SC_DORMANCY')		OR define('SC_DORMANCY', 'Dormancy Charge');
 defined('INTEREST')			OR define('INTEREST', 'Interest');
 

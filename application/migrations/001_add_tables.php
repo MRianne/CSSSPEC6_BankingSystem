@@ -27,7 +27,7 @@ class Migration_Add_Tables extends CI_Migration {
 	}
 
 	public function settings() {
-		$this->db_forge->add_field([
+		$this->dbforge->add_field([
 			'id' => [
 				'type' => 'INT',
 				'auto_increment' => TRUE 

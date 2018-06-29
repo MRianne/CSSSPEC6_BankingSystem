@@ -8,7 +8,7 @@ class UserController extends BaseController {
 	}
 
 	public function create() {
-		// if (parent::is_user('admin') || parent::is_user('teller')) {
+		if (parent::is_user('admin') || parent::is_user('teller')) {
 
 			$current_user = parent::current_user();
 
@@ -18,7 +18,7 @@ class UserController extends BaseController {
 			$this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[4]|max_length[50]|alpha_numeric');
 			$this->form_validation->set_rules('email', 'E-mail address', 'trim|required|valid_email|is_unique[tbl_users.email]');
 			$this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[8]|max_length[30]');
-			$this->form_validation->set_rules('passconf', 'Confirm Password', 'trim|required|matches[password]');
+			// $this->form_validation->set_rules('passconf', 'Confirm Password', 'trim|required|matches[password]');
 			$this->form_validation->set_rules('user_type', 'User Type', 'trim|required');
 
 			if ($this->form_validation->run()) {
@@ -39,13 +39,18 @@ class UserController extends BaseController {
 					'last_password_change' => date('Y-m-d H:i:s'),
 					'status' => OK
 				]);
-				return $this->load->view('test/formsuccess'); // redirect to success
+				$this->session->set_flashdata('message', 'Account Successfully Created');
+				return redirect('teller/createAccount'); // redirect to success
 			}
 
-			return $this->load->view('test/myform'); // render create form w/ errors
-		// } else {
-		// 	return FALSE; // return to page
-		// }
+	      	$data['error_message'] = validation_errors();
+		    $data['error_message'] = explode("</p>", $data['error_message']);
+		    $this->session->set_flashdata('error_message',  $data['error_message'][0]);
+		    
+			return redirect('teller/createAccount'); // render create form w/ errors
+		} else {
+			return FALSE; // return to page
+		}
 	}
 
 	public function update($id) {

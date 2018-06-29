@@ -6,7 +6,7 @@
 		<div class="container-fluid">
 			<div class="row mb-2">
 				<div class="col-sm-6">
-					<h1 class="m-0 text-dark">Hello, First!</h1>
+					<h1 class="m-0 text-dark"></h1>
 				</div><!-- /.col -->
 
 			</div><!-- /.row -->
@@ -26,6 +26,15 @@
 							<hr>
 							<div class="form-group">
 								<?php echo validation_errors(); ?>
+								<?php
+								if ($this->session->flashdata('error_message') !== null) {
+									echo "<span style=\"color: red;text-align: center; font-weight: bold\" id = \"result\" name = \"result\">
+									<div>
+									<p>".$this->session->flashdata('error_message')."</p>
+									</div>
+									</span>";
+								}
+								?>
 								<?= $this->session->flashdata("message") ?? null ?>
 
 								<?php echo form_open('user/create'); ?>
@@ -43,8 +52,10 @@
 								<input class="form-control" type="email" name="email" placeholder="Email" />
 								<label>Role</label>
 								<select class="form-control" name="user_type">
+									<?php if($role==='admin'): ?>
 									<option value="admin">Admin</option>
 									<option value="teller">Teller</option>
+									<?php endif; ?>
 									<option value="user">User</option>
 								</select>
 								<br>

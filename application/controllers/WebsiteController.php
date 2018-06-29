@@ -39,11 +39,16 @@ class WebsiteController extends BaseController {
     $this->load->view('website/footer'); 
   }
   public function createAccountView(){
-    $temporary_password = $this->utilities->create_random_string(8);
-    $this->load->view('website/header');
-    $this->load->view('website/teller_navbar');
-    $this->load->view('website/createAccount', ['temporary_password' => $temporary_password]);
-    $this->load->view('website/footer');
+    if(parent::current_user()) {
+      $temporary_password = $this->utilities->create_random_string(8);
+      $this->load->view('website/header');
+      $this->load->view('website/teller_navbar');
+      $this->load->view('website/createAccount', ['role' => parent::current_user()->user_type, 'temporary_password' => $temporary_password]);
+      $this->load->view('website/footer');
+    } else {
+      show_error("Forbidden Access", 403, "GET OUT OF HERE!!");
+    }
+
   }
 
   public function submitLogin(){
@@ -62,11 +67,11 @@ class WebsiteController extends BaseController {
       $data['error_message'] = validation_errors();
       $data['error_message'] = explode("</p>", $data['error_message']);
       $this->session->set_flashdata('error_message',  $data['error_message'][0]);
-      $this->session->set_flashdata('login_data',  $this->input->post());
       return redirect('website');
     }
   }
   private function _logout(){
+    $this->session->unset_userdata("user");
     return redirect('website');
   }
 }

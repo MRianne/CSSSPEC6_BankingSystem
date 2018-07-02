@@ -28,4 +28,17 @@ class User_Model extends BaseModel {
 			$this->user->update($user->username, ['login_attempts' => $user->login_attempts+1]);
 		return FALSE;
 	}
+
+	public function get_protected($id) {
+		$user = $this->user->get($id);
+		unset($user['password']);
+		return $user;
+	}
+
+	public function get_all_protected() {
+		$users = $this->user->get_all();
+		foreach ($users as $user) {
+			unset($user['password']);
+		}
+	}
 }

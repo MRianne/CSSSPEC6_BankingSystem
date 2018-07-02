@@ -21,7 +21,7 @@ class AccountController extends BaseController {
 					'type_id' => $this->input->post('type_id'),
 					'balance' => 0.0,
 					'status' => PENDING,
-					'date_expiry' = NULL
+					'date_expiry' => NULL
 				]);
 				return TRUE; // redirect to success
 			}

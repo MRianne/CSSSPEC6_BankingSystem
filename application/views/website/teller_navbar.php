@@ -56,7 +56,13 @@
               <li class="nav-item">
                 <a href="<?php echo base_url(); ?>teller/createAccount" class="nav-link active">
                   <i class="fa fa-circle-o nav-icon"></i>
-                  <p>Create Accounts (Teller)</p>
+                  <p>Create Account</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?php echo base_url(); ?>account/type/create" class="nav-link">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>Create Account Type</p>
                 </a>
               </li>
               <li class="nav-item">

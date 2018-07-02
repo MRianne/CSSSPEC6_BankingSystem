@@ -9,7 +9,6 @@ class CustomerController extends BaseController {
 
 	public function create() {
 		if (parent::is_user('admin') || parent::is_user('teller')) {
-
 			$current_user = parent::current_user();
 
 			$this->form_validation->set_rules('first_name', 'First name', 'trim|required|alpha');
@@ -22,14 +21,19 @@ class CustomerController extends BaseController {
 			$this->form_validation->set_rules('contact_no', 'Contact no.', 'trim|required');
 			$this->form_validation->set_rules('birth_date', 'Date of Birth', 'trim|required');
 			$this->form_validation->set_rules('birth_place', 'Place of Birth', 'trim|required');
-			$this->form_validation->set_rules('nationality', 'nationality', 'trim|required|alpha');
-			$this->form_validation->set_rules('citizenship', 'citizenship', 'trim|required|alpha');
-			$this->form_validation->set_rules('sss_no', 'sss_no', 'trim|required|exact_length[10]');
-			$this->form_validation->set_rules('tin_no', 'tin_no', 'trim|required|exact_length[9]');
-			$this->form_validation->set_rules('employment_status', 'employment_status', 'trim|required|alpha');
-			$this->form_validation->set_rules('nature_of_employment', 'nature_of_employment', 'trim|required|alpha');
-			$this->form_validation->set_rules('source_of_funds', 'source_of_funds', 'trim|required|alpha');
-					
+			$this->form_validation->set_rules('nationality', 'Nationality', 'trim|required|alpha');
+			$this->form_validation->set_rules('citizenship', 'Citizenship', 'trim|required|alpha');
+			if($this->input->post('sss_no') !== "N/A")
+				$this->form_validation->set_rules('sss_no', 'SSS No.', 'trim|required|exact_length[10]');
+			if($this->input->post('tin_no') !== "N/A")
+				$this->form_validation->set_rules('tin_no', 'TIN No.', 'trim|required|exact_length[9]');
+			$this->form_validation->set_rules('employment_status', 'Employment Status', 'trim|alpha');
+			//in_list["EMP",RET,SEL,HWF,OFW,OTH, STU]
+			$this->form_validation->set_rules('nature_of_employment', 'Nature of Employment', 'trim|alpha');
+			//in_list[ACT,COM,EDU,ENG,FDI,GOV,LEG,MED,MIL,NGO,OPS,REL,REO,SAN,SHP,TOU,TRN,UTI,OTH]
+			$this->form_validation->set_rules('source_of_funds', 'Source of funds', 'trim|alpha');
+			//in_list[A,B,C,D,F,I,P,R,S,O]
+
 			if ($this->form_validation->run()) {
 				$person_id = parent::create_person([
 					'first_name' => $this->input->post('first_name'),
@@ -55,14 +59,16 @@ class CustomerController extends BaseController {
 					'nature_of_employment' => $this->input->post('nature_of_employment'),
 					'source_of_funds' => $this->input->post('source_of_funds') 
 				]);
-				$this->session->set_flashdata('message', 'Customer Information Saved');
+				$this->session->set_flashdata('message', 'Customer Information Saved.');
 				return redirect('account/create/' . $customer_id); // redirect to success
 			}
 	      	$data['error_message'] = validation_errors();
 		    $data['error_message'] = explode("</p>", $data['error_message']);
-		    $this->session->set_flashdata('error_message',  $data['error_message'][0]);
+		    $this->session->set_flashdata('error_message', $data['error_message'][0]);
+
 
 			return redirect('customer/create'); // render create form w/ errors
+
 		} else {
 			return show_error("Forbidden Access", 403, "GET OUT OF HERE!!"); // return to page
 		}

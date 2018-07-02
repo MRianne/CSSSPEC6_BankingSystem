@@ -1,21 +1,13 @@
 <body class="hold-transition login-bg">
 	<div class="login-box">
-		<?php
-		if (isset($this->session->userdata['error_message'])) {
-			echo "<span style=\"color: red;text-align: center; font-weight: bold\" id = \"result\" name = \"result\">
-			<div>
-			<p>".$this->session->userdata['error_message']."</p>
-			</div>
-			</span>";
-		}
-		?>
+		
 		<div class="login-logo">
 			<br>
 		</div>
 		<!-- /.login-logo -->
 		<div class="card">
 			<div class="card-body login-card-body">
-				<p class="login-box-msg">Welcome to the <b>Banking Website</b></p>
+				<h3 class="login-box-msg">Welcome to the <br/><b>Banking Website</b></h3>
 
 				<?php echo form_open('websitecontroller/submitLogin'); ?>
 				<div class="form-group has-feedback">
@@ -31,6 +23,15 @@
 					<!-- /.col -->
 				</div>
 				<?php echo form_close(); ?>
+				<?php
+		if (isset($this->session->userdata['error_message'])) {
+			echo "<hr><span style=\"color: red;text-align: center; font-weight: bold\" id = \"result\" name = \"result\">
+			<div>
+			<p>".$this->session->userdata['error_message']."</p>
+			</div>
+			</span>";
+		}
+		?>
 			</div>
 			<!-- /.login-card-body -->
 		</div>

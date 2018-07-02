@@ -20,22 +20,26 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="card">
+						<div class="card-header">
+							<h3 class="card-title"><b>Open Account</b></h3>
+						</div>
 						<div class="card-body ">
-
-							<h5 class="card-title">Open Account</h5>
-							<hr>
 							<div class="form-group">
 								<?php echo validation_errors(); ?>
 								<?php
 								if ($this->session->flashdata('error_message') !== null) {
-									echo "<span style=\"color: red;text-align: center; font-weight: bold\" id = \"result\" name = \"result\">
-									<div>
-									<p>".$this->session->flashdata('error_message')."</p>
-									</div>
-									</span>";
+									echo '<div class="alert alert-danger ">
+									<h5><i class="icon fa fa-ban"></i> Error!</h5>'.
+									$this->session->flashdata('error_message')
+									.'</div>';
+								}
+								if($this->session->flashdata('message') !== null){
+									echo '<div class="alert alert-success ">
+									<h5><i class="icon fa fa-check"></i> Success!</h5>'.
+									$this->session->flashdata('message')
+									.'</div>';
 								}
 								?>
-								<?= $this->session->flashdata("message") ?? null ?>
 
 								<?php echo form_open('account/create/' . $id); ?>
 								<!-- <label>Account Number</label>
@@ -47,7 +51,7 @@
 									<?php endforeach; ?>
 								</select>
 								<br>
-								<div><input class="btn btn-primary" type="submit" value="Submit" /></div>
+								<div><input class="btn btn-primary btn-block border-round btn-bg col-lg-2" type="submit" value="Submit" /></div>
 								</form>
 							</div>
 						</div>

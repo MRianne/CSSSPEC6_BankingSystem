@@ -47,7 +47,7 @@ class TransactionController extends BaseController {
 			$this->form_validation->set_rules('amount', 'Deposit Amount', 'trim|required|decimal');
 
 			if($this->form_validation->run()) {
-				if($this->account->validate_balance($id))
+				if($this->account->validate_balance($id)) {
 
 					$this->account->update($id, [
 						'balance' => $account['balance'] - $this->input->post('amount')
@@ -75,28 +75,37 @@ class TransactionController extends BaseController {
 		} else {
 			return FALSE; // return to page
 		}
-			}
-		}
 	}
 
-	public function otc_fund_transfer($id) {
+	public function otc_fund_transfer() {
 
 		if(parent::is_user('teller') || parent::is_user('admin')) {
-			$this->session->set_userdata("account", $this->account->get_protected($id));
-			$this->form_validation->set_rules('account_id', 'Account ID', 'trim|required|numeric|exact_length[12]');
-			$this->form_validation->set_rules('amount', 'Amount', 'trim|required|decimal|callback_balance_check');
+			$current_user = parent::current_user();
 
+			$this->form_validation->set_rules('from_account_id', 'Account ID', 'trim|required|numeric|exact_length[12]');
+			$this->form_validation->set_rules('to_account_id', 'Account ID', 'trim|required|numeric|exact_length[12]');
+			$this->form_validation->set_rules('amount', 'Amount', 'trim|required|decimal');
+			
 			if($this->form_validation->run()) {
-				
+				if(!($this->account->validate_account($this->input->post('from_account_id')) && $this->account->validate_account($this->input->post('to_account_id')))){
+
+					$this->session->set_flashdata('error_message',  "No Sender or Receiver Account with that Account Number.");
+					return redirect('transact/transfer'); // render create form w/ errors
+				}
+				if(!$this->balance_check($this->input->post('from_account_id'), $this->input->post('amount'))) {
+
+					$this->session->set_flashdata('error_message',  "Insufficient Funds.");
+					return redirect('transact/transfer'); // render create form w/ errors
+				}
 				// Sender Account
-				$account = $this->account->get_protected($id);
-				$this->account->update($id, [
+				$account = $this->account->get_protected($this->input->post('from_account_id'));
+				$this->account->update($this->input->post('from_account_id'), [
 					'balance' => $account['balance'] - $this->input->post('amount')
 				]);
-				$updated_account = $this->account->get_protected($id);
+				$updated_account = $this->account->get_protected($_POST['from_account_id']);
 				$this->transaction->insert([
 					'transaction_id' => $this->utilities->create_random_string(),
-					'account_id' => $id,
+					'account_id' => $this->input->post('from_account_id'),
 					'description' => OTC_TRANSFER,
 					'amount' => $this->input->post('amount'),
 					'type' => DEBIT,
@@ -107,14 +116,14 @@ class TransactionController extends BaseController {
 				]);
 
 				// Receiver Account
-				$account = $this->account->get_protected($this->input->post('account_id'));
-				$this->account->update($this->input->post('account_id'), [
+				$account = $this->account->get_protected($this->input->post('to_account_id'));
+				$this->account->update($this->input->post('to_account_id'), [
 					'balance' => $account['balance'] + $this->input->post('amount')
 				]);
-				$updated_account = $this->account->get_protected($id);
+				$updated_account = $this->account->get_protected($this->input->post('to_account_id'));
 				$this->transaction->insert([
 					'transaction_id' => $this->utilities->create_random_string(),
-					'account_id' => $id,
+					'account_id' => $this->input->post('to_account_id'),
 					'description' => OTC_TRANSFER,
 					'amount' => $this->input->post('amount'),
 					'type' => CREDIT,
@@ -123,26 +132,24 @@ class TransactionController extends BaseController {
 					'person_id' => $current_user->person_id,
 					'date' => $updated_account['date_updated']
 				]);
-				$this->session->set_flashdata('message', 'Transaction Successfu;');
-				return redirect('transact/transfer/' . $id); // redirect to success
+				$this->session->set_flashdata('message', 'Transaction Successful');
+				return redirect('transact/transfer'); // redirect to success
 			}
 	      	$data['error_message'] = validation_errors();
 		    $data['error_message'] = explode("</p>", $data['error_message']);
 		    $this->session->set_flashdata('error_message',  $data['error_message'][0]);
 
-			return redirect('transact/transfer' . $id); // render create form w/ errors
+			return redirect('transact/transfer'); // render create form w/ errors
 		} else {
 			return show_error("Forbidden Access", 403, "GET OUT OF HERE!!"); // return to page
 		}
 	}
 
-	public function balance_check($amount) {
-		$account = $this->session->userdata("account");
-		$this->session->unset_userdata("account");
+	public function balance_check($id, $amount) {
+		$account = $this->account->get_protected($id);
 		if($account['balance'] >= $amount)
 			return TRUE;
 		else {
-			$this->form_validation->set_message('balance_check', 'Your account does not have the sufficient balance');
 			return FALSE;	
 		}
 	}

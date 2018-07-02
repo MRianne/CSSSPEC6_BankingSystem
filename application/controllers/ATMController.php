@@ -139,7 +139,7 @@ class ATMController extends BaseController {
 			else if(isset($res["attempts"])){
 				$this->session->set_flashdata('error_message',  $res["error_message"]);
 				if($res["attempts"] % 5 == 0) {
-					$this->session->unset_userdata('authentication_in');
+					$this->session->unset_userdata('user_in');
 					redirect('ATM');
 				}
 			}
@@ -153,6 +153,19 @@ class ATMController extends BaseController {
       $data['error_message'] = explode("</p>", $data['error_message']);
       $this->session->set_flashdata('error_message', substr($data['error_message'][0],3));
     }
-		//redirect('ATM/withdraw/verify');
+		redirect('ATM/withdraw/verify');
+	}
+
+	public function withdraw(){
+		$this->form_validation->set_rules('password','Pin','required');
+		if($this->form_validation->run()){
+
+		}
+		else{
+			$data['error_message'] = validation_errors();
+      $data['error_message'] = explode("</p>", $data['error_message']);
+      $this->session->set_flashdata('error_message', substr($data['error_message'][0],3));
+		}
+		redirect('ATM/withdraw/verify');
 	}
 }

@@ -22,7 +22,7 @@
 					<div class="card">
 						<div class="card-body ">
 
-							<h5 class="card-title">Open Account</h5>
+							<h5 class="card-title">Create Account</h5>
 							<hr>
 							<div class="form-group">
 								<?php echo validation_errors(); ?>
@@ -37,17 +37,20 @@
 								?>
 								<?= $this->session->flashdata("message") ?? null ?>
 
-								<?php echo form_open('account/create/' . $id); ?>
-								<!-- <label>Account Number</label>
-								<input class="form-control" type="text" name="account_id" value=<?= $account_id ?> readonly="true" /> -->
-								<label>Account Type</label>
-								<select class="form-control" name="type_id">
-									<?php foreach($types as $type): ?>
-									<option value="<?= $type['type_id'] ?>"><?= '"' . $type['description'] . '" Required Initial Deposit: ' . number_format($type['initial_deposit'],2)  ?></option>
-									<?php endforeach; ?>
-								</select>
+								<?php echo form_open('account/type/create'); ?>
+								<label>Description</label>
+								<input class="form-control" type="text" name="description"/>
+								<label>Initial Deposit</label>
+								<input class="form-control" type="number" step="0.01" name="initial_deposit"/>
+								<label>Required Minimum Monthly ADB</label>
+								<input class="form-control" type="number" step="0.01" name="min_monthly_adb"/>
+								<label>Required Minimum Daily Balance to Earn Interest</label>
+								<input class="form-control" type="number" step="0.01" name="req_daily_bal"/>
+								<label>Interest Rate per annum</label>
+								<input class="form-control" type="number" step="0.01" name="interest_rate"/>
 								<br>
 								<div><input class="btn btn-primary" type="submit" value="Submit" /></div>
+
 								</form>
 							</div>
 						</div>
@@ -64,7 +67,6 @@
 <!-- /.content-wrapper -->
 
 
-
 <!-- Main Footer -->
 <footer class="main-footer">
 	<!-- To the right -->
@@ -76,4 +78,3 @@
 </footer>
 </div>
 <!-- ./wrapper -->
-

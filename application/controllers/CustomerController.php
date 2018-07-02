@@ -36,12 +36,12 @@ class CustomerController extends BaseController {
 					'middle_name' => $this->input->post('middle_name'),
 					'last_name' => $this->input->post('last_name')
 				]);
-
+				$customer_id = $this->utilities->create_random_string();
 				$this->customer->insert([
-					'customer_id' => $this->utilities->create_random_string(),
+					'customer_id' => $customer_id,
 					'person_id' => $person_id,
 					'gender' => $this->input->post('gender'),
-					'present_address' => $this->input->post('present_addres'),
+					'present_address' => $this->input->post('present_address'),
 					'permanent_address' => $this->input->post('permanent_address'),
 					'email' => $this->input->post('email'),
 					'contact_no' => $this->input->post('contact_no'),
@@ -55,12 +55,16 @@ class CustomerController extends BaseController {
 					'nature_of_employment' => $this->input->post('nature_of_employment'),
 					'source_of_funds' => $this->input->post('source_of_funds') 
 				]);
-				return TRUE; // redirect to success
+				$this->session->set_flashdata('message', 'Customer Information Saved');
+				return redirect('account/create/' . $customer_id); // redirect to success
 			}
+	      	$data['error_message'] = validation_errors();
+		    $data['error_message'] = explode("</p>", $data['error_message']);
+		    $this->session->set_flashdata('error_message',  $data['error_message'][0]);
 
-			return FALSE; // render create form w/ errors
+			return redirect('customer/create'); // render create form w/ errors
 		} else {
-			return FALSE; // return to page
+			return show_error("Forbidden Access", 403, "GET OUT OF HERE!!"); // return to page
 		}
 	}
 

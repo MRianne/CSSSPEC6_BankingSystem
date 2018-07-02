@@ -53,13 +53,28 @@ $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+/*
+ * Account Routes
+ */
 $route['account/all'] = 'UserController/get_all';
+$route['account/create/(:any)']['GET'] = "WebsiteController/tellerView/createAccount/$1";
+$route['account/create/(:any)']['POST'] = 'AccountController/create/$1';
+$route['account/type/create']['GET'] = "WebsiteController/tellerView/CreateAccountType";
+$route['account/type/create']['POST'] = "AccountTypeController/create";
+
 /*
  * User routes
  */
 $route['user/login'] = "UserController/login";
 $route['user/logout'] = "UserController/logout";
-$route['user/create'] = "UserController/create";
+$route['user/create']['POST'] = "UserController/create";
+$route['user/create']['GET'] = "WebsiteController/tellerView/createUserAccount";
+
+/*
+ * Customer routes
+ */
+$route['customer/create']['POST'] ="CustomerController/create";
+$route['customer/create']['GET'] = "WebsiteController/tellerView/createCustomer";
 
 /*
  * Migration Routes
@@ -80,7 +95,8 @@ $route["profile"] = "WebsiteController/loadView/profile";
 $route["balanceInquiry"] = "WebsiteController/loadView/balInq";
 $route["transferFunds"] = "WebsiteController/loadView/transfer";
 $route["transactionList"] = "WebsiteController/loadView/list";
-$route["teller/createAccount"] = "WebsiteController/createAccountView";
+$route["teller/createAccount"] = "WebsiteController/tellerView/createCustomer";
+$route["teller/createAccountType"] = "WebsiteController/tellerView/createAccountType";
 $route["teller/viewAccounts"] = "WebsiteController/tellerView/viewAccounts";
 $route["teller/checkAccountBalance"] = "WebsiteController/tellerView/checkAccountBal";
 $route["teller/withdrawFromAccount"] = "WebsiteController/tellerView/withdrawAccount";

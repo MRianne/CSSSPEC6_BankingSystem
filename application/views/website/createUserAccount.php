@@ -22,7 +22,7 @@
 					<div class="card">
 						<div class="card-body ">
 
-							<h5 class="card-title">Open Account</h5>
+							<h5 class="card-title">Create Account</h5>
 							<hr>
 							<div class="form-group">
 								<?php echo validation_errors(); ?>
@@ -37,17 +37,30 @@
 								?>
 								<?= $this->session->flashdata("message") ?? null ?>
 
-								<?php echo form_open('account/create/' . $id); ?>
-								<!-- <label>Account Number</label>
-								<input class="form-control" type="text" name="account_id" value=<?= $account_id ?> readonly="true" /> -->
-								<label>Account Type</label>
-								<select class="form-control" name="type_id">
-									<?php foreach($types as $type): ?>
-									<option value="<?= $type['type_id'] ?>"><?= '"' . $type['description'] . '" Required Initial Deposit: ' . number_format($type['initial_deposit'],2)  ?></option>
-									<?php endforeach; ?>
+								<?php echo form_open('user/create'); ?>
+								<label>First Name</label>
+								<input class="form-control" type="text" name="first_name" placeholder="First name" />
+								<label>Middle Name</label>
+								<input class="form-control" type="text" name="middle_name" placeholder="Middle Name" />
+								<label>Last Name</label>
+								<input class="form-control" type="text" name="last_name" placeholder="Last Name" />
+								<label>Username</label>
+								<input class="form-control" type="text" name="username" placeholder="Username" />
+								<label>Temporary Password</label><!-- or to be sent to email -->
+								<input class="form-control" type="text" name="password" value="<?= $temporary_password ?>" readonly="true"/>
+								<label>Email address</label>
+								<input class="form-control" type="email" name="email" placeholder="Email" />
+								<label>Role</label>
+								<select class="form-control" name="user_type">
+									<?php if($role==='admin'): ?>
+									<option value="admin">Admin</option>
+									<option value="teller">Teller</option>
+									<?php endif; ?>
+									<option value="user">User</option>
 								</select>
 								<br>
 								<div><input class="btn btn-primary" type="submit" value="Submit" /></div>
+
 								</form>
 							</div>
 						</div>

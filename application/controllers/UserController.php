@@ -40,16 +40,16 @@ class UserController extends BaseController {
 					'status' => OK
 				]);
 				$this->session->set_flashdata('message', 'Account Successfully Created');
-				return redirect('teller/createAccount'); // redirect to success
+				return redirect('user/create'); // redirect to success
 			}
 
 	      	$data['error_message'] = validation_errors();
 		    $data['error_message'] = explode("</p>", $data['error_message']);
 		    $this->session->set_flashdata('error_message',  $data['error_message'][0]);
 		    
-			return redirect('teller/createAccount'); // render create form w/ errors
+			return redirect('user/create'); // render create form w/ errors
 		} else {
-			return FALSE; // return to page
+			return show_error("Forbidden Access", 403, "GET OUT OF HERE!!"); // return to page
 		}
 	}
 

@@ -32,23 +32,25 @@ class WebsiteController extends BaseController {
       break;
     }
   }
-  public function tellerView($type='profile'){
-    $this->load->view('website/header');
-    $this->load->view('website/teller_navbar');
-    $this->load->view('website/'.$type);
-    $this->load->view('website/footer'); 
-  }
-  public function createAccountView(){
+  public function tellerView($type='profile', $id=null){
     if(parent::current_user()) {
-      $temporary_password = $this->utilities->create_random_string(8);
+
+      $data['role'] = parent::current_user()->user_type;
+      if($type === 'createUserAccount')
+        $data['temporary_password'] = $this->utilities->create_random_string(8);
+      if($type === 'createAccount') {
+        $data['types'] = $this->account_type->get_all();
+        $data['id'] = $id;
+      }
+
       $this->load->view('website/header');
       $this->load->view('website/teller_navbar');
-      $this->load->view('website/createAccount', ['role' => parent::current_user()->user_type, 'temporary_password' => $temporary_password]);
+      $this->load->view('website/'.$type, $data);
       $this->load->view('website/footer');
+      
     } else {
       show_error("Forbidden Access", 403, "GET OUT OF HERE!!");
     }
-
   }
 
   public function submitLogin(){

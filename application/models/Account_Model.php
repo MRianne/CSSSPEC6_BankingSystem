@@ -82,11 +82,7 @@ class Account_Model extends BaseModel {
 				return $person;
 			}
 			else if($purpose == "withdraw"){
-				$data["balance"] = $account["balance"];
-				$data["min_balance"] = $this->account_type->get($account["type_id"])["min_balance"];
-				if($data["balance"] <= $data["min_balance"])
-					return array('error_message' => "You have reached your account's minimum balance");
-				else return $data;
+				return true;
 			}
 		}
 		else{

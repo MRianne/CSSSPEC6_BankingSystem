@@ -236,13 +236,14 @@ input:focus {
     <a href="signOut">logout</a>
     <img id="logout-logo" src="<?=base_url()?>resources/img/atm/logout2.png">
 
+
     <h1>Withdraw</h1>
     <h3>enter amount to withdraw</h3>
-
-    <input type="text" name="accountnum" value="php. 0.00">
-    <br>
-    <input type="button" value="submit">
-
+		<?=form_open("ATMController/withdraw")?>
+	    <input type="text" name="amount" value="Php. 0.00">
+	    <br>
+	    <input type="submit" value="submit">
+		</form>
     <a href="main page.html"><img id="back-btn" src="<?=base_url()?>resources/img/atm/restart.png"></a>
     <p>Cancel</p>
 

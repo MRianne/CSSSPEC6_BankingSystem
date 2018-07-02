@@ -82,6 +82,10 @@ class ATMController extends BaseController {
 		redirect('ATM');
 	}
 
+	public function withdraw(){
+
+	}
+
 	public function accountVerification(){
 	  $this->form_validation->set_rules('password','Pin','required|exact_length[6]|numeric');
 
@@ -136,22 +140,19 @@ class ATMController extends BaseController {
 				$this->session->set_flashdata('verification',  $res);
 				redirect('ATM/withdraw');
 			}
-			else if(isset($res["attempts"])){
+			else{
 				$this->session->set_flashdata('error_message',  $res["error_message"]);
 				if($res["attempts"] % 5 == 0) {
 					$this->session->unset_userdata('user_in');
 					redirect('ATM');
 				}
 			}
-			else{
-				$this->session->set_flashdata('error_message',  $res["error_message"]);
-				redirect('ATM/main');
-			}
 		}
 		else{
       $data['error_message'] = validation_errors();
       $data['error_message'] = explode("</p>", $data['error_message']);
       $this->session->set_flashdata('error_message', substr($data['error_message'][0],3));
+			redirect('ATM/withdraw/verify');
     }
 		redirect('ATM/withdraw/verify');
 	}

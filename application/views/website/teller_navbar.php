@@ -71,6 +71,12 @@
                   <p>View All Accounts</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="<?php echo base_url(); ?>user/create" class="nav-link">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>Create User</p>
+                </a>
+              </li
             </ul>
           </li>
           <li class="nav-item has-treeview">

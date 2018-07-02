@@ -4,7 +4,7 @@
 <style type="text/css">
 
 body{
-	background-image: url("bg2.png");
+	background-image: url("<?=base_url()?>resources/img/atm/bg2.png");
   background-size: 1430px 700px;
 }
 .container{
@@ -12,15 +12,15 @@ body{
     height:80%;
     position: absolute;
     top:0;
-    bottom: 0;  
+    bottom: 0;
     left: 0;
-    right: 0;  
+    right: 0;
     position: fixed;
     margin: auto;
     background-color: white;
     z-index: 1;
     overflow-x: hidden;
-    background-image: url("main bg.png");
+    background-image: url("<?=base_url()?>resources/img/atm/main bg.png");
     background-size: 1000px 600px;
     background-position: bottom;
     border-radius: 5px;
@@ -174,7 +174,7 @@ p
   color: white;
   margin-top: 103px;
   margin-left: 10px;
-  float: left;  
+  float: left;
 }
 
 #back-btn
@@ -230,24 +230,24 @@ input:focus {
 </style>
 <body>
 <section class="container">
-		<img id="main-logo" src="atm-machine2.png">
+		<img id="main-logo" src="<?=base_url()?>resources/img/atm/atm-machine2.png">
     <h2>ATM</h2>
 
-    <a href="login.html">logout</a>
-    <img id="logout-logo" src="logout2.png">
+    <a href="signOut">logout</a>
+    <img id="logout-logo" src="<?=base_url()?>resources/img/atm/logout2.png">
 
     <h1>Withdraw</h1>
     <h3>enter amount to withdraw</h3>
 
-    <input type="text" name="accountnum" value="P 0.00">
+    <input type="text" name="accountnum" value="php. 0.00">
     <br>
     <input type="button" value="submit">
 
-    <a href="main page.html"><img id="back-btn" src="restart.png"></a>
-    <p>another transaction</p>
+    <a href="main page.html"><img id="back-btn" src="<?=base_url()?>resources/img/atm/restart.png"></a>
+    <p>Cancel</p>
 
 
 </section>
-	
+
 </body>
 </html>

@@ -2,26 +2,26 @@ if($('#accountnum').length > 0){
 
   $("#accountnum" ).focusout(function(){
       if(!$("#accountnum" ).val()) {
-            $("#accountnum").val("account number");
+            $("#accountnum").val("Account Number");
       }
   });
 
   $("#accountnum" ).focus(function() {
-    if($("#accountnum").val() == "account number"){
+    if($("#accountnum").val() == "Account Number"){
       $("#accountnum").val("");
     }
   });
 }
 
-if($('#pass').length > 0){
-  $( "#pass" ).focusout(function() {
-    if(!$("#pass" ).val()) {
-          $("#pass").val("password");
+if($('#password').length > 0){
+  $( "#password" ).focusout(function() {
+    if(!$("#password" ).val()) {
+          $("#password").val("password");
     }
   });
-  $( "#pass" ).focus(function() {
-    if($("#pass").val() == "password"){
-      $("#pass").val("");
+  $( "#password" ).focus(function() {
+    if($("#password").val() == "password"){
+      $("#password").val("");
     }
   });
 }

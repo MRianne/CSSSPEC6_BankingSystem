@@ -96,10 +96,9 @@ input:focus {
 <body>
   <img src="<?=base_url();?>resources/img/atm/atm-machine.png" id="atm-logo">
   <h1>Welcome to the ATM</h1>
-  <p>Enter your account number</p>
-
-	<?=	form_open('ATMController/signIn');?>
-	<input type="text" name="accountnum"  id="accountnum"	value="Account Number">
+  <p>Enter your pin for verification</p>
+	<?=	form_open('ATMController/'.$action);	?>
+	<input type="password" name="password"  id="password"	value="password">
 	<?php
 		if (isset($this->session->userdata['error_message'])) {
         echo "<span style=\"color: red;text-align: center; font-weight: bold\" id = \"result\" name = \"result\">
@@ -111,7 +110,7 @@ input:focus {
 		?>
 	<br>
 	<br>
-	<input type="submit" value="SIGN IN">
+	<input type="submit" value="Continue" name="confirm"  id="confirm">
   </form>
 
 	<!-- jQuery 3.2.1 -->

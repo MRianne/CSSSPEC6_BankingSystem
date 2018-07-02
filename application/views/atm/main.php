@@ -4,7 +4,7 @@
 <style type="text/css">
 
 body{
-	background-image: url("bg2.png");
+	background-image: url("<?=base_url()?>resources/img/atm/bg2.png");
   background-size: 1430px 700px;
 }
 .container{
@@ -12,15 +12,15 @@ body{
     height:80%;
     position: absolute;
     top:0;
-    bottom: 0;  
+    bottom: 0;
     left: 0;
-    right: 0;  
+    right: 0;
     position: fixed;
     margin: auto;
     background-color: white;
     z-index: 1;
     overflow-x: hidden;
-    background-image: url("main bg.png");
+    background-image: url("<?=base_url()?>resources/img/atm/main bg.png");
     background-size: 1000px 600px;
     background-position: bottom;
     border-radius: 5px;
@@ -136,23 +136,23 @@ input:focus {
 </style>
 <body>
 <section class="container">
-		<img id="main-logo" src="atm-machine2.png">
+		<img id="main-logo" src="<?=base_url()?>resources/img/atm/atm-machine2.png">
     <h2>ATM</h2>
 
-    <a href="login.html">logout</a>
-    <img id="logout-logo" src="logout2.png">
+    <a href="signOut">logout</a>
+    <img id="logout-logo" src="<?=base_url()?>resources/img/atm/logout2.png">
 
-    <h1>Hi, User name!</h1>
+    <h1>Hi, <?=$this->session->userdata("user_in")["first_name"]?>!</h1>
     <h3>what would you like to do today?</h3>
 
-    <a id="buttons" href="withdraw.html"><input type="submit" value="Withdraw"></a>
+    <a id="buttons" href="withdraw"><input type="submit" value="Withdraw"></a>
     <br>
-    <a id="buttons" href="deposit.html"><input type="submit" value="Deposit"></a>
+    <a id="buttons" href="deposit"><input type="submit" value="Deposit"></a>
     <br>
-    <a id="buttons" href="balance.html"><input type="submit" value="Balance"></a>
+    <a id="buttons" href="balance"><input type="submit" value="Balance"></a>
 
 
 </section>
-	
+
 </body>
 </html>

@@ -146,5 +146,6 @@ $autoload['model'] = [
 	'Customer_User_Model' => 'customer_user',
 	'Person_Model' => 'person',
 	'Transaction_Model' => 'transaction',
-	'User_Model' => 'user'
+	'User_Model' => 'user',
+	'Setting_Model' => 'setting'
 ];

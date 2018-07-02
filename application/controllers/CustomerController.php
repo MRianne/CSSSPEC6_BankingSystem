@@ -11,9 +11,9 @@ class CustomerController extends BaseController {
 		if (parent::is_user('admin') || parent::is_user('teller')) {
 			$current_user = parent::current_user();
 
-			$this->form_validation->set_rules('first_name', 'First name', 'trim|required|alpha');
-			$this->form_validation->set_rules('middle_name', 'Middle name', 'trim|required|alpha');
-			$this->form_validation->set_rules('last_name', 'Last name', 'trim|required|alpha');
+			$this->form_validation->set_rules('first_name', 'First name', "trim|required|regex_match[/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u]");
+			$this->form_validation->set_rules('middle_name', 'Middle name', "trim|required|regex_match[/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u]");
+			$this->form_validation->set_rules('last_name', 'Last name', "trim|required|regex_match[/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u]");
 			$this->form_validation->set_rules('gender', 'Gender', 'trim|required');
 			$this->form_validation->set_rules('present_address', 'Present Address', 'trim|required|max_length[200]');
 			$this->form_validation->set_rules('permanent_address', 'Permanent Address', 'trim|required|max_length[200]');

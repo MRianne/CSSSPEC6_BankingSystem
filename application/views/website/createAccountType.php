@@ -43,8 +43,8 @@
 
 								<?php echo form_open('account/type/create'); ?>
 
-								<label>Description</label>
-								<textarea class="form-control" name="description" rows="3" style="resize: none"> </textarea> <br/>
+								<label>Account Type Name</label>
+								<input class="form-control" type="textarea" name="description"/> <br/>
 								<div class="row">
 									<div class="col-lg-6">
 										<label>Initial Deposit</label>

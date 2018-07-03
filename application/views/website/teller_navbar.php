@@ -56,9 +56,15 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="<?php echo base_url(); ?>teller/createAccount" class="nav-link active">
+                <a href="<?php echo base_url(); ?>customer/create" class="nav-link">
                   <i class="fa fa-circle-o nav-icon"></i>
-                  <p>Create Account</p>
+                  <p>Create Customer</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?php echo base_url(); ?>customer/search" class="nav-link">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>Search Customer</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -68,9 +74,9 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?php echo base_url(); ?>teller/viewAccounts" class="nav-link">
+                <a href="<?php echo base_url(); ?>account/search" class="nav-link">
                   <i class="fa fa-circle-o nav-icon"></i>
-                  <p>View All Accounts</p>
+                  <p>Search Account</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -79,11 +85,12 @@
                   <p>Create User</p>
                 </a>
               </li>
+              
             </ul>
           </li>
 
           <li class="nav-item has-treeview">
-            <a class="nav-link">
+            <a class="nav-link active">
               <i class="nav-icon fa fa-dashboard"></i>
               <p>
                 General Transactions
@@ -113,12 +120,6 @@
                 <a href="<?php echo base_url(); ?>teller/transferFunds" class="nav-link">
                   <i class="fa fa-circle-o nav-icon"></i>
                   <p>Transfer Funds</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?php echo base_url(); ?>teller/approveTransfers" class="nav-link">
-                  <i class="fa fa-circle-o nav-icon"></i>
-                  <p>Approval of Transfers</p>
                 </a>
               </li>
             </ul>

@@ -30,7 +30,7 @@ class Migration_Add_Tables extends CI_Migration {
 		$this->dbforge->add_field([
 			'id' => [
 				'type' => 'INT',
-				'auto_increment' => TRUE 
+				'auto_increment' => TRUE
 			],
 			'min_withdraw' => [
 				'type' => 'DECIMAL',

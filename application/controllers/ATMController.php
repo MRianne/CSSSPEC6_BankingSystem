@@ -82,10 +82,6 @@ class ATMController extends BaseController {
 		redirect('ATM');
 	}
 
-	public function withdraw(){
-
-	}
-
 	public function accountVerification(){
 	  $this->form_validation->set_rules('password','Pin','required|exact_length[6]|numeric');
 
@@ -158,15 +154,33 @@ class ATMController extends BaseController {
 	}
 
 	public function withdraw(){
-		$this->form_validation->set_rules('password','Pin','required');
+		$this->form_validation->set_rules('amount','amount','required|decimal');
 		if($this->form_validation->run()){
-
+			$params = $this->setting->withdrawParams();
+			if(floatval($this->input->post("amount")) > $params["max"]){
+				$data['error_message'] = 'Transaction cannot be processed.<br>Maximum amount per transaction in reached.';
+	      $this->session->set_flashdata('error_message', $data['error_message']);
+			}
+			else if(floatval($this->input->post("amount")) < $params["min"]){
+				$data['error_message'] = 'Amount should be divisible by 100 / 200 / 500 / 1000.';
+	      $this->session->set_flashdata('error_message', $data['error_message']);
+			}
+			else{
+				$res = $this->transaction->createTransaction($this->input->post("amount"), $this->session->userdata("user_in"));
+				if(is_array($res)){
+					$this->session->set_flashdata("transaction", $res);
+					redirect("ATM/withdraw/receipt");
+				}
+				else
+					$this->session->set_flashdata("error_message", $res);
+				
+			}
 		}
 		else{
 			$data['error_message'] = validation_errors();
       $data['error_message'] = explode("</p>", $data['error_message']);
       $this->session->set_flashdata('error_message', substr($data['error_message'][0],3));
 		}
-		redirect('ATM/withdraw/verify');
+		redirect("ATM/main");
 	}
 }

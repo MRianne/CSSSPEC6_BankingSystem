@@ -144,7 +144,15 @@ input:focus {
 
     <h1>Hi, <?=$this->session->userdata("user_in")["first_name"]?>!</h1>
     <h3>what would you like to do today?</h3>
-
+		<?php
+			if (isset($this->session->userdata['error_message'])) {
+	        echo "<span style=\"color: red;text-align: center; font-weight: bold\" id = \"result\" name = \"result\">
+	                <div>
+	                  <small>".$this->session->userdata['error_message']."</small>
+	                </div>
+	              </span>";
+	    }
+		?>
     <a id="buttons" href="withdraw"><input type="submit" value="Withdraw"></a>
     <br>
     <a id="buttons" href="deposit"><input type="submit" value="Deposit"></a>

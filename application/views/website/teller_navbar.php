@@ -34,7 +34,9 @@
           <img src="<?php echo base_url();?>resources/img/website/user.png" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="<?php echo base_url(); ?>websitecontroller/userChoice/profile" class="d-block">First, Last <br> Manager/Teller</a>
+          <?php $url = $_SESSION['user']->user_type == 'user' ? 'user/profile' : 'teller/profile'; ?>
+          <a href="<?php echo site_url().$url; ?>" class="d-block">  <?= $_SESSION['user']->person['first_name'] ?> , <?= $_SESSION['user']->person['last_name'] ?>
+           <br> <?= $_SESSION['user']->user_type ?> </a>
           
         </div>
       </div>
@@ -76,9 +78,10 @@
                   <i class="fa fa-circle-o nav-icon"></i>
                   <p>Create User</p>
                 </a>
-              </li
+              </li>
             </ul>
           </li>
+
           <li class="nav-item has-treeview">
             <a class="nav-link">
               <i class="nav-icon fa fa-dashboard"></i>

@@ -67,6 +67,7 @@ $route['account/type/create']['POST'] = "AccountTypeController/create";
  */
 $route['user/login'] = "UserController/login";
 $route['user/logout'] = "UserController/logout";
+$route['user/profile'] = "websitecontroller/loadView/profile";
 $route['user/create']['POST'] = "UserController/create";
 $route['user/create']['GET'] = "WebsiteController/tellerView/createUserAccount";
 
@@ -103,4 +104,4 @@ $route["teller/withdrawFromAccount"] = "WebsiteController/tellerView/withdrawAcc
 $route["teller/depositToAccount"] = "WebsiteController/tellerView/depositAccount";
 $route["teller/transferFunds"] = "WebsiteController/tellerView/transferFunds";
 $route["teller/approveTransfers"] = "WebsiteController/tellerView/approveTransfers";
-$route["teller"] = "WebsiteController/tellerView/profile";
+$route["teller/profile"] = "WebsiteController/tellerView/profile";

@@ -44,12 +44,19 @@
 											<th>Name</th>
 											<th>Email</th>
 											<th>Account Status</th>
+											<th>Actions</th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr>
 											<td>MEOW</td>
 											<td>MEOW</td>
+											<td>MEOW</td>
+											<td>
+												<button class="btn btn-sm btn-block border-round btn-primary"> View</button>
+												<button class="btn btn-sm btn-block border-round btn-warning"> Edit</button>
+												<button class="btn btn-sm btn-block border-round btn-danger"> Delete</button>
+											</td>
 										</tr>
 									</tbody>
 								</table>

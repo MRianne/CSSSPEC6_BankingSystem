@@ -35,12 +35,18 @@ class Account_Model extends BaseModel {
 		return $this->account->get($id)['balance'] > $amount ? TRUE : FALSE;
 	}
 
-	public function validate_account($id, $pin) {
+	public function authenticate_account($id, $pin) {
 		$account = $this->account->get($id);
 		if ($account && $this->encryption->decrypt($account['account_pin']) === $pin) {
 			unset($account['account_pin']);
 			return TRUE;
 		}
+		return FALSE;
+	}
+
+	public function validate_account($id) {
+		if($this->account->get($id))
+			return TRUE;
 		return FALSE;
 	}
 

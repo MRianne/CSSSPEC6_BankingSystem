@@ -54,7 +54,12 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 /*
- * Account Routes
+ * Trahsaction routes
+ */
+$route['transact/transfer']['GET'] = "WebsiteController/tellerView/transferFunds";
+$route['transact/transfer']['POST'] = "TransactionController/otc_fund_transfer";
+/*
+ * Account routes
  */
 $route['account/all'] = 'UserController/get_all';
 $route['account/create/(:any)']['GET'] = "WebsiteController/tellerView/createAccount/$1";
@@ -74,8 +79,8 @@ $route['user/create']['GET'] = "WebsiteController/tellerView/createUserAccount";
 /*
  * Customer routes
  */
-$route['customer/create']['POST'] ="CustomerController/create";
 $route['customer/create']['GET'] = "WebsiteController/tellerView/createCustomer";
+$route['customer/create']['POST'] ="CustomerController/create";
 
 /*
  * Migration Routes

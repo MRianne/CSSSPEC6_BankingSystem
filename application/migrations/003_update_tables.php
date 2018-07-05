@@ -8,6 +8,7 @@ class Migration_Update_Tables extends CI_Migration {
 		$this->dbforge->add_column('tbl_accounts', array(
 				'invalid_attempts' => array('type' => 'int',
 				'default' => 0,
+				'constraint' => 5,
 				'after' => 'status')
 				));
 	}

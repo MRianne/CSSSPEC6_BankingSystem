@@ -25,7 +25,7 @@ class Transaction_Model extends BaseModel {
 			$params = array(
 				"transaction_id" => random_string('alnum',11),
 				"account_id" => $user["account_id"],
-				"description" => "atm withdraw",
+				"description" => ATM_WITHDRAWAL,
 				"amount" => $amount,
 				"type" => "withdraw",
 				"balance" => ($curr - $amount),

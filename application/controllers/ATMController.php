@@ -154,7 +154,7 @@ class ATMController extends BaseController {
 	}
 
 	public function withdraw(){
-		$this->form_validation->set_rules('amount','amount','required|decimal');
+		$this->form_validation->set_rules('amount','amount','trim|required|decimal');
 		if($this->form_validation->run()){
 			$params = $this->setting->withdrawParams();
 			if(floatval($this->input->post("amount")) > $params["max"]){
@@ -173,7 +173,7 @@ class ATMController extends BaseController {
 				}
 				else
 					$this->session->set_flashdata("error_message", $res);
-				
+
 			}
 		}
 		else{

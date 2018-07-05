@@ -106,7 +106,7 @@ class Migration_Update_seed extends CI_Migration {
             'min_withdraw'            => 100.00,
             'max_withdraw'            => 10000.00,
             'max_withdraw_per_day'    => 50000.00,
-            'sc_below_req_adb'       => 100.00,
+            'sc_below_req_adb'        => 100.00,
             'monthly_dormancy_charge' => 50.00,
             'otc_withdrawal_fee'      => 100.00
         ]);
@@ -115,8 +115,8 @@ class Migration_Update_seed extends CI_Migration {
     public function account_type_seed() {
       return $this->db->insert('tbl_account_types', [
           'type_id'         => 'sav_col300',
-          'description'     => 'savings for college students (balance: 300)',
-          'initial_deposit'     => 300.00,
+          'description'     => 'College Savings 300',
+          'initial_deposit' => 300.00,
           'min_monthly_adb' => 500.00,
           'req_daily_bal'   => 500.00,
           'interest_rate'   => 0.1,

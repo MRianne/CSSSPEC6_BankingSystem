@@ -120,3 +120,4 @@ input:focus {
 	<script src="<?php echo base_url(); ?>resources/js/atm.js"></script>
 </body>
 </html>
+</html>

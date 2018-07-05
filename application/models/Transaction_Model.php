@@ -10,7 +10,7 @@ class Transaction_Model extends BaseModel {
 
 	public $_table = 'tbl_transactions';
 	public $primary_key = 'transaction_id';
-	public $before_create = ['date'];
+	public $before_create = ['log_create'];
 
 	public function __construct() {
 		parent::__construct();
@@ -27,9 +27,9 @@ class Transaction_Model extends BaseModel {
 				"account_id" => $user["account_id"],
 				"description" => ATM_WITHDRAWAL,
 				"amount" => $amount,
-				"type" => "withdraw",
+				"type" => DEBIT,
 				"balance" => ($curr - $amount),
-				"status" => "accepted",
+				"status" => SUCCESSFUL,
 				"person_id" => $person,
 				"date" => $date->format('Y-m-d H:i:s')
 			);
@@ -40,5 +40,8 @@ class Transaction_Model extends BaseModel {
 		else{
 			return "Transaction cannot be processed";
 		}
+	protected function log_create($transaction) {
+		$transaction['date'] = date('Y-m-d H:i:s');
+		return $transaction;
 	}
 }

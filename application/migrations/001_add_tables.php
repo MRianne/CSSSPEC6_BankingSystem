@@ -322,7 +322,7 @@ class Migration_Add_Tables extends CI_Migration {
 			],
 			'account_id' => [
 				'type' => 'VARCHAR',
-				'constraint' => 11
+				'constraint' => 12
 			],
 			'description' => [
 				'type' => 'VARCHAR',

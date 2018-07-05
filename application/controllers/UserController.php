@@ -18,8 +18,8 @@ class UserController extends BaseController {
 			$this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[4]|max_length[50]|alpha_numeric');
 			$this->form_validation->set_rules('email', 'E-mail address', 'trim|required|valid_email|is_unique[tbl_users.email]');
 			$this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[8]|max_length[30]');
-			$this->form_validation->set_rules('passconf', 'Confirm Password', 'trim|required|matches[password]');
-			$this->form_validation->set_rules('user_type', 'User Type', 'trim|required|callback_type_check');
+			// $this->form_validation->set_rules('passconf', 'Confirm Password', 'trim|required|matches[password]');
+			$this->form_validation->set_rules('user_type', 'User Type', 'trim|required');
 
 			if ($this->form_validation->run()) {
 				$person_id = parent::create_person([
@@ -39,12 +39,17 @@ class UserController extends BaseController {
 					'last_password_change' => date('Y-m-d H:i:s'),
 					'status' => OK
 				]);
-				return TRUE; // redirect to success
+				$this->session->set_flashdata('message', 'Account Successfully Created');
+				return redirect('user/create'); // redirect to success
 			}
 
-			return FALSE; // render create form w/ errors
+	      	$data['error_message'] = validation_errors();
+		    $data['error_message'] = explode("</p>", $data['error_message']);
+		    $this->session->set_flashdata('error_message',  $data['error_message'][0]);
+		    
+			return redirect('user/create'); // render create form w/ errors
 		} else {
-			return FALSE; // return to page
+			return show_error("Forbidden Access", 403, "GET OUT OF HERE!!"); // return to page
 		}
 	}
 

@@ -9,10 +9,20 @@ class Account_Type_Model extends BaseModel {
 
 	public $_table = 'tbl_account_types';
 	public $primary_key = 'type_id';
-	public $before_create = ['date_created', 'date_updated'];
-	public $before_update = ['date_updated'];
+	public $before_create = ['log_create'];
+	public $before_update = ['log_update'];
 
 	public function __construct() {
 		parent::__construct();
+	}
+
+	protected function log_create($account) {
+		$account['date_created'] = $account['date_updated'] = date('Y-m-d H:i:s');
+		return $account;
+	}
+
+	protected function log_update($account) {
+		$account['date_updated'] = date('Y-m-d H:i:s');
+		return $account;
 	}
 }

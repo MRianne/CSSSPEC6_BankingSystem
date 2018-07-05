@@ -120,6 +120,7 @@ defined('ATM_WITHDRAWAL')	OR define('ATM_WITHDRAWAL', 'ATM Withdrawal');
 defined('ATM_DEPOSIT')		OR define('ATM_DEPOSIT', 'ATM Deposit');
 defined('OTC_WITHDRAWAL')	OR define('OTC_WITHDRAWAL', 'Over-the-counter Withdrawal');
 defined('OTC_DEPOSIT')		OR define('OTC_DEPOSIT', 'Over-the-counter Deposit');
+defined('OTC_TRANSFER')		OR define('OTC_TRANSFER', 'Over-the-counter Transfer Funds');
 defined('SC_TRANS_FEE')		OR define('SC_TRANS_FEE', 'Transaction Fee');
 defined('SC_BELOW_ADB')		OR define('SC_BELOW_ADB', 'Service Charge for Falling Below the Required ADB');
 defined('SC_DORMANCY')		OR define('SC_DORMANCY', 'Dormancy Charge');

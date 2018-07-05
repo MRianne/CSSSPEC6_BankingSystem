@@ -32,23 +32,21 @@ h2{
   float: left;
   margin-left: 65px;
   margin-top: 15px;
-
 }
-
 h1
 {
   font-family: 'Montserrat semibold';
-  font-size: 40px;
+  font-size: 35px;
   color: white;
-  text-align: center;
   margin-right: 150px;
+  text-align: center;
   letter-spacing: -1px;
   margin-top: 10px;
 }
 h3
 {
   font-family: 'Montserrat extralight';
-  font-size: 25px;
+  font-size: 20px;
   color: #24dfda;
   text-align: center;
   margin-top: -30px;
@@ -65,7 +63,13 @@ a
   letter-spacing: -1px;
   text-decoration: none;
   -webkit-transition: all 0.3s;
-
+  cursor: unset;
+}
+#buttons
+{
+  display: block ;
+  margin-top: 0px;
+  margin-right: 0px;
 }
 a:hover
 {
@@ -101,7 +105,6 @@ input[type=submit]
   box-shadow: none;
   -webkit-transition: all 0.5s;
   box-shadow: 1px 4px 40px -8px rgba(61,61,61,1);
-
 }
 input[type=submit]:hover
 {
@@ -109,69 +112,9 @@ input[type=submit]:hover
   background-color: transparent;
   color: white;
 }
-.savings
-{
-  border: 3px solid white;
-  border-radius: 3px;
-  background-color: transparent;
-  display: block;
-  height: 130px;
-  width: 230px;
-  margin: auto;
-  float: left;
-  margin-left: 250px;
-}
-.account
-{
-  border: 3px solid white;
-  border-radius: 3px;
-  background-color: transparent;
-  display: block;
-  height: 130px;
-  width: 230px;
-  margin: auto;
-  float: left;
-  margin-left: 20px;
-}
-h4
-{
-  font-family: 'Montserrat extralight';
-  font-size: 25px;
-  color: #24dfda;
-  margin-left: 70px;
-  margin-top: 25px;
-  letter-spacing: -1px;
-}
-h5
-{
-  font-family: 'Montserrat semibold';
-  font-size: 35px;
-  color: white;
-  margin-left: 50px;
-  margin-top: -30px;
-  letter-spacing: -1px;
-}
-p
-{
-  font-family: 'Montserrat semibold';
-  font-size: 25px;
-  color: white;
-  margin-top: 68px;
-  margin-left: 10px;
-  float: left;  
-}
-#back-btn
-{
-  width:40px;
-  float: left;
-  margin-top: 200px;
-  margin-left: -395px;
-}
-
 input:focus {
     outline:none;
 }
-
 </style>
 <body>
 <section class="container">
@@ -181,21 +124,14 @@ input:focus {
     <a href="login.html">logout</a>
     <img id="logout-logo" src="logout2.png">
 
-    <h1>Balance Inquiry</h1>
-    <h3>User name</h3>
+    <h1>Hi, User name!</h1>
+    <h3>what would you like to do today?</h3>
 
-    <div class="savings">
-      <h4>Savings</h4>
-      <h5>P 1,580</h5>
-    </div>
-
-    <div class="account">
-      <h4>Account</h4>
-      <h5>P 1,580</h5>
-    </div>
-
-    <a href="main page.html"><img id="back-btn" src="restart.png"></a>
-    <p>another transaction</p>
+    <a id="buttons" href="withdraw.html"><input type="submit" value="Withdraw"></a>
+    <br>
+    <a id="buttons" href="deposit.html"><input type="submit" value="Deposit"></a>
+    <br>
+    <a id="buttons" href="balance.html"><input type="submit" value="Balance"></a>
 
 
 </section>

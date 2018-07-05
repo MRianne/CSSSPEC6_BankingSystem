@@ -12,7 +12,7 @@ class AccountTypeController extends BaseController {
 
 			$current_user = parent::current_user();
 
-			$this->form_validation->set_rules('type_id', 'ID', 'trim|required|is_unique[tbl_account_types.type_id]');
+			// $this->form_validation->set_rules('type_id', 'ID', 'trim|required|is_unique[tbl_account_types.type_id]');
 			$this->form_validation->set_rules('description', 'Name', 'trim|required|alpha_numeric_spaces');
 			$this->form_validation->set_rules('initial_deposit', 'Initial Deposit', 'trim|required|decimal');
 			$this->form_validation->set_rules('min_monthly_adb', 'Required Minimum Monthly ADB', 'trim|required|decimal');
@@ -28,12 +28,17 @@ class AccountTypeController extends BaseController {
 					'req_daily_bal' => $this->input->post('req_daily_bal'),
 					'interest_rate' => $this->input->post('interest_rate')
 				]);
-				return TRUE; // redirect to success
+				
+				$this->session->set_flashdata('message', 'Account Type Successfully Added');
+				return redirect('account/type/create'); // redirect to success
 			}
+	      	$data['error_message'] = validation_errors();
+		    $data['error_message'] = explode("</p>", $data['error_message']);
+		    $this->session->set_flashdata('error_message',  $data['error_message'][0]);
 
-			return FALSE; // render create form w/ errors
+			return redirect('account/type/create'); // render create form w/ errors
 		} else {
-			return FALSE; // return to page
+			return show_error("Forbidden Access", 403, "GET OUT OF HERE!!"); // return to page
 		}
 	}
 

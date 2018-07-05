@@ -16,19 +16,25 @@ class AccountController extends BaseController {
 
 			if ($this->form_validation->run()) {
 				$this->account->insert([
-					'account_id' => $this->utilities->create_random_number(),
+					'account_id' => $this->utilities->create_random_number(12),
+					'account_pin' => $this->encryption->encrypt('0000'),
 					'customer_id' => $id,
 					'type_id' => $this->input->post('type_id'),
 					'balance' => 0.0,
 					'status' => PENDING,
-					'date_expiry' = NULL
+					'date_expiry' => NULL
 				]);
-				return TRUE; // redirect to success
+				$this->session->set_flashdata('message', 'Account Successfully Created');
+				return redirect('account/create/'. $id); // return to success #change this to view showing all account details
 			}
 
-			return FALSE; // render create form w/ errors
+			$data['error_message'] = validation_errors();
+		    $data['error_message'] = explode("</p>", $data['error_message']);
+		    $this->session->set_flashdata('error_message',  $data['error_message'][0]);
+
+			return redirect('account/create/' . $id); // render create form w/ errors
 		} else {
-			return FALSE; // return to page
+			return show_error("Forbidden Access", 403, "GET OUT OF HERE!!"); // return to page
 		}
 	}
 

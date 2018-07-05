@@ -5,22 +5,25 @@ class Migration_Add_Seed extends CI_Migration {
 
 
     public function up() {
-        $this->person_seed();
-        $this->user_seed();
+        $CI =& get_instance();
+        $CI->load->library('utilities');
+        $id = $CI->utilities->create_random_string();
+        $this->person_seed($id);
+        $this->user_seed($id);
     }
 
 
     public function down() {
-        $this->db->where('person_id', 'X1vzvhdzWBV');
+        $this->db->where('username', 'admin');
         $this->db->delete('tbl_users');
-        $this->db->where('person_id', 'X1vzvhdzWBV');
+        $this->db->where('middle_name', 'admin');
         $this->db->delete('tbl_person');
     }
 
 
-    public function person_seed() {
+    public function person_seed($id) {
         return $this->db->insert('tbl_person', [
-            'person_id'     => 'X1vzvhdzWBV', 
+            'person_id'     => $id, 
             'first_name'    => 'admin',
             'middle_name'   => 'admin',
             'last_name'     => 'admin', 
@@ -29,12 +32,12 @@ class Migration_Add_Seed extends CI_Migration {
         ]);
     }
 
-    public function user_seed() {
+    public function user_seed($id) {
         return $this->db->insert('tbl_users', [
             'username'              => 'admin',
-            'password'              => '2b3f46f8633f2ea28877c7ce88eea55a1217d0b2cd2173170d59956a306cd9fbb56187827d53ebf242286fe251264c2b87f02dccd91f19cb07630c25f118ac65XKGIicAnbz1m/ZL80gJpC2ecQFICRR/0lU/RW/ABr7M=',
+            'password'              => 'bcc8d5747e4bd8d68dc3da36734c569e06775b6eb83db1a35d78c00c92d9fa3c41dd7e149b057ca1d7debaefbc94fda3ca9ff3b2379f85727d9869dee05fbeb5p4dSoG+RCTXs/ENauAiKcrttoOILZE/NCJapuBJBieo=',
             'email'                 => 'admin@gmai.com',
-            'person_id'             => 'X1vzvhdzWBV',
+            'person_id'             => $id,
             'user_type'             => 'admin',
             'last_login'            => NULL,
             'login_attempts'        => 0,

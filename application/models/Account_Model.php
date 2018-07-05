@@ -31,11 +31,11 @@ class Account_Model extends BaseModel {
 		return $account;
 	}
 
-	protected function validate_balance($id, $amount) {
+	public function validate_balance($id, $amount) {
 		return $this->account->get($id)['balance'] > $amount ? TRUE : FALSE;
 	}
 
-	public function validate_account($id, $pin) {
+	public function authenticate_account($id, $pin) {
 		$account = $this->account->get($id);
 		if ($account && $this->encryption->decrypt($account['account_pin']) === $pin) {
 			unset($account['account_pin']);
@@ -44,9 +44,23 @@ class Account_Model extends BaseModel {
 		return FALSE;
 	}
 
+	public function validate_account($id) {
+		if($this->account->get($id))
+			return TRUE;
+		return FALSE;
+	}
+
 	public function get_protected($id) {
 		$account = $this->account->with('account_type')->get($id);
 		unset($account['account_pin']);
 		return $account;
+	}
+
+	public function get_all_protected() {
+		$accounts = $this->account->with('account_type')->get_all();
+		foreach ($accounts as $account) {
+			unset($account['account_pin']);
+		}
+		return $accounts;
 	}
 }

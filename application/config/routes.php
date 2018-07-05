@@ -53,13 +53,40 @@ $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-
+/*
+ * Trahsaction routes
+ */
+$route['transact/transfer']['GET'] = "WebsiteController/tellerView/transferFunds";
+$route['transact/transfer']['POST'] = "TransactionController/otc_fund_transfer";
+$route['transact/otc/deposit']['GET'] = "WebsiteController/tellerView/depositAccount";
+$route['transact/otc/deposit']['POST'] = "TransactionController/otc_deposit";
+$route['transact/otc/withdraw']['GET'] = "WebsiteController/tellerView/withdrawAccount";
+$route['transact/otc/withdraw']['POST'] = "TransactionController/otc_withdrawal";
+/*
+ * Account routes
+ */
+$route['account/all'] = 'UserController/get_all';
+$route['account/create/(:any)']['GET'] = "WebsiteController/tellerView/createAccount/$1";
+$route['account/create/(:any)']['POST'] = 'AccountController/create/$1';
+$route['account/type/create']['GET'] = "WebsiteController/tellerView/CreateAccountType";
+$route['account/type/create']['POST'] = "AccountTypeController/create";
+$route['account/search'] = "WebsiteController/tellerView/searchAccount";
 /*
  * User routes
  */
 $route['user/login'] = "UserController/login";
 $route['user/logout'] = "UserController/logout";
-$route['user/create'] = "UserController/create";
+$route['user/profile'] = "websitecontroller/loadView/profile";
+$route['user/create']['POST'] = "UserController/create";
+$route['user/create']['GET'] = "WebsiteController/tellerView/createUserAccount";
+
+/*
+ * Customer routes
+ */
+$route['customer/create']['GET'] = "WebsiteController/tellerView/createCustomer";
+$route['customer/create']['POST'] ="CustomerController/create";
+$route['customer/search'] ="WebsiteController/tellerView/searchCustomer";
+$route['customer/edit'] ="WebsiteController/tellerView/editCustomer";
 
 /*
  * Migration Routes
@@ -67,3 +94,25 @@ $route['user/create'] = "UserController/create";
 $route["migrate"] = "MigrationController/index";
 $route["migrate/(:any)"] = "MigrationController/index/$1";
 $route["migrate/(:any)/(:num)"] = "MigrationController/index/$1/$2";
+
+/*
+*ATM Routes
+*/
+$route["ATM"] = "ATMController";
+/*
+*Website Routes
+*/
+$route["website"] = "WebsiteController";
+$route["profile"] = "WebsiteController/loadView/profile";
+$route["balanceInquiry"] = "WebsiteController/loadView/balInq";
+$route["transferFunds"] = "WebsiteController/loadView/transfer";
+$route["transactionList"] = "WebsiteController/loadView/list";
+$route["teller/createAccount"] = "WebsiteController/tellerView/createCustomer";
+$route["teller/createAccountType"] = "WebsiteController/tellerView/createAccountType";
+$route["teller/checkAccountBalance"] = "WebsiteController/tellerView/checkAccountBal";
+$route["teller/withdrawFromAccount"] = "WebsiteController/tellerView/withdrawAccount";
+$route["teller/depositToAccount"] = "WebsiteController/tellerView/depositAccount";
+$route["teller/transferFunds"] = "WebsiteController/tellerView/transferFunds";
+$route["teller/approveTransfers"] = "WebsiteController/tellerView/approveTransfers";
+$route["teller/profile"] = "WebsiteController/tellerView/profile";
+$route["teller"] = "WebsiteController/tellerView/profile";

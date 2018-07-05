@@ -10,9 +10,14 @@ class Transaction_Model extends BaseModel {
 
 	public $_table = 'tbl_transactions';
 	public $primary_key = 'transaction_id';
-	public $before_create = ['date'];
+	public $before_create = ['log_create'];
 
 	public function __construct() {
 		parent::__construct();
+	}
+
+	protected function log_create($transaction) {
+		$transaction['date'] = date('Y-m-d H:i:s');
+		return $transaction;
 	}
 }

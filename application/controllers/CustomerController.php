@@ -129,6 +129,16 @@ class CustomerController extends BaseController {
 		}
 	}
 
+	public function get() {
+		if(parent::is_user('admin') || parent::is_user('teller')) {
+			$this->customer->get_by(['email' => $this->input->post('email')]);
+			return parent::view('searchCustomer', $data)
+		} else {
+			return show_error("Forbidden Access", 403, "GET OUT OF HERE!!"); // return to page
+		}
+
+	}
+
 	public function get_all() {
 		if(parent::is_user('admin') || parent::is_user('teller'))
 			return $this->customer->get_all();

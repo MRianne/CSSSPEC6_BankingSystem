@@ -54,8 +54,8 @@ class TransactionController extends BaseController {
 		}
 	}
 
-	public function otc_withdrawal($id) {
-		if(parent::is_user('teller')) {
+	public function otc_withdrawal() {
+		if(parent::is_user('teller') || parent::is_user('admin')) {
 			$current_user = parent::current_user();
 			$this->form_validation->set_rules('account_id', 'Account Number', 'trim|required|numeric|exact_length[12]');
 			$this->form_validation->set_rules('amount', 'Deposit Amount', 'trim|required|decimal');
@@ -65,12 +65,12 @@ class TransactionController extends BaseController {
 
 				if(!$this->account->validate_account($id)) {
 					$this->session->set_flashdata('error_message',  "No Account with that Account Number.");
-					return redirect('transact/otc/withdrawal'); // render create form w/ errors
+					return redirect('transact/otc/withdraw'); // render create form w/ errors
 				}
 
-				if(!$this->account->validate_balance($id)) {
+				if(!$this->account->validate_balance($id, $this->input->post('amount'))) {
 					$this->session->set_flashdata('error_message',  "Insufficient Balance.");
-					return redirect('transact/otc/withdrawal'); // Insufficient Balance
+					return redirect('transact/otc/withdraw'); // Insufficient Balance
 				}
 
 				$account = $this->account->get_protected($id);

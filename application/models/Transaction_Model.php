@@ -27,9 +27,9 @@ class Transaction_Model extends BaseModel {
 				"account_id" => $user["account_id"],
 				"description" => ATM_WITHDRAWAL,
 				"amount" => $amount,
-				"type" => DEBIT,
+				"type" => "withdraw",
 				"balance" => ($curr - $amount),
-				"status" => SUCCESSFUL,
+				"status" => "accepted",
 				"person_id" => $person,
 				"date" => $date->format('Y-m-d H:i:s')
 			);
@@ -40,6 +40,8 @@ class Transaction_Model extends BaseModel {
 		else{
 			return "Transaction cannot be processed";
 		}
+	}
+	
 	protected function log_create($transaction) {
 		$transaction['date'] = date('Y-m-d H:i:s');
 		return $transaction;

@@ -16,6 +16,11 @@ class ATMController extends BaseController {
 			redirect('ATM/main');
 	}
 
+	public function test(){
+		echo $this->encryption->decrypt("0349d4fee90cc321ecd0389a576c50a5934bbf724e610f29e1552810b59013fa99e4f50840f859f0ff56ba74ad90b55b4b140aeda738d90ccbead4f437ccb7b5Js78Z2yVFuPgrZ18icaXJASRgpCRTnMorEV+akrGT70=");
+		echo $this->encryption->encrypt("030298");
+	}
+
 	public function viewVerification(){
 		if($this->session->userdata("authentication_in")){
 			$data["action"] = "accountVerification";

@@ -17,7 +17,7 @@ class Migration_Update_seed extends CI_Migration {
 
     public function down() {
         $this->db->where('username', 'MRianne');
-        $this->db->delete('tbl_customers_users');
+        $this->db->delete('tbl_customer_users');
         $this->db->where('customer_id', 'X2vzvhdzMRB');
         $this->db->delete('tbl_customers');
         $this->db->where('username', 'MRianne');
@@ -74,7 +74,7 @@ class Migration_Update_seed extends CI_Migration {
     public function user_seed() {
         return $this->db->insert('tbl_users', [
             'username'              => 'MRianne',
-            'password'              => '0eb366e28196de2e52ccd3608fe6a90f2340c1daab2ca313f15a4ee63419f7510bae0f0f80784283b451a1e19810c7646c2b91e5385eb1b0c5fdd4e35a46722fQgh5SX6joNxhKxapMkcnNMUnUjpDhSHE5jOwC0DLT28',
+            'password'              => 'e488a3a9deb13fa78d98d667c677059fdf50bf90dbe074e86585e8ecbaef630919d75a5f9943b2cdc70a14c6c8d7e95377ab6540d5764e5364bbfe3a891ae3eeU1Wci9sCH3ipl4yBLIKQwAoFM+v7tt89iN7kBdIcmYc=',
             'email'                 => 'megrianne.bautista32@gmail.com',
             'person_id'             => 'X1vzvhdzMRB',
             'user_type'             => 'user',
@@ -88,7 +88,7 @@ class Migration_Update_seed extends CI_Migration {
     public function account_seed() {
         return $this->db->insert('tbl_accounts', [
             'account_id'     => '635345603021',
-            'account_pin'    => '0eb366e28196de2e52ccd3608fe6a90f2340c1daab2ca313f15a4ee63419f7510bae0f0f80784283b451a1e19810c7646c2b91e5385eb1b0c5fdd4e35a46722fQgh5SX6joNxhKxapMkcnNMUnUjpDhSHE5jOwC0DLT28',
+            'account_pin'    => 'e488a3a9deb13fa78d98d667c677059fdf50bf90dbe074e86585e8ecbaef630919d75a5f9943b2cdc70a14c6c8d7e95377ab6540d5764e5364bbfe3a891ae3eeU1Wci9sCH3ipl4yBLIKQwAoFM+v7tt89iN7kBdIcmYc=',
             'customer_id'    => 'X2vzvhdzMRB',
             'type_id'        => 'sav_col300',
             'balance'        => "600.00",

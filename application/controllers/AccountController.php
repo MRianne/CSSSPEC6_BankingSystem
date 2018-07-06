@@ -17,7 +17,7 @@ class AccountController extends BaseController {
 			if ($this->form_validation->run()) {
 				$this->account->insert([
 					'account_id' => $this->utilities->create_random_number(12),
-					'account_pin' => $this->encryption->encrypt('0000'),
+					'account_pin' => $this->encryption->encrypt('000000'),
 					'customer_id' => $id,
 					'type_id' => $this->input->post('type_id'),
 					'balance' => 0.0,

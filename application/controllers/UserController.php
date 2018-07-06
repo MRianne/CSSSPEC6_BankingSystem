@@ -9,7 +9,6 @@ class UserController extends BaseController {
 
 	public function create() {
 		if (parent::is_user('admin') || parent::is_user('teller')) {
-
 			$current_user = parent::current_user();
 
 			$this->form_validation->set_rules('first_name', 'First name', 'trim|required|alpha');
@@ -46,7 +45,7 @@ class UserController extends BaseController {
 	      	$data['error_message'] = validation_errors();
 		    $data['error_message'] = explode("</p>", $data['error_message']);
 		    $this->session->set_flashdata('error_message',  $data['error_message'][0]);
-		    
+
 			return redirect('user/create'); // render create form w/ errors
 		} else {
 			return show_error("Forbidden Access", 403, "GET OUT OF HERE!!"); // return to page
@@ -64,7 +63,7 @@ class UserController extends BaseController {
 			$this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[4]|max_length[50]');
 			if($user['email'] === $this->input->post('email'))
 				$this->form_validation->set_rules('email', 'E-mail address', 'trim|required|valid_email');
-			else	
+			else
 				$this->form_validation->set_rules('email', 'E-mail address', 'trim|required|valid_email|is_unique[tbl_users.email]');
 			$this->form_validation->set_rules('user_type', 'User Type', 'trim|required|callback_type_check');
 

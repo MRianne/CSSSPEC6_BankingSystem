@@ -41,9 +41,9 @@
 								}
 								?>
 
-								<?php echo form_open(''); ?>
+								<?php echo form_open('transact/otc/withdraw'); ?>
 								<label>Account Number</label>
-								<input class="form-control" type="number" name="from_account_id"/>
+								<input class="form-control" type="number" name="account_id"/>
 								<label>Amount</label>
 								<input class="form-control" type="number" step="0.01" name="amount"/>
 								

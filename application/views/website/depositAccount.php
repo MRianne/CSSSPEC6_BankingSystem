@@ -41,13 +41,13 @@
 								}
 								?>
 
-								<?php echo form_open(''); ?>
+								<?php echo form_open('transact/otc/deposit'); ?>
 								<label>Account Number</label>
-								<input class="form-control" type="number" name="from_account_id"/>
+								<input class="form-control" type="number" name="account_id"/>
 								<label>Amount</label>
 								<input class="form-control" type="number" step="0.01" name="amount"/>
-								<label>Depositor/Reference </label>
-								<input class="form-control" type="text" name="depositor"/>
+								<!-- <label>Depositor/Reference </label>]
+								<input class="form-control" type="text" name="depositor"/> -->
 								
 								<br>
 								<div><input class="btn btn-primary btn-block border-round btn-bg col-lg-2" type="submit" value="Submit" /></div>

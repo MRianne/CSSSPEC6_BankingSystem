@@ -31,7 +31,7 @@ class Account_Model extends BaseModel {
 		return $account;
 	}
 
-	protected function validate_balance($id, $amount) {
+	public function validate_balance($id, $amount) {
 		return $this->account->get($id)['balance'] > $amount ? TRUE : FALSE;
 	}
 

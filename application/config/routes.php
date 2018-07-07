@@ -58,6 +58,10 @@ $route['translate_uri_dashes'] = FALSE;
  */
 $route['transact/transfer']['GET'] = "WebsiteController/tellerView/transferFunds";
 $route['transact/transfer']['POST'] = "TransactionController/otc_fund_transfer";
+$route['transact/otc/deposit']['GET'] = "WebsiteController/tellerView/depositAccount";
+$route['transact/otc/deposit']['POST'] = "TransactionController/otc_deposit";
+$route['transact/otc/withdraw']['GET'] = "WebsiteController/tellerView/withdrawAccount";
+$route['transact/otc/withdraw']['POST'] = "TransactionController/otc_withdrawal";
 /*
  * Account routes
  */

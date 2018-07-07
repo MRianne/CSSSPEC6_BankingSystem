@@ -26,27 +26,19 @@
 							<hr>
 							<table id="account_table" class="table table-bordered">
 								<tr>
-									<td colspan="3" class="table_head"><b>Account Information</b></td>
+									<td colspan="2" class="table_head"><b>Account Information</b></td>
 								</tr>
 								<tr>
-									<td class="cat" colspan="2"><b>Number of accounts: </b></td>
+									<td class="cat"><b>Number of registered accounts: </b></td>
 									<td>2</td>
 								</tr>	
 								<tr>
-									<td class="cat"><b>Account Number</b></td>
-									<td class="cat"><b>Account Type</b></td>
-									<!-- <td class="cat"><b>Account Type</b></td> -->
-									<td class="cat"><b>Actions</b></td>
+									<td class="cat"><b>Number of customers: </b></td>
+									<td>3</td>
 								</tr>
 								<tr>
-									<td>1234567890</td>
+									<td class="cat"><b>Number of tellers: </b></td>
 									<td>Savings</td>
-									<!-- <td> balance here </td> -->
-									<td>
-										<a href="<?php echo base_url() ?>account/viewBalance" class="btn border-round btn-bg" > View Balance</a> 
-										<a href="<?php echo base_url() ?>account/viewTransactionHist" class="btn border-round btn-primary	" > View Transaction History</a>
-									</td>
-									
 								</tr>
 								
 							</table>

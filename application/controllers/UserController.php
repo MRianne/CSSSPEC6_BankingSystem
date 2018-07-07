@@ -44,8 +44,8 @@ class UserController extends BaseController {
 			}
 
 	      	$data['error_message'] = validation_errors();
-		    $data['error_message'] = explode("</p>", $data['error_message']);
-		    $this->session->set_flashdata('error_message',  $data['error_message'][0]);
+		    //$data['error_message'] = explode("</p>", $data['error_message']);
+		    $this->session->set_flashdata('error_message',  $data['error_message']);
 		    
 			return redirect('user/create'); // render create form w/ errors
 		} else {

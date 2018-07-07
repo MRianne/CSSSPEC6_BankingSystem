@@ -67,8 +67,7 @@ class WebsiteController extends BaseController {
       return redirect('website');
     } else{
       $data['error_message'] = validation_errors();
-      $data['error_message'] = explode("</p>", $data['error_message']);
-      $this->session->set_flashdata('error_message',  $data['error_message'][0]);
+      $this->session->set_flashdata('error_message',  $data['error_message']);
       return redirect('website');
     }
   }

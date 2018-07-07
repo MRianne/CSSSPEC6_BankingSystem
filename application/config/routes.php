@@ -67,6 +67,8 @@ $route['account/create/(:any)']['POST'] = 'AccountController/create/$1';
 $route['account/type/create']['GET'] = "WebsiteController/tellerView/CreateAccountType";
 $route['account/type/create']['POST'] = "AccountTypeController/create";
 $route['account/search'] = "WebsiteController/tellerView/searchAccount";
+$route['account/viewBalance'] = "WebsiteController/loadView/viewBalance";
+$route['account/viewTransactionHist'] = "WebsiteController/loadView/viewTransactionHist";
 /*
  * User routes
  */
@@ -75,7 +77,13 @@ $route['user/logout'] = "UserController/logout";
 $route['user/profile'] = "websitecontroller/loadView/profile";
 $route['user/create']['POST'] = "UserController/create";
 $route['user/create']['GET'] = "WebsiteController/tellerView/createUserAccount";
+/**
+Route::get('index','NameController@functionname')->name('index-url'); //localhost.com/index
+Route::get('index',function(){
+	return view('views/sample');
+})->name('index-url'); //localhost.com/index
 
+*/
 /*
  * Customer routes
  */
@@ -105,10 +113,10 @@ $route["transferFunds"] = "WebsiteController/loadView/transfer";
 $route["transactionList"] = "WebsiteController/loadView/list";
 $route["teller/createAccount"] = "WebsiteController/tellerView/createCustomer";
 $route["teller/createAccountType"] = "WebsiteController/tellerView/createAccountType";
-$route["teller/checkAccountBalance"] = "WebsiteController/tellerView/checkAccountBal";
+$route["teller/checkAccountBalance"] = "WebsiteController/tellerView/checkAccount";
 $route["teller/withdrawFromAccount"] = "WebsiteController/tellerView/withdrawAccount";
 $route["teller/depositToAccount"] = "WebsiteController/tellerView/depositAccount";
 $route["teller/transferFunds"] = "WebsiteController/tellerView/transferFunds";
 $route["teller/approveTransfers"] = "WebsiteController/tellerView/approveTransfers";
-$route["teller/profile"] = "WebsiteController/tellerView/profile";
-$route["teller"] = "WebsiteController/tellerView/profile";
+$route["teller/profile"] = "WebsiteController/tellerView/t_profile";
+$route["teller"] = "WebsiteController/tellerView/t_profile";

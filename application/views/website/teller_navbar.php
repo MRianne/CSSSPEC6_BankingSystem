@@ -68,9 +68,9 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?php echo base_url(); ?>account/type/create" class="nav-link">
+                <a href="<?php echo base_url(); ?>account/type/view" class="nav-link">
                   <i class="fa fa-circle-o nav-icon"></i>
-                  <p>Create Account Type</p>
+                  <p>View Account Types</p>
                 </a>
               </li>
               <li class="nav-item">

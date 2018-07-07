@@ -66,6 +66,11 @@ $route['account/create/(:any)']['GET'] = "WebsiteController/tellerView/createAcc
 $route['account/create/(:any)']['POST'] = 'AccountController/create/$1';
 $route['account/type/create']['GET'] = "WebsiteController/tellerView/CreateAccountType";
 $route['account/type/create']['POST'] = "AccountTypeController/create";
+$route['account/type/view'] = "websitecontroller/tellerView/listAccountTypes";
+$route['account/type/view/(:any)'] = "websitecontroller/tellerView/viewAccountType";
+$route['account/type/edit/(:any)'] = "websitecontroller/tellerView/editAccountType";
+$route['account/type/delete'] = "websitecontroller/tellerView/viewAccountType";
+
 $route['account/search'] = "WebsiteController/tellerView/searchAccount";
 $route['account/viewBalance'] = "WebsiteController/loadView/viewBalance";
 $route['account/viewTransactionHist'] = "WebsiteController/loadView/viewTransactionHist";

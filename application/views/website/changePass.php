@@ -49,11 +49,11 @@
 								</div>
 								<div class="col-lg-6">
 									<label>New Password</label>
-									<input class="form-control" type="password"  name="newPassword"/>		
+									<input class="form-control" type="password"  name="password"/>		
 								</div>
 								<div class="col-lg-6">
 									<label>Verify Password</label>
-									<input class="form-control" type="password"  name="verifyPassword"/>		
+									<input class="form-control" type="password"  name="passconf"/>		
 								</div>
 
 							</div>

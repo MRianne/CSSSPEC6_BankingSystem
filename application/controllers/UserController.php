@@ -124,6 +124,29 @@ class UserController extends BaseController {
 		return parent::view('createUserAccount', $person);
 	}
 
+	public function changePass() {
+		$this->form_validation->set_rules('oldPassword', 'Old Password', 'trim|required|min_length[8]|max_length[30]');
+		$this->form_validation->set_rules('password', 'New Password', 'trim|required|min_length[8]|max_length[30]');
+		$this->form_validation->set_rules('passconf', 'Verify Password', 'trim|required|matches[password]');
+
+		if ($this->form_validation->run()) {
+			if($this->user->authenticate_user(parent::current_user()->username, $this->input->post('oldPassword'))) {
+				$this->user->update(parent::current_user()->username,[
+					'password' => $this->encryption->encrypt($this->input->post('password')),
+					'last_password_change' => date('Y-m-d H:i:s')
+				]);
+				$this->session->set_flashdata('message', 'Password Successfully Updated');
+				return redirect('user/changePass'); // redirect to success
+			}
+			$this->session->set_flashdata('error_message',  'Invalid Credentials');
+			return redirect('user/changePass'); // render create form w/ errors
+		}
+		$data['error_message'] = validation_errors();
+	    $this->session->set_flashdata('error_message',  $data['error_message']);
+	    
+		return redirect('user/changePass'); // render create form w/ errors
+	}
+
 	public function login() {
 		if (!parent::current_user()) {
 			$username = $_POST['username'] ?? null;

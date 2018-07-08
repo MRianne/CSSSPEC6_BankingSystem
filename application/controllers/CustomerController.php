@@ -132,17 +132,20 @@ class CustomerController extends BaseController {
 	public function get() {
 		if(parent::is_user('admin') || parent::is_user('teller')) {
 
-			$this->form_validation->set_rules('email', 'E-mail address', 'trim|required|valid_email|callback_email_check');
+			$this->form_validation->set_rules('email', 'E-mail address', 'trim|required|valid_email');
 			if ($this->form_validation->run()) {
-				$customer = $this->customer->get_by(['email' => $this->input->post('email')]);
-		
-				return parent::view('searchCustomer', ['customer' => $customer]);
+				$customer = $this->customer->with('person')->get_by(['email' => $this->input->post('email')]);
+				foreach ($customer['person'] as $key => $value) {
+					$customer[$key] = $value;
+				}
+				unset($customer['person']);
+				return parent::view('searchCustomer', $customer);
 			}
 
 	      	$data['error_message'] = validation_errors();
 		    $this->session->set_flashdata('error_message', $data['error_message']);
 
-			return redirect('customer/search'); // render create form w/ errors
+			// return redirect('customer/search'); // render create form w/ errors
 
 		} else {
 			return show_error("Forbidden Access", 403, "GET OUT OF HERE!!"); // return to page

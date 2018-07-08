@@ -76,8 +76,8 @@ $route['account/type/edit/(:any)'] = "websitecontroller/tellerView/editAccountTy
 $route['account/type/delete'] = "websitecontroller/tellerView/viewAccountType";
 
 $route['account/search'] = "WebsiteController/tellerView/searchAccount";
-$route['account/viewBalance'] = "WebsiteController/loadView/viewBalance";
-$route['account/viewTransactionHist'] = "WebsiteController/loadView/viewTransactionHist";
+$route['account/viewBalance/(:any)'] = "AccountController/viewBalance/$1";
+$route['account/viewTransactionHist/(:any)'] = "TransactionController/viewTransactionHist/$1";
 /*
  * User routes
  */

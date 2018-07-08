@@ -111,6 +111,12 @@ class AccountController extends BaseController {
 	// 	}
 	// }
 
+	public function viewBalance($id) {
+		$balance = $this->account->get_protected($id)['balance'];
+
+		return parent::customerView('viewBalance', ['account_id' => $id, 'balance' => $balance]);
+	}
+
 	public function get_all() {
 		if(parent::is_user('admin') || parent::is_user('teller'))
 			return $this->account->get_all_protected();

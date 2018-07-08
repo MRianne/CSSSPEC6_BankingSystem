@@ -84,6 +84,7 @@ $route['account/viewTransactionHist'] = "WebsiteController/loadView/viewTransact
 $route['user/login'] = "UserController/login";
 $route['user/logout'] = "UserController/logout";
 $route['user/profile'] = "websitecontroller/loadView/profile";
+$route['user/create/(:any)'] = "UserController/create/$1";
 $route['user/create']['POST'] = "UserController/create";
 $route['user/create']['GET'] = "WebsiteController/tellerView/createUserAccount";
 /**

@@ -15,7 +15,7 @@ class AccountController extends BaseController {
 			$this->form_validation->set_rules('type_id', 'Account Type', 'trim|required');
 
 			if ($this->form_validation->run()) {
-				$this->account->insert([
+				$account_id = $this->account->insert([
 					'account_id' => $this->utilities->create_random_number(12),
 					'account_pin' => $this->encryption->encrypt('0000'),
 					'customer_id' => $id,
@@ -24,6 +24,7 @@ class AccountController extends BaseController {
 					'status' => PENDING,
 					'date_expiry' => NULL
 				]);
+				$this->approve_account($account_id);
 				$this->session->set_flashdata('message', 'Account Successfully Created');
 				return redirect('account/create/'. $id); // return to success #change this to view showing all account details
 			}

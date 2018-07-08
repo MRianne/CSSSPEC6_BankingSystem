@@ -1,5 +1,25 @@
 
-<div class="card">
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+	<!-- Content Header (Page header) -->
+	<div class="content-header">
+		<div class="container-fluid">
+			<div class="row mb-2">
+				<div class="col-sm-6">
+					<h1 class="m-0 text-dark"></h1>
+				</div><!-- /.col -->
+
+			</div><!-- /.row -->
+		</div><!-- /.container-fluid -->
+	</div>
+	<!-- /.content-header -->
+
+	<!-- Main content -->
+	<div class="content">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="card">
 	<div class="card-header">
 		<b style="font-size: 2em">Customer Details</b>
 		<a href="" class="btn btn-danger btn-sm float-right"> Delete</a>
@@ -58,8 +78,6 @@
 				</div>
 			</div><br/>
 
-
-
 			<label>Present Address</label>
 			<textarea class="form-control" name="present_address" rows="5" style="resize: none;" value=""></textarea><br/>
 			<label>Permanent Address</label>
@@ -114,7 +132,6 @@
 
 				</div>
 				<div class="col-lg-4">
-
 					<label>SSS No.</label>
 					<input class="form-control" type="text" name="sss_no" value=""/>
 					<small>Please put N/A if it is not applicable to you.</small>
@@ -170,14 +187,39 @@
 					</select>
 				</div>
 			</div><br/>
+
 			<div class="row">
 				<div class="col-lg-2"><input class="btn btn-block btn-bg border-round" type="submit" value="Save" /></div>
 				<div class="col-lg-2"><input class="btn btn-block btn-danger border-round" type="reset" value="Reset" /></div>
 			</div>
-
-
-
 		</div>
 	</div>
 </div>
+				</div>
+
+			</div>
+
+		</div>
+		<!-- /.row -->
+	</div><!-- /.container-fluid -->
+</div>
+<!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+
+<!-- Main Footer -->
+<footer class="main-footer">
+	<!-- To the right -->
+	<div class="float-right d-none d-sm-inline">
+		Lodi Group
+	</div>
+	<!-- Default to the left -->
+	<strong>SQ is life. </strong> All rights reserved.
+</footer>
+</div>
+<!-- ./wrapper -->
+
+
+
 

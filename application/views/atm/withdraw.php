@@ -172,7 +172,7 @@ p
   font-family: 'Montserrat semibold';
   font-size: 20px;
   color: white;
-  margin-top: 80px;
+  margin-top: 120px;
   float: right;
 }
 
@@ -182,7 +182,7 @@ p
   display: block;
   float: right;
 	margin-left: 5px;
-	margin-top: 80px;
+	margin-top: 120px;
 }
 
 input[type=text]

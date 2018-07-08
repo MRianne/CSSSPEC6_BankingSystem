@@ -15,9 +15,10 @@ class ATMController extends BaseController {
 	}
 
 	public function test(){
-		$this->setting->validate_daily_withdraw($this->session->userdata("atm_user")["account_id"], 40000);
-		$data["user"] = $this->customer->with("person")->get($this->session->userdata("atm_user")["customer_id"]);
-		print_r($data["user"]);
+		// $this->setting->validate_daily_withdraw($this->session->userdata("atm_user")["account_id"], 40000);
+		// $data["user"] = $this->customer->with("person")->get($this->session->userdata("atm_user")["customer_id"]);
+		// print_r($data["user"]);
+		// $this->load->view("ATM/main");
 	}
 
 	public function viewVerification($action = ""){
@@ -67,25 +68,12 @@ class ATMController extends BaseController {
 			redirect('ATM');
 	}
 
-	public function viewWithdraw(){
+	public function viewTransaction($action){
 		if($this->session->userdata("atm_user")){
-			if($this->session->userdata("atm_user")["action"] == "withdraw")
-				$this->load->view('atm/withdraw');
+			if($this->session->userdata("atm_user")["action"] == $action)
+				$this->load->view('atm/'.$action);
 			else if($this->session->userdata("atm_user")["action"] == "authenticate")
-				redirect('ATM/verify/withdraw');
-			else
-				redirect('ATM/main');
-		}
-		else
-			redirect('ATM');
-	}
-
-	public function viewDeposit(){
-		if($this->session->userdata("atm_user")){
-			if($this->session->userdata("atm_user")["action"] == "deposit")
-				$this->load->view('atm/deposit');
-			else if($this->session->userdata("atm_user")["action"] == "authenticate")
-				redirect('ATM/verify/deposit');
+				redirect('ATM/verify/'.$action);
 			else
 				redirect('ATM/main');
 		}
@@ -98,11 +86,11 @@ class ATMController extends BaseController {
 			if($this->session->userdata("atm_user")["action"] == "balance"){
 				//update atm_user
 				$user =  $this->account->get_protected($this->session->userdata("atm_user")["account_id"]);
-				$user["action"] = "";
+				$user["action"] = "balance";
 				$this->session->set_userdata('atm_user', $user);
 
 				// set balance details
-				$data["account_id"] = $user["account_id"];
+				$data["account"] = substr($user["account_id"],8);
 				$data["balance"] = $user["balance"];
 
 				$this->load->view("atm/balance", $data);

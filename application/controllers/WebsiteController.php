@@ -62,7 +62,7 @@ class WebsiteController extends BaseController {
         if($current_user->user_type === 'admin' || $current_user->user_type === 'teller')
           return redirect('teller');
         else if ($current_user->user_type === 'user')
-          return redirect('profile');
+          return redirect('customer');
       }
       return redirect('website');
     } else{

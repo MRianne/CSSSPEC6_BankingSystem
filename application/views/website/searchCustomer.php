@@ -22,8 +22,8 @@
 					<div class="card">
 						<div class="card-header">
 							<div class="row">
-								<form class="form-inline">
-									<input class="form-control col-lg-9" type="email" name="customer_email" placeholder="Enter customer email">
+								<form class="form-inline" action="search" method="POST">
+									<input class="form-control col-lg-9" type="email" name="email" placeholder="Enter customer email">
 									<button class="btn btn-rounded btn-bg col-lg-3"  type="submit" > Search</button>
 								</form>
 							</div>

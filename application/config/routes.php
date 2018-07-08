@@ -98,7 +98,8 @@ Route::get('index',function(){
  */
 $route['customer/create']['GET'] = "WebsiteController/tellerView/createCustomer";
 $route['customer/create']['POST'] ="CustomerController/create";
-$route['customer/search'] ="WebsiteController/tellerView/searchCustomer";
+$route['customer/search']['GET'] = "WebsiteController/tellerView/searchCustomer";
+$route['customer/search']['POST'] = "CustomerController/get";
 $route['customer/edit'] ="WebsiteController/tellerView/editCustomer";
 
 /*
@@ -116,7 +117,7 @@ $route["ATM"] = "ATMController";
 *Website Routes
 */
 $route["website"] = "WebsiteController";
-$route["profile"] = "WebsiteController/loadView/profile";
+$route["customer"] = "WebsiteController/loadView/profile";
 $route["balanceInquiry"] = "WebsiteController/loadView/balInq";
 $route["transferFunds"] = "WebsiteController/loadView/transfer";
 $route["transactionList"] = "WebsiteController/loadView/list";

@@ -5,6 +5,12 @@ class WebsiteController extends BaseController {
 		parent::__construct();
 	}
 	public function index(){
+    if(parent::current_user())
+      if(parent::current_user()->user_type == 'user')
+        return $this->loadView('profile');
+      else
+        return $this->tellerView('teller');
+
     $this->load->view('website/header');
     $this->load->view('website/loginView');
     $this->load->view('website/footer');

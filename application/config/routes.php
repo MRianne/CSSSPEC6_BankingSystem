@@ -108,7 +108,9 @@ $route['customer/create']['GET'] = "WebsiteController/tellerView/createCustomer"
 $route['customer/create']['POST'] ="CustomerController/create";
 $route['customer/search']['GET'] = "WebsiteController/tellerView/searchCustomer";
 $route['customer/search']['POST'] = "CustomerController/get";
-$route['customer/edit'] ="WebsiteController/tellerView/editCustomer";
+$route['customer/edit']['GET'] = "WebsiteController/tellerView/editCustomer";
+$route['customer/edit']['POST'] = "CustomerController/update";
+
 
 /*
  * Migration Routes
@@ -141,3 +143,5 @@ $route["teller/changePass"] = "WebsiteController/tellerView/changePass";
 $route["teller"] = "WebsiteController/tellerView/t_profile";
 
 $route['api/transactions'] = "TransactionController/get_my_transactions";
+
+$route['test/(:any)'] = 'AccountController/approve_account/$1';

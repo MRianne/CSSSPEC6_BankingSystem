@@ -15,8 +15,9 @@ class AccountController extends BaseController {
 			$this->form_validation->set_rules('type_id', 'Account Type', 'trim|required');
 
 			if ($this->form_validation->run()) {
-				$account_id = $this->account->insert([
-					'account_id' => $this->utilities->create_random_number(12),
+				$account_id = $this->utilities->create_random_number(12);
+				$this->account->insert([
+					'account_id' => $account_id,
 					'account_pin' => $this->encryption->encrypt('0000'),
 					'customer_id' => $id,
 					'type_id' => $this->input->post('type_id'),
@@ -43,13 +44,13 @@ class AccountController extends BaseController {
 		if (parent::is_user('admin') || parent::is_user('teller')) {
 			$account = $this->account->get_protected($id);
 			$current_user = parent::current_user();
+			$initial_deposit = $account['account_type']['initial_deposit'];
+			// $this->form_validation->set_rules('status', 'Account Status', 'trim|required');
 
-			$this->form_validation->set_rules('status', 'Account Status', 'trim|required');
-
-			if ($this->form_validation->run()) {
+			// if ($this->form_validation->run()) {
 				$this->account->update($id, [
-					'status' => $this->input->post('status'),
-					'balance' => $account['balance'] + $account['account_type']['initial_deposit']
+					'status' => $this->input->post('status') ?? 'ACTIVE',
+					'balance' => $account['balance'] + $initial_deposit
 				]);
 
 				$updated_account = $this->account->get_protected($id);
@@ -57,16 +58,16 @@ class AccountController extends BaseController {
 					'transaction_id' => $this->utilities->create_random_string(),
 					'account_id' => $id,
 					'description' => INITIAL_DEPOSIT,
-					'amount' => $account['account_type']['initial_deposit'],
+					'amount' => $initial_deposit,
 					'type' => CREDIT,
 					'balance' => $updated_account['balance'],
-					'person_id' => $current_user['person_id'],
+					'person_id' => $current_user->person_id,
 					'date' => $updated_account['date_updated']
 				]);
 				return TRUE; // redirect to success
-			}
+			// }
 
-			return FALSE; // render create form w/ errors
+			// return FALSE; // render create form w/ errors
 		} else {
 			return FALSE; // return to page
 		}

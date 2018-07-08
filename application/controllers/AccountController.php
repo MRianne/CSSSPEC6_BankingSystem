@@ -112,9 +112,13 @@ class AccountController extends BaseController {
 	// }
 
 	public function viewBalance($id) {
-		$balance = $this->account->get_protected($id)['balance'];
+		if(parent::is_user('user')) {
+			$balance = $this->account->get_protected($id)['balance'];
 
-		return parent::customerView('viewBalance', ['account_id' => $id, 'balance' => $balance]);
+			return parent::customerView('viewBalance', ['account_id' => $id, 'balance' => $balance]);
+		} else {
+			return show_error("Forbidden Access", 403, "GET OUT OF HERE!!"); // return to page
+		}
 	}
 
 	public function get_all() {

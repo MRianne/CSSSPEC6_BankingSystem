@@ -181,6 +181,15 @@ class TransactionController extends BaseController {
 		}
 	}
 
+	public function viewTransactionHist($id) {
+		if(parent::is_user('user')) {
+			$transactions = $this->transaction->get_many_by(['account_id' => $id]);
+			return parent::customerView('viewTransactionHist', ['account_id' => $id, 'transactions' => $transactions]);
+		} else {
+			return show_error("Forbidden Access", 403, "GET OUT OF HERE!!"); // return to page
+		}
+	}
+
 	public function get_all() {
 		if(parent::is_user('admin') || parent::is_user('teller'))
 			return $this->transaction->get_all();

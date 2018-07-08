@@ -208,7 +208,10 @@ class TransactionController extends BaseController {
 					$this->session->set_flashdata('error_message',  "Invalid Transaction.");
 					return redirect('ATM/main'); // below minimum required withdrawal / above maximum transaction
 				}
-
+				else if(!$this->setting->validate_daily_withdraw($id, $this->input->post('amount'))) {
+					$this->session->set_flashdata('error_message',  "Invalid Transaction.");
+					return redirect('ATM/main'); // above maximum daily transaction
+				}
 				$account = $this->account->get_protected($id);
 				$this->account->update($id, [
 					'balance' => $account['balance'] - $this->input->post('amount')
@@ -253,8 +256,12 @@ class TransactionController extends BaseController {
 			$this->form_validation->set_rules('amount','amount','trim|required|decimal');
 
 			if($this->form_validation->run()){
-				$id = $this->session->userdata("atm_user")["account_id"];
+				if(floatval($this->input->post('amount')) == 0) {
+					$this->session->set_flashdata('error_message',  "Invalid Transaction.");
+					return redirect('ATM/main'); // 0 amount of deposit
+				}
 
+				$id = $this->session->userdata("atm_user")["account_id"];
 				$account = $this->account->get_protected($id);
 				$this->account->update($id, [
 					'balance' => $account['balance'] + $this->input->post('amount')

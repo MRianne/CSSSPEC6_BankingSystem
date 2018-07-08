@@ -106,7 +106,7 @@ $route["ATM/withdraw/receipt"] = "ATMController/viewReceipt";
 $route["ATM/deposit"] = "ATMController/viewDeposit";
 $route["ATM/deposit/receipt"] = "ATMController/viewReceipt";
 $route["ATM/balance"] = "ATMController/viewBalance";
-$route["ATM/next"] = "ATMController/viewNext/$1";
+$route["ATM/next"] = "ATMController/viewNext";
 $route["ATM/signOut"] = "ATMController/signOut";
 /*
 *Website Routes

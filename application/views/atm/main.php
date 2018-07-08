@@ -142,7 +142,7 @@ input:focus {
     <a href="signOut">logout</a>
     <img id="logout-logo" src="<?=base_url()?>resources/img/atm/logout2.png">
 
-    <h1>Hi, <?=$this->session->userdata("user_in")["first_name"]?>!</h1>
+    <h1>Hi, <?=$user?>!</h1>
     <h3>what would you like to do today?</h3>
 		<?php
 			if (isset($this->session->userdata['error_message'])) {

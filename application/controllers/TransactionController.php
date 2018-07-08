@@ -270,6 +270,15 @@ class TransactionController extends BaseController {
 		}
 	}
 
+	public function online_fund_transfer_view() {
+		if(parent::is_user('user')) {
+			$accounts = $this->account->protected_get_many_by(['customer_id' => parent::current_user()->customer_id]);
+			return parent::customerView('transfer', ['accounts' => $accounts]);
+		} else {
+			return show_error("Forbidden Access", 403, "GET OUT OF HERE!!"); // return to page
+		}
+	}
+
 	public function get_all() {
 		if(parent::is_user('admin') || parent::is_user('teller'))
 			return $this->transaction->get_all();

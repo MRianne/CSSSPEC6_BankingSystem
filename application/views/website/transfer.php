@@ -42,7 +42,13 @@
 							<?php echo form_open('transact/online/transfer'); ?>
 							<div class="form-group col-lg-6">
 								<label for="accountNum">Your Account Number:</label>
-								<input type="text" class="form-control" id="accountNum" name="from_account_id">
+								<!-- <input type="text" class="form-control" id="accountNum" name="from_account_id"> -->
+								<select class="form-control" id="accountNum" name="from_account_id">
+									<?php foreach ($accounts as $account): ?>
+									<option value="<?= $account['account_id'] ?>"><?= $account['account_id'] ?></option>
+									<?php endforeach; ?>
+								</select>
+
 							</div>
 							<div class="form-group col-lg-6">
 								<label for="receiver">Account Number of Receiver:</label>

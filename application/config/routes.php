@@ -62,7 +62,7 @@ $route['transact/otc/deposit']['GET'] = "WebsiteController/tellerView/depositAcc
 $route['transact/otc/deposit']['POST'] = "TransactionController/otc_deposit";
 $route['transact/otc/withdraw']['GET'] = "WebsiteController/tellerView/withdrawAccount";
 $route['transact/otc/withdraw']['POST'] = "TransactionController/otc_withdrawal";
-$route['transact/online/transfer']['GET'] = "WebsiteController/loadView/transfer";
+$route['transact/online/transfer']['GET'] = "TransactionController/online_fund_transfer_view";
 $route['transact/online/transfer']['POST'] = "TransactionController/online_fund_transfer";
 /*
  * Account routes
@@ -125,7 +125,7 @@ $route["ATM"] = "ATMController";
 $route["website"] = "WebsiteController";
 $route["customer"] = "CustomerController/dashboard";
 $route["balanceInquiry"] = "WebsiteController/loadView/balInq";
-$route["transferFunds"] = "WebsiteController/loadView/transfer";
+$route["transferFunds"] = "TransactionController/online_fund_transfer_view";
 $route["transactionList"] = "WebsiteController/loadView/list";
 $route["teller/createAccount"] = "WebsiteController/tellerView/createCustomer";
 $route["teller/createAccountType"] = "WebsiteController/tellerView/createAccountType";

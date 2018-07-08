@@ -92,8 +92,7 @@ a:hover
   width:25px;
   display: block;
   float: right;
-  margin-top: -24px;
-  margin-right: 30px;
+	margin-left: 5px;
 }
 
 input[type=submit]
@@ -173,18 +172,19 @@ p
   font-family: 'Montserrat semibold';
   font-size: 20px;
   color: white;
-  margin-top: 150px;
-  margin-right: -90px;
+  margin-top: 80px;
   float: right;
 }
 
 #back-btn
 {
   width:25px;
+  display: block;
   float: right;
-  margin-top: 150px;
-  margin-right: 35px;
+	margin-left: 5px;
+	margin-top: 80px;
 }
+
 
 input[type=text]
 {
@@ -250,7 +250,7 @@ $('#field').on('keypress, keydown', function(event) {
 		<img id="main-logo" src="<?=base_url()?>resources/img/atm/atm-machine2.png">
     <h2>ATM</h2>
 
-    <a href="href<?=base_url()?>ATM/signOut">
+    <a href="<?=base_url()?>ATM/signOut">
 			End Transaction
     	<img id="logout-logo" src="<?=base_url()?>resources/img/atm/logout2.png">
 		</a>

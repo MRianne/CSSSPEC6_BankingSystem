@@ -62,6 +62,8 @@ $route['transact/otc/deposit']['GET'] = "WebsiteController/tellerView/depositAcc
 $route['transact/otc/deposit']['POST'] = "TransactionController/otc_deposit";
 $route['transact/otc/withdraw']['GET'] = "WebsiteController/tellerView/withdrawAccount";
 $route['transact/otc/withdraw']['POST'] = "TransactionController/otc_withdrawal";
+$route['transact/online/transfer']['GET'] = "TransactionController/online_fund_transfer_view";
+$route['transact/online/transfer']['POST'] = "TransactionController/online_fund_transfer";
 /*
  * Account routes
  */
@@ -76,17 +78,22 @@ $route['account/type/edit/(:any)'] = "websitecontroller/tellerView/editAccountTy
 $route['account/type/delete'] = "websitecontroller/tellerView/viewAccountType";
 
 $route['account/search'] = "WebsiteController/tellerView/searchAccount";
-$route['account/viewBalance'] = "WebsiteController/loadView/viewBalance";
-$route['account/viewTransactionHist'] = "WebsiteController/loadView/viewTransactionHist";
+$route['account/viewBalance/(:any)'] = "AccountController/viewBalance/$1";
+$route['account/viewBalance']['POST'] = "AccountController/balInq";
+$route['account/viewTransactionHist/(:any)'] = "TransactionController/viewTransactionHist/$1";
 /*
  * User routes
  */
 $route['user/login'] = "UserController/login";
 $route['user/logout'] = "UserController/logout";
-$route['user/profile'] = "websitecontroller/loadView/profile";
-$route['user/changePass'] = "websitecontroller/loadView/changePass";
-$route['user/create']['POST'] = "UserController/create";
+$route['user/profile'] = "CustomerController/dashboard";
+$route['user/customer/create/(:any)']['GET'] = "UserController/createCustomerView/$1";
+$route['user/customer/create'] = "WebsiteController/tellerView/createUserAccount";
+$route['user/changePass']['GET'] = "Websitecontroller/loadView/changePass";
+$route['user/changePass']['POST'] = "UserController/changePass";
 $route['user/create']['GET'] = "WebsiteController/tellerView/createUserAccount";
+$route['user/create/(:any)']['POST'] = "UserController/create/$1";
+$route['user/create']['POST'] = "UserController/create";
 /**
 Route::get('index','NameController@functionname')->name('index-url'); //localhost.com/index
 Route::get('index',function(){
@@ -99,7 +106,8 @@ Route::get('index',function(){
  */
 $route['customer/create']['GET'] = "WebsiteController/tellerView/createCustomer";
 $route['customer/create']['POST'] ="CustomerController/create";
-$route['customer/search'] ="WebsiteController/tellerView/searchCustomer";
+$route['customer/search']['GET'] = "WebsiteController/tellerView/searchCustomer";
+$route['customer/search']['POST'] = "CustomerController/get";
 $route['customer/edit'] ="WebsiteController/tellerView/editCustomer";
 
 /*
@@ -117,9 +125,9 @@ $route["ATM"] = "ATMController";
 *Website Routes
 */
 $route["website"] = "WebsiteController";
-$route["profile"] = "WebsiteController/loadView/profile";
-$route["balanceInquiry"] = "WebsiteController/loadView/balInq";
-$route["transferFunds"] = "WebsiteController/loadView/transfer";
+$route["customer"] = "CustomerController/dashboard";
+$route["balanceInquiry"] = "AccountController/balInqView";
+$route["transferFunds"] = "TransactionController/online_fund_transfer_view";
 $route["transactionList"] = "WebsiteController/loadView/list";
 $route["teller/createAccount"] = "WebsiteController/tellerView/createCustomer";
 $route["teller/createAccountType"] = "WebsiteController/tellerView/createAccountType";
@@ -131,3 +139,5 @@ $route["teller/approveTransfers"] = "WebsiteController/tellerView/approveTransfe
 $route["teller/profile"] = "WebsiteController/tellerView/t_profile";
 $route["teller/changePass"] = "WebsiteController/tellerView/changePass";
 $route["teller"] = "WebsiteController/tellerView/t_profile";
+
+$route['api/transactions'] = "TransactionController/get_my_transactions";

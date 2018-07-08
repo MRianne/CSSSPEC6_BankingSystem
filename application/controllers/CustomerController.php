@@ -129,6 +129,52 @@ class CustomerController extends BaseController {
 		}
 	}
 
+	public function get() {
+		if(parent::is_user('admin') || parent::is_user('teller')) {
+
+			$this->form_validation->set_rules('email', 'E-mail address', 'trim|required|valid_email');
+			if ($this->form_validation->run()) {
+				$customer = $this->customer->with('person')->get_by(['email' => $this->input->post('email')]);
+				foreach ($customer['person'] as $key => $value) {
+					$customer[$key] = $value;
+				}
+				unset($customer['person']);
+				return parent::view('searchCustomer', $customer);
+			}
+
+	      	$data['error_message'] = validation_errors();
+		    $this->session->set_flashdata('error_message', $data['error_message']);
+
+			// return redirect('customer/search'); // render create form w/ errors
+
+		} else {
+			return show_error("Forbidden Access", 403, "GET OUT OF HERE!!"); // return to page
+		}
+	}
+
+	public function email_check($email) {
+		if($this->customer->get_by(['email' => $this->input->post('email')]))
+			return TRUE;
+		else {
+			$this->form_validation->set_message('email_check', 'Customer does not exist.');
+            return FALSE;
+		}
+
+	}
+
+	public function dashboard() {
+		if(parent::is_user('user')) {
+			$current_user = parent::current_user();
+			$customer_id = $this->customer_user->get_by(['username' => $current_user->username])['customer_id'];
+			$accounts = $this->account->protected_get_many_by(['customer_id'=>$customer_id]);
+			$no_of_accounts = count($accounts);
+			parent::customerView('profile', ['accounts' => $accounts, 'no_of_accounts' => $no_of_accounts]);
+		
+    	} else {
+	      show_error("Forbidden Access", 403, "GET OUT OF HERE!!");
+	    }
+	}
+
 	public function get_all() {
 		if(parent::is_user('admin') || parent::is_user('teller'))
 			return $this->customer->get_all();

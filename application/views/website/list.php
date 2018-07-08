@@ -24,15 +24,15 @@
 
 							<h5 class="card-title">Here is the list of your previous transactions</h5>
 							<hr>
-							<table id="account_table" class="table table-bordered table-striped dataTable">
-								<thead>
+							<table id="tbl_transactions" class="table table-bordered table-striped dataTable">
+								<!-- <thead>
 									<tr>
 										<th>Date</th>
 										<th>Type</th>
 										<th>Amount</th>
 										<th>Status</th>
 									</tr>
-								</thead>
+								</thead> -->
 							</table>
 
 						</div>
@@ -61,3 +61,7 @@
 </footer>
 </div>
 <!-- ./wrapper -->
+
+<script>
+    
+</script>

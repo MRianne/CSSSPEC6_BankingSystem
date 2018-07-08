@@ -26,11 +26,11 @@
 							<hr>
 							<div class="form-group col-lg-6">
 								<label for="accountNum">Account Number:</label>
-								<input type="number" class="form-control" id="accountNum" placeholder="--- --- ---" disabled="true">
+								<input type="text" class="form-control" id="accountNum" value="<?= $account_id ?>" disabled="true">
 							</div>
 							<div class="form-group col-lg-6">
 								<label for="balance">Balance:</label>
-								<input type="number" class="form-control" id="balance" placeholder="--- --- ---" disabled="true">
+								<input type="text" class="form-control" id="balance" value="Php. <?= number_format($balance, 2) ?>" disabled="true">
 							</div>
 
 						</div>

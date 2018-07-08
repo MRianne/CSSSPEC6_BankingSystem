@@ -12,8 +12,6 @@
 
       </ul>
 
-
-
     </nav>
     <!-- /.userChoice -->
 
@@ -34,7 +32,7 @@
             <img src="<?php echo base_url();?>resources/img/website/user.png" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="<?php echo base_url(); ?>profile" class="d-block"><?= $_SESSION['user']->person['first_name'] ?> , <?= $_SESSION['user']->person['last_name'] ?></a>
+            <a href="<?php echo base_url(); ?>customer" class="d-block"><?= $_SESSION['user']->person['first_name'] ?> <?= $_SESSION['user']->person['last_name'] ?></a>
           </div>
         </div>
 

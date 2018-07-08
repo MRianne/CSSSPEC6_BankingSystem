@@ -7,14 +7,14 @@ class UserController extends BaseController {
 		parent::__construct();
 	}
 
-	public function create() {
+	public function create($id=null) {
 		if (parent::is_user('admin') || parent::is_user('teller')) {
 
 			$current_user = parent::current_user();
 
-			$this->form_validation->set_rules('first_name', 'First name', 'trim|required|alpha');
-			$this->form_validation->set_rules('middle_name', 'Middle name', 'trim|required|alpha');
-			$this->form_validation->set_rules('last_name', 'Last name', 'trim|required|alpha');
+			$this->form_validation->set_rules('first_name', 'First name', "trim|required|regex_match[/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u]");
+			$this->form_validation->set_rules('middle_name', 'Middle name', "trim|required|regex_match[/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u]");
+			$this->form_validation->set_rules('last_name', 'Last name', "trim|required|regex_match[/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u]");
 			$this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[4]|max_length[50]|alpha_numeric');
 			$this->form_validation->set_rules('email', 'E-mail address', 'trim|required|valid_email|is_unique[tbl_users.email]');
 			$this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[8]|max_length[30]');
@@ -22,11 +22,15 @@ class UserController extends BaseController {
 			$this->form_validation->set_rules('user_type', 'User Type', 'trim|required');
 
 			if ($this->form_validation->run()) {
-				$person_id = parent::create_person([
-					'first_name' => $this->input->post('first_name'),
-					'middle_name' => $this->input->post('middle_name'),
-					'last_name' => $this->input->post('last_name')
-				]);
+				if($id==null) {
+					$person_id = parent::create_person([
+						'first_name' => $this->input->post('first_name'),
+						'middle_name' => $this->input->post('middle_name'),
+						'last_name' => $this->input->post('last_name')
+					]);
+				} else {
+					$person_id = $this->customer->get($id)['person_id'];
+				}
 
 				$this->user->insert([
 					'username' => $this->input->post('username'),
@@ -39,6 +43,10 @@ class UserController extends BaseController {
 					'last_password_change' => date('Y-m-d H:i:s'),
 					'status' => OK
 				]);
+
+				if($this->customer->get_by(['person_id' => $person_id])) {
+					$this->customer_user->insert(['username' => $this->input->post('username'), 'customer_id' => $id]);
+				}
 				$this->session->set_flashdata('message', 'Account Successfully Created');
 				return redirect('user/create'); // redirect to success
 			}
@@ -104,6 +112,39 @@ class UserController extends BaseController {
 	public function type_check($str) {
 
 		return parent::is_user('admin') ? in_array($str, ['admin', 'teller', 'user']) : $str === 'user';
+	}
+
+	public function createCustomerView($id) {
+		$person = $this->customer->with('person')->get_by(['person_id' => $id]);
+		foreach ($person['person'] as $key => $value) {
+			$person[$key] = $value;
+		}
+		$person['username'] = explode('@', $person['email'])[0];
+		unset($person['person']);
+		return parent::view('createUserAccount', $person);
+	}
+
+	public function changePass() {
+		$this->form_validation->set_rules('oldPassword', 'Old Password', 'trim|required|min_length[8]|max_length[30]');
+		$this->form_validation->set_rules('password', 'New Password', 'trim|required|min_length[8]|max_length[30]');
+		$this->form_validation->set_rules('passconf', 'Verify Password', 'trim|required|matches[password]');
+
+		if ($this->form_validation->run()) {
+			if($this->user->authenticate_user(parent::current_user()->username, $this->input->post('oldPassword'))) {
+				$this->user->update(parent::current_user()->username,[
+					'password' => $this->encryption->encrypt($this->input->post('password')),
+					'last_password_change' => date('Y-m-d H:i:s')
+				]);
+				$this->session->set_flashdata('message', 'Password Successfully Updated');
+				return redirect('user/changePass'); // redirect to success
+			}
+			$this->session->set_flashdata('error_message',  'Invalid Credentials');
+			return redirect('user/changePass'); // render create form w/ errors
+		}
+		$data['error_message'] = validation_errors();
+	    $this->session->set_flashdata('error_message',  $data['error_message']);
+	    
+		return redirect('user/changePass'); // render create form w/ errors
 	}
 
 	public function login() {

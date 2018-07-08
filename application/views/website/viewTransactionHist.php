@@ -22,21 +22,31 @@
 					<div class="card">
 						<div class="card-body ">
 
-							<h5 class="card-title">Account No: ####</h5>
+							<h5 class="card-title">Account No: <?= $account_id?></h5>
 							<hr>
 							<table id="account_table" class="table table-bordered">
 								
 								<tr>
-									<td class="cat"><b>Transaction Type</b></td>
+									<td class="cat"><b>Transaction ID</b></td>
+									<td class="cat"><b>Description</b></td>
+									<td class="cat"><b>DEBIT/CREDIT</b></td>
 									<td class="cat"><b>Amount</b></td>
+									<td class="cat"><b>Ending Balance</b></td>
 									<td class="cat"><b>Date</b></td>
 								</tr>
-								<tr>
-									<td> WITHDRAW</td>
-									<td> 20,000</td>
-									<td> 02/09/2018</td>
-								</tr>
-								
+								<?php
+									foreach ($transactions as $transaction):
+								?>
+									<tr>
+										<td> <?= $transaction['transaction_id'] ?></td>
+										<td> <?= $transaction['description'] ?></td>
+										<td> <?= $transaction['type'] ?></td>
+										<td> <?= number_format($transaction['amount'], 2) ?></td>
+										<td> <?= number_format($transaction['balance'], 2) ?></td>
+										<td> <?= $transaction['date'] ?></td>
+
+									</tr>
+								<?php endforeach; ?>
 							</table>
 
 						</div>

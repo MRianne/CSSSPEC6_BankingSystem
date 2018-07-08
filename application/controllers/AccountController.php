@@ -15,7 +15,7 @@ class AccountController extends BaseController {
 			$this->form_validation->set_rules('type_id', 'Account Type', 'trim|required');
 
 			if ($this->form_validation->run()) {
-				$this->account->insert([
+				$account_id = $this->account->insert([
 					'account_id' => $this->utilities->create_random_number(12),
 					'account_pin' => $this->encryption->encrypt('0000'),
 					'customer_id' => $id,
@@ -24,6 +24,7 @@ class AccountController extends BaseController {
 					'status' => PENDING,
 					'date_expiry' => NULL
 				]);
+				$this->approve_account($account_id);
 				$this->session->set_flashdata('message', 'Account Successfully Created');
 				return redirect('account/create/'. $id); // return to success #change this to view showing all account details
 			}
@@ -110,6 +111,35 @@ class AccountController extends BaseController {
 	// 		return FALSE; // return to page
 	// 	}
 	// }
+
+	public function viewBalance($id) {
+		if(parent::is_user('user')) {
+			$balance = $this->account->get_protected($id)['balance'];
+
+			return parent::customerView('viewBalance', ['account_id' => $id, 'balance' => $balance]);
+		} else {
+			return show_error("Forbidden Access", 403, "GET OUT OF HERE!!"); // return to page
+		}
+	}
+
+	public function balInq() {
+		if(parent::is_user('user')) {
+			$balance = $this->account->get_protected($this->input->post('account_id'))['balance'];
+
+			return parent::customerView('viewBalance', ['account_id' => $this->input->post('account_id'), 'balance' => $balance]);
+		} else {
+			return show_error("Forbidden Access", 403, "GET OUT OF HERE!!"); // return to page
+		}
+	}
+
+	public function balInqView() {
+		if(parent::is_user('user')) {
+			$accounts = $this->account->protected_get_many_by(['customer_id' => parent::current_user()->customer_id]);
+			return parent::customerView('balInq', ['accounts' => $accounts]);
+		} else {
+			return show_error("Forbidden Access", 403, "GET OUT OF HERE!!"); // return to page
+		}
+	}
 
 	public function get_all() {
 		if(parent::is_user('admin') || parent::is_user('teller'))

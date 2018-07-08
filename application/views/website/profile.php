@@ -1,4 +1,4 @@
-
+<?php $user = $this->session->user ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 	<!-- Content Header (Page header) -->
@@ -6,7 +6,7 @@
 		<div class="container-fluid">
 			<div class="row mb-2">
 				<div class="col-sm-6">
-					<h1 class="m-0 text-dark">Hello, First!</h1>
+					<h1 class="m-0 text-dark">Hello, <?= $user->person['first_name'] ?>!</h1>
 				</div><!-- /.col -->
 
 			</div><!-- /.row -->
@@ -30,7 +30,7 @@
 								</tr>
 								<tr>
 									<td class="cat" colspan="2"><b>Number of accounts: </b></td>
-									<td>2</td>
+									<td><?= $no_of_accounts ?></td>
 								</tr>	
 								<tr>
 									<td class="cat"><b>Account Number</b></td>
@@ -38,17 +38,18 @@
 									<!-- <td class="cat"><b>Account Type</b></td> -->
 									<td class="cat"><b>Actions</b></td>
 								</tr>
-								<tr>
-									<td>1234567890</td>
-									<td>Savings</td>
-									<!-- <td> balance here </td> -->
-									<td>
-										<a href="<?php echo base_url() ?>account/viewBalance" class="btn border-round btn-bg" > View Balance</a> 
-										<a href="<?php echo base_url() ?>account/viewTransactionHist" class="btn border-round btn-primary	" > View Transaction History</a>
-									</td>
-									
-								</tr>
-								
+								<?php foreach ($accounts as $account): ?>
+									<tr>
+										<td><?= $account['account_id'] ?></td>
+										<td><?= $account['account_type']['description'] ?></td>
+										<!-- <td> balance here </td> -->
+										<td>
+											<a href="<?php echo base_url() ?>account/viewBalance/<?=$account['account_id']?>" class="btn border-round btn-bg" > View Balance</a> 
+											<a href="<?php echo base_url() ?>account/viewTransactionHist/<?=$account['account_id']?>" class="btn border-round btn-primary	" > View Transaction History</a>
+										</td>
+										
+									</tr>
+								<?php endforeach; ?>								
 							</table>
 
 						</div>

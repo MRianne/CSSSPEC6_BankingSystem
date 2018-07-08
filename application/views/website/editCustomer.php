@@ -48,7 +48,7 @@
 			}
 			?>
 
-			<?php echo form_open('customer/edit'); ?>
+			<?php echo form_open('customer/edit/' . ($customer_id ?? null)); ?>
 			<div class="row">
 				<div class="col-lg-6">
 					<label for="first_name">First Name</label>
@@ -79,9 +79,9 @@
 			</div><br/>
 
 			<label>Present Address</label>
-			<textarea class="form-control" name="present_address" rows="5" style="resize: none;" value=""><?= $present_address ?? null ?></textarea><br/>
+			<textarea class="form-control" name="present_address" rows="5" style="resize: none;"><?= $present_address ?? null ?></textarea><br/>
 			<label>Permanent Address</label>
-			<textarea class="form-control" name="permanent_address" rows="5" style="resize: none;" value=""><?= $permanent_address ?? null ?></textarea><br/>
+			<textarea class="form-control" name="permanent_address" rows="5" style="resize: none;"><?= $permanent_address ?? null ?></textarea><br/>
 			<div class="row">
 				<div class="col-lg-6">
 					<label>Email Address</label>

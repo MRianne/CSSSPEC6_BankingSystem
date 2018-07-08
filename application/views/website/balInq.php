@@ -25,15 +25,19 @@
 							<h5 class="card-title">Please input the account number.</h5>
 							<hr>
 
-							<?php echo form_open('websiteController/balInquiry'); ?>
+							<?php echo form_open('account/viewBalance'); ?>
 							<div class="form-group col-lg-6">
 								<label for="accountNum">Account Number:</label>
-								<input type="text" class="form-control" id="accountNum" placeholder="--- --- ---">
-							</div>
+								<select class="form-control" id="accountNum" name="account_id">
+									<?php foreach ($accounts as $account): ?>
+									<option value="<?= $account['account_id'] ?>"><?= $account['account_id'] ?></option>
+									<?php endforeach; ?>
+								</select>
+							</div><!-- 
 							<div class="form-group col-lg-6">
 								<label for="pin">Pin:</label>
-								<input type="password" class="form-control" id="pin" placeholder="--- --- ---">
-							</div>
+								<input type="password" class="form-control" id="pin" name="account_pin">
+							</div> -->
 							<button type="submit" class="btn btn-primary btn-block btn-flat border-round btn-bg col-lg-2">Submit</button>
 						</div>
 					</div>

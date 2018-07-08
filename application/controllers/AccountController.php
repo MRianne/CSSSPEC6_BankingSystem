@@ -122,6 +122,25 @@ class AccountController extends BaseController {
 		}
 	}
 
+	public function balInq() {
+		if(parent::is_user('user')) {
+			$balance = $this->account->get_protected($this->input->post('account_id'))['balance'];
+
+			return parent::customerView('viewBalance', ['account_id' => $this->input->post('account_id'), 'balance' => $balance]);
+		} else {
+			return show_error("Forbidden Access", 403, "GET OUT OF HERE!!"); // return to page
+		}
+	}
+
+	public function balInqView() {
+		if(parent::is_user('user')) {
+			$accounts = $this->account->protected_get_many_by(['customer_id' => parent::current_user()->customer_id]);
+			return parent::customerView('balInq', ['accounts' => $accounts]);
+		} else {
+			return show_error("Forbidden Access", 403, "GET OUT OF HERE!!"); // return to page
+		}
+	}
+
 	public function get_all() {
 		if(parent::is_user('admin') || parent::is_user('teller'))
 			return $this->account->get_all_protected();

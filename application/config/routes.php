@@ -79,6 +79,7 @@ $route['account/type/delete'] = "websitecontroller/tellerView/viewAccountType";
 
 $route['account/search'] = "WebsiteController/tellerView/searchAccount";
 $route['account/viewBalance/(:any)'] = "AccountController/viewBalance/$1";
+$route['account/viewBalance']['POST'] = "AccountController/balInq";
 $route['account/viewTransactionHist/(:any)'] = "TransactionController/viewTransactionHist/$1";
 /*
  * User routes
@@ -125,7 +126,7 @@ $route["ATM"] = "ATMController";
 */
 $route["website"] = "WebsiteController";
 $route["customer"] = "CustomerController/dashboard";
-$route["balanceInquiry"] = "WebsiteController/loadView/balInq";
+$route["balanceInquiry"] = "AccountController/balInqView";
 $route["transferFunds"] = "TransactionController/online_fund_transfer_view";
 $route["transactionList"] = "WebsiteController/loadView/list";
 $route["teller/createAccount"] = "WebsiteController/tellerView/createCustomer";

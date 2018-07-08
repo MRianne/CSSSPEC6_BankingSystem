@@ -84,6 +84,7 @@ $route['account/viewTransactionHist'] = "WebsiteController/loadView/viewTransact
 $route['user/login'] = "UserController/login";
 $route['user/logout'] = "UserController/logout";
 $route['user/profile'] = "websitecontroller/loadView/profile";
+$route['user/changePass'] = "websitecontroller/loadView/changePass";
 $route['user/create']['POST'] = "UserController/create";
 $route['user/create']['GET'] = "WebsiteController/tellerView/createUserAccount";
 /**
@@ -128,4 +129,5 @@ $route["teller/depositToAccount"] = "WebsiteController/tellerView/depositAccount
 $route["teller/transferFunds"] = "WebsiteController/tellerView/transferFunds";
 $route["teller/approveTransfers"] = "WebsiteController/tellerView/approveTransfers";
 $route["teller/profile"] = "WebsiteController/tellerView/t_profile";
+$route["teller/changePass"] = "WebsiteController/tellerView/changePass";
 $route["teller"] = "WebsiteController/tellerView/t_profile";

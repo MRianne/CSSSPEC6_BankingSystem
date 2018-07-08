@@ -125,6 +125,14 @@
             </ul>
           </li>
 
+          <li class="nav-item">
+            <a href="<?php echo base_url(); ?>teller/changePass" class="nav-link">
+              <i class="nav-icon fa fa-cogs"></i>
+              <p>
+                Change Password
+              </p>
+            </a>
+          </li>
            <li class="nav-item">
             <a href="<?php echo base_url(); ?>websitecontroller/userChoice/logout" class="nav-link">
               <i class="nav-icon fas fa-sign-out-alt"></i>

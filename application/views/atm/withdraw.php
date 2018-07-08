@@ -180,7 +180,7 @@ p
 
 #back-btn
 {
-  width:30px;
+  width:25px;
   float: right;
   margin-top: 150px;
   margin-right: 35px;
@@ -250,8 +250,10 @@ $('#field').on('keypress, keydown', function(event) {
 		<img id="main-logo" src="<?=base_url()?>resources/img/atm/atm-machine2.png">
     <h2>ATM</h2>
 
-    <a href="login.html">logout</a>
-    <img id="logout-logo" src="<?=base_url()?>resources/img/atm/logout2.png">
+    <a href="href<?=base_url()?>ATM/signOut">
+			End Transaction
+    	<img id="logout-logo" src="<?=base_url()?>resources/img/atm/logout2.png">
+		</a>
 
     <h1>Withdraw</h1>
     <h3>Enter amount to withdraw</h3><br>
@@ -270,7 +272,7 @@ $('#field').on('keypress, keydown', function(event) {
 	    <br>
 	    <input type="submit" value="submit">
 		</form>
-    <a href="main page.html">
+    <a href="<?=base_url()?>ATM/next">
 			<img id="back-btn" src="<?=base_url()?>resources/img/atm/restart.png">
 			<p>Cancel</p>
 		</a>

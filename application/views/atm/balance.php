@@ -179,20 +179,20 @@ input:focus {
 		<img id="main-logo" src="<?=base_url()?>resources/img/atm/atm-machine2.png">
     <h2>ATM</h2>
 
-    <a href="login.html">logout
+    <a href="<?=base_url()?>ATM/signOut">End Transaction
     	<img id="logout-logo" src="<?=base_url()?>resources/img/atm/logout2.png">
 		</a>
 
     <h1>Balance Inquiry</h1>
     <div class="savings">
 			<h4>Account #:</h4>
-      <h5>Php. <?=$account_id?></h5>
+      <h5>XXXXXXXX<?=substr($account_id, 8);?></h5>
 			<br><br><br>
       <h4>Savings :</h4>
       <h5 style = "margin-left: 30px">Php. <?=$balance?></h5>
     </div>
 
-	  <a href="main page.html" style="margin-top: 90px">
+	  <a href="<?=base_url()?>ATM/next" style="margin-top: 90px">
 			another transaction
 			<img id="back-btn" src="<?=base_url()?>resources/img/atm/restart.png">
 		</a>

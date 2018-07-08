@@ -79,7 +79,7 @@ class ATMController extends BaseController {
 
 	public function viewBalance(){
 		if($this->session->userdata("atm_user")){
-			if($this->session->userdata("atm_user")["action"] == "withdraw"){
+			if($this->session->userdata("atm_user")["action"] == "balance"){
 				//update atm_user
 				$user =  $this->account->get_protected($this->session->userdata("atm_user")["account_id"]);
 				$user["action"] = "";
@@ -118,8 +118,8 @@ class ATMController extends BaseController {
 			redirect('ATM');
 	}
 
-	public function viewNext($choice){
-		// cancel Authentication
+	public function viewNext(){
+		// reset actions
 		$user = $this->session->userdata("atm_user");
 		$user["action"] = "";
 		$this->session->set_userdata("atm_user", $user);

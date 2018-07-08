@@ -6,7 +6,7 @@
 		<div class="container-fluid">
 			<div class="row mb-2">
 				<div class="col-sm-6">
-					<h1 class="m-0 text-dark"> View All Accounts</h1>
+					<h1 class="m-0 text-dark"></h1>
 				</div><!-- /.col -->
 
 			</div><!-- /.row -->
@@ -20,6 +20,9 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="card">
+						<div class="card-header">
+							<h3 class="card-title"><b>Create Account Type</b></h3>
+						</div>
 						<div class="card-body ">
 							<div class="form-group">
 								<?php echo validation_errors(); ?>
@@ -38,30 +41,28 @@
 								}
 								?>
 
-								<table id="account_table" class="table table-bordered table-striped">
-									<thead>
-										<tr>
-											<th>Name</th>
-											<th>Email</th>
-											<th>Account Status</th>
-											<th>Actions</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>MEOW</td>
-											<td>MEOW</td>
-											<td>MEOW</td>
-											<td>
-												<button class="btn btn-sm btn-block border-round btn-primary"> View</button>
-												<button class="btn btn-sm btn-block border-round btn-warning"> Edit</button>
-												<button class="btn btn-sm btn-block border-round btn-danger"> Delete</button>
-											</td>
-										</tr>
-									</tbody>
-								</table>
+								<?php echo form_open(''); ?>
+
+								<div class="col-lg-6 form-group">
+									<label>Old Password</label>
+									<input class="form-control" type="password"  name="oldPassword"/>		
+								</div>
+								<div class="col-lg-6">
+									<label>New Password</label>
+									<input class="form-control" type="password"  name="newPassword"/>		
+								</div>
+								<div class="col-lg-6">
+									<label>Verify Password</label>
+									<input class="form-control" type="password"  name="verifyPassword"/>		
+								</div>
+
 							</div>
 						</div>
+						<div class="card-footer">
+							<button class="btn  border-round btn-bg" type="submit"> Submit </button>
+							<button class="btn btn-danger border-round" type="reset"> Reset</button>
+						</div>
+					</form>
 					</div>
 
 				</div>
@@ -75,7 +76,6 @@
 <!-- /.content-wrapper -->
 
 
-
 <!-- Main Footer -->
 <footer class="main-footer">
 	<!-- To the right -->
@@ -87,4 +87,3 @@
 </footer>
 </div>
 <!-- ./wrapper -->
-

@@ -29,7 +29,7 @@ class BaseController extends CI_Controller {
 	}
 
 	public function view($type='profile', $data){
-    if($this->current_user()) {
+    if($this->current_user() && ($this->is_user('admin') || $this->is_user('teller'))) {
 
       $data['role'] = $this->current_user()->user_type;
       if($type === 'createUserAccount')
@@ -44,6 +44,20 @@ class BaseController extends CI_Controller {
       $this->load->view('website/'.$type, $data);
       $this->load->view('website/footer');
       
+    } else {
+      show_error("Forbidden Access", 403, "GET OUT OF HERE!!");
+    }
+  }
+
+  public function customerView($type, $data){
+    if($this->current_user() && $this->is_user('user')) {
+
+      $data['role'] = $this->current_user()->user_type;
+      $this->load->view('website/header');
+      $this->load->view('website/user_navbar');
+      $this->load->view('website/'.$type, $data);
+      $this->load->view('website/footer');
+
     } else {
       show_error("Forbidden Access", 403, "GET OUT OF HERE!!");
     }

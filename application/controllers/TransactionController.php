@@ -92,13 +92,13 @@ class TransactionController extends BaseController {
 				]);
 
 				$this->session->set_flashdata('message', 'Transaction Successful');
-				return redirect('transact/otc/withdrawal'); // redirect to success
+				return redirect('transact/otc/withdraw'); // redirect to success
 			}
 	      	$data['error_message'] = validation_errors();
 		    $data['error_message'] = explode("</p>", $data['error_message']);
 		    $this->session->set_flashdata('error_message',  $data['error_message'][0]);
 
-			return redirect('transact/otc/withdrawal'); // render create form w/ errors
+			return redirect('transact/otc/withdraw'); // render create form w/ errors
 		} else {
 			return show_error("Forbidden Access", 403, "GET OUT OF HERE!!"); // return to page
 		}

@@ -83,10 +83,11 @@ $route['account/viewTransactionHist'] = "WebsiteController/loadView/viewTransact
  */
 $route['user/login'] = "UserController/login";
 $route['user/logout'] = "UserController/logout";
-$route['user/profile'] = "websitecontroller/loadView/profile";
+$route['user/profile'] = "CustomerController/dashboard";
 $route['user/customer/create/(:any)']['GET'] = "UserController/createCustomerView/$1";
 $route['user/customer/create'] = "WebsiteController/tellerView/createUserAccount";
 $route['user/create']['GET'] = "WebsiteController/tellerView/createUserAccount";
+$route['user/create/(:any)']['POST'] = "UserController/create/$1";
 $route['user/create']['POST'] = "UserController/create";
 /**
 Route::get('index','NameController@functionname')->name('index-url'); //localhost.com/index
@@ -119,7 +120,7 @@ $route["ATM"] = "ATMController";
 *Website Routes
 */
 $route["website"] = "WebsiteController";
-$route["customer"] = "WebsiteController/loadView/profile";
+$route["customer"] = "CustomerController/dashboard";
 $route["balanceInquiry"] = "WebsiteController/loadView/balInq";
 $route["transferFunds"] = "WebsiteController/loadView/transfer";
 $route["transactionList"] = "WebsiteController/loadView/list";

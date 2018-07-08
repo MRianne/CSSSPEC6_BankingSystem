@@ -41,19 +41,21 @@
 								}
 								?>
 
-								<?php echo form_open('user/create'); ?>
+								<?php 
+									echo form_open('user/create/' . ($customer_id??null));
+								?>
 								<div class="row">
 									<div class="col-lg-4">
 										<label for="first_name">First Name</label>
-										<input type="text" class="form-control" name="first_name" value="<?= $first_name ?? null ?>">
+										<input type="text" class="form-control" name="first_name" value="<?= $first_name ?? null ?>" <?= ($first_name ?? null) == null ? null : 'readonly="true"'?> >
 									</div>
 									<div class="col-lg-4">
 										<label>Middle Name</label>
-										<input class="form-control" type="text" name="middle_name" value="<?= $middle_name ?? null ?>"/>
+										<input class="form-control" type="text" name="middle_name" value="<?= $middle_name ?? null ?>"<?= ($middle_name ?? null) == null ? null : 'readonly="true"'?> />
 									</div>
 									<div class="col-lg-4">
 										<label>Last Name</label>
-										<input class="form-control" type="text" name="last_name" value="<?= $last_name ?? null ?>"/>
+										<input class="form-control" type="text" name="last_name" value="<?= $last_name ?? null ?>" <?= ($last_name ?? null) == null ? null : 'readonly="true"'?> />
 									</div>
 								</div><br/>
 

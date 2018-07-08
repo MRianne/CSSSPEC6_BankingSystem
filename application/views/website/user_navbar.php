@@ -34,7 +34,7 @@
           <img src="<?php echo base_url();?>resources/img/website/user.png" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="<?php echo base_url(); ?>profile" class="d-block">First, Last</a>
+          <a href="<?php echo base_url(); ?>customer" class="d-block">First, Last</a>
         </div>
       </div>
 

@@ -161,6 +161,20 @@ class CustomerController extends BaseController {
 		}
 
 	}
+
+	public function dashboard() {
+		if(parent::is_user('user')) {
+			$current_user = parent::current_user();
+			$customer_id = $this->customer_user->get_by(['username' => $current_user->username])['customer_id'];
+			$accounts = $this->account->protected_get_many_by(['customer_id'=>$customer_id]);
+			$no_of_accounts = count($accounts);
+			parent::customerView('profile', ['accounts' => $accounts, 'no_of_accounts' => $no_of_accounts]);
+		
+    	} else {
+	      show_error("Forbidden Access", 403, "GET OUT OF HERE!!");
+	    }
+	}
+
 	public function get_all() {
 		if(parent::is_user('admin') || parent::is_user('teller'))
 			return $this->customer->get_all();

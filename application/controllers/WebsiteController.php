@@ -10,10 +10,17 @@ class WebsiteController extends BaseController {
     $this->load->view('website/footer');
   }
   public function loadView($type){
-    $this->load->view('website/header');
-    $this->load->view('website/user_navbar');
-    $this->load->view('website/'.$type);
-    $this->load->view('website/footer');
+    if(parent::current_user() && parent::is_user('user')) {
+
+      $data['role'] = parent::current_user()->user_type;
+      $this->load->view('website/header');
+      $this->load->view('website/user_navbar');
+      $this->load->view('website/'.$type);
+      $this->load->view('website/footer');
+
+    } else {
+      show_error("Forbidden Access", 403, "GET OUT OF HERE!!");
+    }
   }
   public function userChoice($type){
     switch ($type) {
@@ -33,7 +40,7 @@ class WebsiteController extends BaseController {
     }
   }
   public function tellerView($type='profile', $id=null){
-    if(parent::current_user()) {
+    if(parent::current_user() && (parent::is_user('admin') || parent::is_user('teller'))) {
 
       $data['role'] = parent::current_user()->user_type;
       if($type === 'createUserAccount')

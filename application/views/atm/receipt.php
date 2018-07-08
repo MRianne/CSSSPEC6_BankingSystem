@@ -245,7 +245,7 @@ input:focus {
     <img id="main-logo" src="<?=base_url()?>resources/img/atm/atm-machine2.png">
     <h2>ATM</h2>
 
-    <a href="<?=base_url()?>ATM/next/main">Go to Main</a>
+    <a href="<?=base_url()?>ATM/signOut">End Transaction</a>
     <img id="logout-logo" src="<?=base_url()?>resources/img/atm/logout2.png">
 
     <h1>Your ATM receipt</h1>

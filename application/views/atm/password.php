@@ -96,9 +96,9 @@ input:focus {
 <body>
   <img src="<?=base_url();?>resources/img/atm/atm-machine.png" id="atm-logo">
   <h1>Welcome to the ATM</h1>
-  <p>Enter your pin for verification</p>
+  <p>Enter your 6-digit pin for verification</p>
 	<?=	form_open('ATMController/'.$action);	?>
-	<input type="password" name="password"  id="password"	value="password">
+	<input type="password" name="password"  id="password"	value="">
 	<?php
 		if (isset($this->session->userdata['error_message'])) {
         echo "<span style=\"color: red;text-align: center; font-weight: bold\" id = \"result\" name = \"result\">

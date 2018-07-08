@@ -279,6 +279,19 @@ class TransactionController extends BaseController {
 		}
 	}
 
+	public function get_my_transactions() {
+		if(parent::is_user('user')) {
+			$accounts = $this->account->with('transactions')->get_many_by(['customer_id' => parent::current_user()->customer_id]);
+			foreach ($accounts as $account) {
+				unset($account['account_pin']);
+				$transactions = $account['transactions'];
+			}
+			return $this->output->set_output(json_encode($transactions, JSON_PRETTY_PRINT));
+		} else {
+			return show_error("Forbidden Access", 403, "GET OUT OF HERE!!"); // return to page
+		}
+	}
+
 	public function get_all() {
 		if(parent::is_user('admin') || parent::is_user('teller'))
 			return $this->transaction->get_all();

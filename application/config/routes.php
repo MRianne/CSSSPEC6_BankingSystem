@@ -137,3 +137,5 @@ $route["teller/approveTransfers"] = "WebsiteController/tellerView/approveTransfe
 $route["teller/profile"] = "WebsiteController/tellerView/t_profile";
 $route["teller/changePass"] = "WebsiteController/tellerView/changePass";
 $route["teller"] = "WebsiteController/tellerView/t_profile";
+
+$route['api/transactions'] = "TransactionController/get_my_transactions";

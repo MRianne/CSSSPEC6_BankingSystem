@@ -110,6 +110,7 @@ $route['customer/search']['GET'] = "WebsiteController/tellerView/searchCustomer"
 $route['customer/search']['POST'] = "CustomerController/get";
 $route['customer/edit']['GET'] = "WebsiteController/tellerView/editCustomer";
 $route['customer/edit']['POST'] = "CustomerController/update";
+$route['customer/delete/(:any)'] = "CustomerController/delete/$1";
 
 
 /*

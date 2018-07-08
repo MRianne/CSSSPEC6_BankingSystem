@@ -182,8 +182,12 @@ class CustomerController extends BaseController {
 	}
 
 	public function delete($id) {
-		if(parent::is_user('admin'))
-			return $this->customer->delete($id);
-		return FALSE;
+		if(parent::is_user('admin')) {
+			$this->customer->delete($id);
+			$this->session->set_flashdata('message', 'Delete Success!');
+			return redirect('customer/search');
+		}
+		$this->session->set_flashdata('error_message', 'Delete Fail!');
+		return redirect('customer/search');
 	}
 }

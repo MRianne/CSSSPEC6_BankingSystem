@@ -22,7 +22,7 @@
 					<div class="card">
 	<div class="card-header">
 		<b style="font-size: 2em">Customer Details</b>
-		<a href="" class="btn btn-danger btn-sm float-right"> Delete</a>
+		<a href="<?php echo base_url(); ?>customer/delete/<?= $customer_id ?? null ?>" class="btn btn-danger btn-sm float-right"> Delete</a>
 		<a href="<?php echo base_url(); ?>account/create/<?= $customer_id ?? null ?>" class="btn btn-bg btn-sm float-right"> Open Account</a>
 		<a href="<?php echo base_url(); ?>user/customer/create/<?= $person_id ?? null ?>" class="btn btn-warning btn-sm float-right"> Add User account</a>
 

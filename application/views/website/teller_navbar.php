@@ -73,12 +73,12 @@
                   <p>View Account Types</p>
                 </a>
               </li>
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <a href="<?php echo base_url(); ?>account/search" class="nav-link">
                   <i class="fa fa-circle-o nav-icon"></i>
                   <p>Search Account</p>
                 </a>
-              </li>
+              </li> -->
               <li class="nav-item">
                 <a href="<?php echo base_url(); ?>user/create" class="nav-link">
                   <i class="fa fa-circle-o nav-icon"></i>
@@ -98,12 +98,12 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <a href="<?php echo base_url(); ?>teller/checkAccountBalance" class="nav-link ">
                   <i class="fa fa-circle-o nav-icon"></i>
                   <p>Check Account Balance</p>
                 </a>
-              </li>
+              </li> -->
               <li class="nav-item">
                 <a href="<?php echo base_url(); ?>teller/withdrawFromAccount" class="nav-link">
                   <i class="fa fa-circle-o nav-icon"></i>
@@ -125,14 +125,14 @@
             </ul>
           </li>
 
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a href="<?php echo base_url(); ?>teller/changePass" class="nav-link">
               <i class="nav-icon fa fa-cogs"></i>
               <p>
                 Change Password
               </p>
             </a>
-          </li>
+          </li> -->
            <li class="nav-item">
             <a href="<?php echo base_url(); ?>websitecontroller/userChoice/logout" class="nav-link">
               <i class="nav-icon fas fa-sign-out-alt"></i>

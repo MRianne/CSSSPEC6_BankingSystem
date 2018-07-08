@@ -45,22 +45,22 @@
 								<div class="row">
 									<div class="col-lg-4">
 										<label for="first_name">First Name</label>
-										<input type="text" class="form-control" name="first_name" >
+										<input type="text" class="form-control" name="first_name" value="<?= $first_name ?? null ?>">
 									</div>
 									<div class="col-lg-4">
 										<label>Middle Name</label>
-										<input class="form-control" type="text" name="middle_name"/>
+										<input class="form-control" type="text" name="middle_name" value="<?= $middle_name ?? null ?>"/>
 									</div>
 									<div class="col-lg-4">
 										<label>Last Name</label>
-										<input class="form-control" type="text" name="last_name" />
+										<input class="form-control" type="text" name="last_name" value="<?= $last_name ?? null ?>"/>
 									</div>
 								</div><br/>
 
 								<div class="row">
 									<div class="col-lg-6">
 										<label>Username</label>
-										<input class="form-control" type="text" name="username" placeholder="Username" />
+										<input class="form-control" type="text" name="username" placeholder="Username" value="<?= $username ?? null ?>" />
 									</div>
 									<div class="col-lg-6">
 										<label>Temporary Password</label><!-- or to be sent to email -->
@@ -71,15 +71,22 @@
 								<div class="row">
 									<div class="col-lg-6">
 										<label>Email address</label>
-										<input class="form-control" type="email" name="email" placeholder="Email" />
+										<input class="form-control" type="email" name="email" placeholder="Email" value="<?= $email ?? null ?>"/>
 									</div>
 									<div class="col-lg-6">
 										<label>Role</label>
 										<select class="form-control" name="user_type">
-											<?php if($role==='admin'): ?>
+											<?php 
+												if($role==='admin'):
+													if(!$customer_id):
+											?>
+
 												<option value="admin">Admin</option>
 												<option value="teller">Teller</option>
-											<?php endif; ?>
+											<?php 
+													endif;
+												endif;
+											?>
 											<option value="user">User</option>
 										</select>
 									</div>

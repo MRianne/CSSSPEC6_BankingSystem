@@ -4,7 +4,7 @@
 		<b style="font-size: 2em">Customer Details</b>
 		<a href="" class="btn btn-danger btn-sm float-right"> Delete</a>
 		<a href="<?php echo base_url(); ?>account/create/meow" class="btn btn-bg btn-sm float-right"> Open Account</a>
-		<a href="<?php echo base_url(); ?>user/create/<?= $person_id ?>" class="btn btn-warning btn-sm float-right"> Add User account</a>
+		<a href="<?php echo base_url(); ?>user/customer/create/<?= $person_id ?? null ?>" class="btn btn-warning btn-sm float-right"> Add User account</a>
 
 		<a href="<?php echo base_url(); ?>customer/edit/??" class="btn btn-success btn-sm float-right"> Edit Details</a>
 		

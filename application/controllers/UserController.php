@@ -106,6 +106,16 @@ class UserController extends BaseController {
 		return parent::is_user('admin') ? in_array($str, ['admin', 'teller', 'user']) : $str === 'user';
 	}
 
+	public function createCustomerView($id) {
+		$person = $this->customer->with('person')->get_by(['person_id' => $id]);
+		foreach ($person['person'] as $key => $value) {
+			$person[$key] = $value;
+		}
+		$person['username'] = explode('@', $person['email'])[0];
+		unset($person['person']);
+		return parent::view('createUserAccount', $person);
+	}
+
 	public function login() {
 		if (!parent::current_user()) {
 			$username = $_POST['username'] ?? null;

@@ -56,26 +56,6 @@ class Account_Model extends BaseModel {
 		return $account;
 	}
 
-	public function atm_login($id){
-		$account = $this->account->get($id);
-		if($account){
-			$data["account_id"] = $account["account_id"];
-			if($account["status"] == "locked")
-				return "Your account is curretly locked.
-					<br>Please go to our nearest branch to unlock your account. ";
-			else if($account["status"] == "deactivated")
-				return "Your account is curretly deactivated.
-					<br>Please go to our nearest branch to re-activate your account. ";
-			else if($account["date_expiry"] >=  new DateTime('now', new DateTimeZone('Asia/Manila')))
-				return "Your account is expired.
-					<br>Please go to our nearest branch to resolve your account. ";
-			else
-					return $data;
-		}
-		else
-		return "Account Authentication Error";
-	}
-
 	public function atm_verification($id, $pin, $purpose){
 		$account = $this->account->get($id);
 		if ($account && $this->encryption->decrypt($account['account_pin']) === $pin) {

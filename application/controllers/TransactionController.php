@@ -112,7 +112,7 @@ class TransactionController extends BaseController {
 			$this->form_validation->set_rules('from_account_id', 'Sender Account Number', 'trim|required|numeric|exact_length[12]');
 			$this->form_validation->set_rules('to_account_id', 'Receiver Account Number', 'trim|required|numeric|exact_length[12]');
 			$this->form_validation->set_rules('amount', 'Amount', 'trim|required|decimal');
-			
+
 			if($this->form_validation->run()) {
 				if(!($this->account->validate_account($this->input->post('from_account_id')) && $this->account->validate_account($this->input->post('to_account_id')))){
 
@@ -177,7 +177,7 @@ class TransactionController extends BaseController {
 		if($account['balance'] >= $amount)
 			return TRUE;
 		else {
-			return FALSE;	
+			return FALSE;
 		}
 	}
 
@@ -191,5 +191,59 @@ class TransactionController extends BaseController {
 		if(parent::is_user('admin'))
 			return $this->transaction->delete($id);
 		return FALSE;
+	}
+
+	public function atm_withdraw(){
+		if($this->session->userdata("atm_user") && $this->session->userdata("atm_user")["action"] == "withdraw"){
+
+			$this->form_validation->set_rules('amount','amount','trim|required|decimal');
+
+			if($this->form_validation->run()){
+				$id = $this->session->userdata("atm_user")["account_id"];
+				if(!$this->account->validate_balance($id, $this->input->post('amount'))) {
+					$this->session->set_flashdata('error_message',  "Insufficient Balance.");
+					return redirect('ATM/main'); // Insufficient Balance
+				}
+				else if(!$this->setting->validate_withdraw($this->input->post('amount'))) {
+					$this->session->set_flashdata('error_message',  "Invalid Transaction.");
+					return redirect('ATM/main'); // below minimum required withdrawal / above maximum transaction
+				}
+
+				$account = $this->account->get_protected($id);
+				$this->account->update($id, [
+					'balance' => $account['balance'] - $this->input->post('amount')
+				]);
+
+				$updated_account = $this->account->get_protected($id);
+				$person_id = $this->customer->get($updated_account["customer_id"])["person_id"];
+				$transaction = array(
+					'transaction_id' => $this->utilities->create_random_string(),
+					'account_id' => $id,
+					'description' => ATM_WITHDRAWAL,
+					'amount' => $this->input->post('amount'),
+					'type' => DEBIT,
+					'balance' => $updated_account['balance'],
+					'status' => SUCCESSFUL,
+					'person_id' => $person_id,
+					'date' => $updated_account['date_updated']
+				);
+				$this->transaction->insert($transaction);
+
+				$this->session->set_userdata('atm_transaction', $transaction);
+				redirect("ATM/withdraw/receipt");
+			}
+			else{
+				$data['error_message'] = validation_errors();
+	      $data['error_message'] = explode("</p>", $data['error_message']);
+	      $this->session->set_flashdata('error_message', substr($data['error_message'][0],3));
+				redirect("ATM/withdraw");
+			}
+		}
+		else if($this->session->userdata("atm_user")){
+			redirect("ATM/main");
+		}
+		else{
+			redirect("ATM");
+		}
 	}
 }

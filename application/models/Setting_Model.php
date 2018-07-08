@@ -12,8 +12,8 @@ class Setting_Model extends BaseModel {
 		parent::__construct();
 	}
 
-	public function withdrawParams(){
+	public function validate_withdraw($amount){
 		$setting = $this->setting->get("2018000001");
-		return array("min"=> $setting["min_withdraw"], "max"=> $setting["max_withdraw"]);
+		return ($amount >= $setting["min_withdraw"] && $amount <= $setting["max_withdraw"]) ? TRUE : FALSE;
 	}
 }

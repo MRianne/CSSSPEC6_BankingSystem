@@ -153,11 +153,11 @@ input:focus {
 	              </span>";
 	    }
 		?>
-    <a id="buttons" href="withdraw"><input type="submit" value="Withdraw"></a>
+    <a id="buttons" href="verify/withdraw"><input type="submit" value="Withdraw"></a>
     <br>
-    <a id="buttons" href="deposit"><input type="submit" value="Deposit"></a>
+    <a id="buttons" href="verify/deposit"><input type="submit" value="Deposit"></a>
     <br>
-    <a id="buttons" href="balance"><input type="submit" value="Balance"></a>
+    <a id="buttons" href="verify/balance"><input type="submit" value="Balance"></a>
 
 
 </section>

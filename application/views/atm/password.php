@@ -110,7 +110,13 @@ input:focus {
 		?>
 	<br>
 	<br>
-	<input type="submit" value="Continue" name="confirm"  id="confirm">
+	<div class = "row">
+		<center>
+			<input type="submit" value="Continue" name="confirm"  id="confirm">
+			<input type="submit" value="Cancel" name="cancel"  id="cancel">
+		</center>
+	</div>
+
   </form>
 
 	<!-- jQuery 3.2.1 -->

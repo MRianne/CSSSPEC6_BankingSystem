@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300" rel="stylesheet">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 
 <style type="text/css">
 
 body{
-	background-image: url("<?=base_url()?>resources/img/atm/bg2.png");
+  background-image: url("<?=base_url()?>resources/img/atm/bg2.png");
   background-size: 1430px 700px;
 }
 .container{
-	width: 70%;
+  width: 70%;
     height:80%;
     position: absolute;
     top:0;
@@ -31,9 +30,9 @@ body{
 
 
 h2{
-	font-family: 'Montserrat extrabold';
-	font-size: 35px;
-	color: white;
+  font-family: 'Montserrat extrabold';
+  font-size: 35px;
+  color: white;
   float: left;
   margin-left: 65px;
   margin-top: 15px;
@@ -43,12 +42,12 @@ h2{
 h1
 {
   font-family: 'Montserrat semibold';
-  font-size: 40px;
+  font-size: 35px;
   color: white;
   text-align: center;
-
+  margin-right: 130px;
   letter-spacing: -1px;
-  margin-top: 50px;
+  margin-top: 20px;
 }
 
 h3
@@ -62,9 +61,9 @@ h3
 
 a
 {
-	font-family: 'Montserrat extralight';
-	font-size: 20px;
-	color: white;
+  font-family: 'Montserrat extralight';
+  font-size: 20px;
+  color: white;
   text-align: right;
   margin-top: -35px;
   margin-right: 60px;
@@ -150,12 +149,14 @@ input[type=submit]:hover
 
 h4
 {
-  font-family: 'Montserrat extralight';
-  font-size: 25px;
+  font-family: 'Montserrat light';
+  font-size: 20px;
   color: #24dfda;
-  margin-left: 70px;
-  margin-top: 25px;
-  letter-spacing: -1px;
+  margin-left: 160px;
+  margin-top: -20px;
+  letter-spacing: 0px;
+  float: left;
+  text-align: center;
 }
 
 h5
@@ -170,20 +171,22 @@ h5
 
 p
 {
-  font-family: 'Montserrat semibold';
-  font-size: 20px;
+  font-family: 'Montserrat extralight';
+  font-size: 18px;
   color: white;
-  margin-top: 150px;
-  margin-right: -90px;
-  float: right;
+  margin-left: 160px;
+  margin-top: -25px;
+  letter-spacing: 0px;
+  float: left;
+  text-align: center;
 }
 
 #back-btn
 {
-  width:30px;
+  width:40px;
   float: right;
-  margin-top: 150px;
-  margin-right: 35px;
+  margin-top: 140px;
+  margin-right: 75px;
 }
 
 input[type=text]
@@ -199,7 +202,6 @@ input[type=text]
   font-family: montserrat extralight;
   color: white;
   font-size: 15pt;
-	text-align: center;
 }
 
 input[type=button]
@@ -229,53 +231,75 @@ input:focus {
     outline:none;
 }
 
+.receipt
+{
+  display: block;
+  margin: auto;
+  height: 330px;
+  padding: 0px 100px 0px 100px;
+}
+
 </style>
-<script type="text/javascript">
-  var readOnlyLength = $('#field').val().length;
-
-$('#output').text(readOnlyLength);
-
-$('#field').on('keypress, keydown', function(event) {
-  var $field = $(this);
-  $('#output').text(event.which + '-' + this.selectionStart);
-  if ((event.which != 37 && (event.which != 39)) &&
-    ((this.selectionStart < readOnlyLength) ||
-      ((this.selectionStart == readOnlyLength) && (event.which == 8)))) {
-    return false;
-  }
-});
-</script>
 <body>
 <section class="container">
-		<img id="main-logo" src="<?=base_url()?>resources/img/atm/atm-machine2.png">
+    <img id="main-logo" src="<?=base_url()?>resources/img/atm/atm-machine2.png">
     <h2>ATM</h2>
 
-    <a href="login.html">logout</a>
+    <a href="<?=base_url()?>ATM/next/main">Go to Main</a>
     <img id="logout-logo" src="<?=base_url()?>resources/img/atm/logout2.png">
 
-    <h1>Withdraw</h1>
-    <h3>Enter amount to withdraw</h3><br>
-		<h3>(Php.)</h3>
-		<?=form_open("TransactionController/atm_withdraw")?>
-	    	<input id="amount" type="text" name="amount" value="0.00"/>
-				<?php
-					if (isset($this->session->userdata['error_message'])) {
-			        echo "<span style=\"color: red;text-align: center; font-weight: bold\" id = \"result\" name = \"result\">
-			                <div>
-			                  <small>".$this->session->userdata['error_message']."</small>
-			                </div>
-			              </span>";
-			    }
-					?>
-	    <br>
-	    <input type="submit" value="submit">
-		</form>
-    <a href="main page.html">
-			<img id="back-btn" src="<?=base_url()?>resources/img/atm/restart.png">
-			<p>Cancel</p>
-		</a>
+    <h1>Your ATM receipt</h1>
+
+    <div class="receipt">
+
+      <h4>Date</h4>
+      <h4 >Time</h4>
+      <h4>Location</h4>
+      <br>
+      <p style="margin-left: 160px;"><?=$receipt["date"]?></p>
+      <p style="margin-left: 132px;"><?=$receipt["time"]?></p>
+      <p style="margin-left: 160px;">ATM</p>
+
+      <br>
+
+      <h4 style="margin-top: -10px;">Account #</h4>
+
+      <br>
+
+      <p style="margin-left: -85px;margin-top:  5px;">XXXXXXXX<?=substr($receipt["account_id"], 8);?></p>
+
+      <br>
+      <br>
+
+      <h4 style="margin-top: -5px; margin-left: -140px">Transaction Type</h4>
+      <h4 style="margin-top: -5px; margin-left: 10px; color: white;"><?=$receipt["description"]?></h4>
+      <h4 style="margin-top: -5px; margin-left: 10px;"> from</h4>
+      <h4 style="margin-top: -5px; margin-left: 10px; color: white;"><?=$receipt["type"]?></h4>
+
+      <br>
+
+      <h4 style="margin-top: -20px;">Transaction #</h4>
+      <p style="margin-left: 40px; margin-top: -20px;"><?=$receipt["transaction_id"]?></p>
+
+      <br>
+
+      <h4 style="margin-top: 20px; margin-left: -265px;">Amount</h4>
+      <p style="margin-left: 135; margin-top: 20px;">Php. <?=floatval($receipt["amount"])?></p>
+
+      <br>
+
+      <h4 style="margin-top: 40px; margin-left: -490px;">Available Balance</h4>
+      <p style="margin-left: 275px; margin-top: -11px;">Php. <?=floatval($receipt["balance"])?></p>
+      <br>
+      <h4 style="margin-top: 20px; margin-left: -490px;">Total Balance</h4>
+      <p style="margin-left: 275px; margin-top: -11px;">Php. <?=floatval($receipt["balance"])?></p>
+
+      <a href="<?=base_url()?>ATM/next/transaction" style = "margin-top: 120px;margin-right: -40px;">Continue</a>
+      <img id="logout-logo" style = "margin-right: -70px;"
+        src="<?=base_url()?>resources/img/atm/logout2.png">
 
 
+    </div>
 
 </section>
 

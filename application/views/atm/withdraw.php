@@ -185,7 +185,6 @@ p
 	margin-top: 80px;
 }
 
-
 input[type=text]
 {
   border: 2px solid white;
@@ -202,7 +201,7 @@ input[type=text]
 	text-align: center;
 }
 
-input[type=button]
+input[type=submit]
 {
   background-color: #3cb878;
   border: none;
@@ -220,7 +219,7 @@ input[type=button]
   cursor: pointer;
 }
 
-input[type=button]:hover
+input[type=submit]:hover
 {
   background-color: #2fa166;
 }
@@ -230,21 +229,6 @@ input:focus {
 }
 
 </style>
-<script type="text/javascript">
-  var readOnlyLength = $('#field').val().length;
-
-$('#output').text(readOnlyLength);
-
-$('#field').on('keypress, keydown', function(event) {
-  var $field = $(this);
-  $('#output').text(event.which + '-' + this.selectionStart);
-  if ((event.which != 37 && (event.which != 39)) &&
-    ((this.selectionStart < readOnlyLength) ||
-      ((this.selectionStart == readOnlyLength) && (event.which == 8)))) {
-    return false;
-  }
-});
-</script>
 <body>
 <section class="container">
 		<img id="main-logo" src="<?=base_url()?>resources/img/atm/atm-machine2.png">

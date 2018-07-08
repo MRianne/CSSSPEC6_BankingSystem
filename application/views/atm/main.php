@@ -148,7 +148,7 @@ input:focus {
 			if (isset($this->session->userdata['error_message'])) {
 	        echo "<span style=\"color: red;text-align: center; font-weight: bold\" id = \"result\" name = \"result\">
 	                <div>
-	                  <small>".$this->session->userdata['error_message']."</small>
+	                  <h5>".$this->session->userdata['error_message']."</h5>
 	                </div>
 	              </span>";
 	    }

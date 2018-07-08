@@ -294,7 +294,7 @@ input:focus {
       <h4 style="margin-top: 20px; margin-left: -490px;">Total Balance</h4>
       <p style="margin-left: 275px; margin-top: -11px;">Php. <?=floatval($receipt["balance"])?></p>
 
-      <a href="<?=base_url()?>ATM/next/transaction" style = "margin-top: 120px;margin-right: -40px;">Continue</a>
+      <a href="<?=base_url()?>ATM/next" style = "margin-top: 120px;margin-right: -40px;">Continue</a>
       <img id="logout-logo" style = "margin-right: -70px;"
         src="<?=base_url()?>resources/img/atm/logout2.png">
 

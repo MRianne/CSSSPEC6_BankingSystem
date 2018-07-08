@@ -192,4 +192,62 @@ class TransactionController extends BaseController {
 			return $this->transaction->delete($id);
 		return FALSE;
 	}
+
+	public function calculate_interest() {
+		$accounts = $this->account->get_all_protected();
+		
+		foreach ($accounts as $account) {
+			$req_daily_bal = $account['account_type']['req_daily_bal'];
+			$min_monthly_adb = $account['account_type']['min_monthly_adb'];
+			$interest_rate = $account['account_type']['interest_rate'];
+			$interest_earned = 0.00;
+			// $transactions = $this->transaction->get_many_by(['account_id' => $account['account_id'], "DATE_FORMAT(date, '%m-%Y') = '$date'"]);
+			$days = $this->get_days(date('n'));
+
+			// print_r($transactions);
+			for($day = 1; $day <= $days; $day++) {
+				$date = date('Y') . '-' . date('m');
+				if($day < 10)
+					$date .= '-0' . $day;
+				else
+					$date .= '-' .$day;
+
+				$transaction = $this->transaction->get_many_by(['account_id' => $account['account_id'], "DATE_FORMAT(date, '%Y-%m-%d') = '$date'"]);
+				if($transaction==[])
+					$transaction['balance'] =$this->check_previous();
+				if($transaction['balance'] >= $req_daily_bal)
+					$interest_earned += $transaction['balance'] * ($interest_rate/365);
+			}
+
+			
+
+
+		}
+	}
+
+	protected function get_days($month) {
+		switch ($month) {
+			case 1:
+			case 3:
+			case 5:
+			case 7:
+			case 8:
+			case 10:
+			case 12:
+				return 31; break;
+			case 4:
+			case 6:
+			case 9:
+			case 11:
+				return 30; break;
+			case 2: return date('L', strtotime(date('Y').'-01-01')) ? 29 : 28; break;
+			default:
+				show_error('Invalid Month', 500);
+				break;
+		}
+	}
+	public function interest() {
+
+
+	}
 }

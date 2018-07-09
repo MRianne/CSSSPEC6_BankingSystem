@@ -126,6 +126,7 @@ defined('SC_TRANS_FEE')		OR define('SC_TRANS_FEE', 'Transaction Fee');
 defined('SC_BELOW_ADB')		OR define('SC_BELOW_ADB', 'Service Charge for Falling Below the Required ADB');
 defined('SC_DORMANCY')		OR define('SC_DORMANCY', 'Dormancy Charge');
 defined('INTEREST')			OR define('INTEREST', 'Interest');
+defined('WITHTAX')			OR define('WITHTAX', 'Withholding Tax');
 
 /*
  *	Transaction Type

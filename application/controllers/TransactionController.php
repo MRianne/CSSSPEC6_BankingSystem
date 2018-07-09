@@ -309,16 +309,15 @@ class TransactionController extends BaseController {
 
 	public function calculate_interest() {
 		$accounts = $this->account->get_all_protected();
-		
+		print_r("This view is for simulation of the interest computation. The interest is accumulated daily and credited to the account of the user every end of the month.<br>");
 		foreach ($accounts as $account) {
 			$req_daily_bal = $account['account_type']['req_daily_bal'];
 			$min_monthly_adb = $account['account_type']['min_monthly_adb'];
-			$interest_rate = $account['account_type']['interest_rate'];
+			$interest_rate = $account['account_type']['interest_rate']/100;
 			$interest_earned = 0.00;
-			// $transactions = $this->transaction->get_many_by(['account_id' => $account['account_id'], "DATE_FORMAT(date, '%m-%Y') = '$date'"]);
+			
 			$days = $this->get_days(date('n'));
 
-			// print_r($transactions);
 			for($day = 1; $day <= $days; $day++) {
 				$date = date('Y') . '-' . date('m');
 				if($day < 10)
@@ -326,19 +325,68 @@ class TransactionController extends BaseController {
 				else
 					$date .= '-' .$day;
 
-				$transaction = $this->transaction->get_many_by(['account_id' => $account['account_id'], "DATE_FORMAT(date, '%Y-%m-%d') = '$date'"]);
+				$transaction = $this->transaction->order_by('date', 'DESC')->get_by(['account_id' => $account['account_id'], "DATE_FORMAT(date, '%Y-%m-%d') = '$date'"]);
+
 				if($transaction==[])
-					$transaction['balance'] =$this->check_previous();
+					$transaction['balance'] = $this->check_previous($account, $date);
 				if($transaction['balance'] >= $req_daily_bal)
 					$interest_earned += $transaction['balance'] * ($interest_rate/365);
+				print_r('Day ' .$day .': '.$interest_earned . " Balance: " . $transaction['balance'] ."<br>");
+				
 			}
-
+			$tax_withheld = $interest_earned * 0.20;
 			
+			# add interest earned
 
+			$temp_acc = $this->account->get_protected($account['account_id']);
+			$this->account->update($account['account_id'], [
+				'balance' => $temp_acc['balance'] + $interest_earned
+			]);
+			$updt_acc = $this->account->get_protected($account['account_id']);
+			$this->transaction->insert([
+				'transaction_id' => $this->utilities->create_random_string(),
+				'account_id' => $account['account_id'],
+				'description' => INTEREST,
+				'amount' => $interest_earned,
+				'type' => CREDIT,
+				'balance' => $updt_acc['balance'],
+				'status' => SUCCESSFUL,
+				'person_id' => 'DpSO5zlN8cY',
+				'date' => $updt_acc['date_updated']
+			]);
 
+			# deduct tax withheld
+			
+			$temp_acc = $this->account->get_protected($account['account_id']);
+			$this->account->update($account['account_id'], [
+				'balance' => $temp_acc['balance'] - $tax_withheld
+			]);
+			$updt_acc = $this->account->get_protected($account['account_id']);
+			$this->transaction->insert([
+				'transaction_id' => $this->utilities->create_random_string(),
+				'account_id' => $account['account_id'],
+				'description' => WITHTAX,
+				'amount' => $tax_withheld,
+				'type' => DEBIT,
+				'balance' => $updt_acc['balance'],
+				'status' => SUCCESSFUL,
+				'person_id' => 'DpSO5zlN8cY',
+				'date' => $updt_acc['date_updated']
+			]);
 		}
 	}
 
+	protected function check_previous($account, $date){
+		$date = date('Y-m-d' ,strtotime('-1 day', strtotime($date)));
+		$transaction = $this->transaction->order_by('date', 'DESC')->get_by(['account_id' => $account['account_id'], "DATE_FORMAT(date, '%Y-%m-%d') = '$date'"]);
+		if($transaction==[])
+			if($date >= $account['date_created'])
+				return $this->check_previous($account, $date);
+			else
+				return 0;
+		else
+			return $transaction['balance'];
+	}
 	protected function get_days($month) {
 		switch ($month) {
 			case 1:

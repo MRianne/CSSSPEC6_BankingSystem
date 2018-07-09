@@ -22,8 +22,8 @@
 					<div class="card">
 						<div class="card-header">
 							<div class="row">
-								<form class="form-inline">
-									<input class="form-control col-lg-9" type="text" name="account_no" placeholder="Enter account no.">
+								<form class="form-inline" method="POST" action="">
+									<input class="form-control col-lg-9" type="text" name="account_id" placeholder="Enter account no.">
 									<button class="btn btn-rounded btn-bg col-lg-3"  type="submit" > Search</button>
 								</form>
 							</div>
@@ -46,16 +46,17 @@
 								}
 								?>
 
-								<?php echo form_open('account/type/create'); ?>
+								<?php echo form_open('customer/search'); ?>
 								<div class="row">
 									<div class="col-lg-6">
 										<label>Account Owner</label>
-										<input class="form-control" type="text" name="customer" disabled="true" value="" />
-										<small><a href="">Go to Customer Profile</a></small>
+										<input class="form-control" type="text" disabled="true" value="<?= ($customer['person']['first_name'] ?? null) . ' ' . ($customer['person']['last_name'] ?? null)  ?>" />
+										<input type="hidden" name="email" value="<?= $customer['email'] ?? null ?>" />
+										<small><input class="btn btn-link btn-sm" type="<?= ($customer ?? null) == null ? "hidden" : "submit" ?>" value="Go to Customer Profile"></small>
 									</div>
 									<div class="col-lg-6">
 										<label>Account ID</label>
-										<input class="form-control" type="text" name="accountID" disabled="true" value="" /> <br/>
+										<input class="form-control" type="text" disabled="true" value="<?= $account['account_id'] ?? null ?>" /> <br/>
 									</div>
 								</div><br/>
 								
@@ -63,14 +64,11 @@
 								<div class="row">
 									<div class="col-lg-6">
 										<label>Account Type</label>
-										<select class="form-control"  name="account_type" disabled="true">
-											<option value="null">-- Choose below --</option>
-											<option value="" selected="<?php //if() echo "true"; ?>"> </option>
-										</select>
+										<input class="form-control" type="text" value="<?= $account['account_type']['description'] ?? null ?>" disabled="true">
 									</div>
 									<div class="col-lg-6">
 										<label>Balance</label>
-										<input class="form-control" type="number" step="0.01" name="min_monthly_adb" disabled="true" />		
+										<input class="form-control" type="text" value="<?= number_format(($account['balance'] ?? null), 2) ?>" disabled="true" />		
 									</div>
 								</div><br/>
 								<div class="row">

@@ -7,9 +7,9 @@ class WebsiteController extends BaseController {
 	public function index(){
     if(parent::current_user())
       if(parent::current_user()->user_type == 'user')
-        return $this->loadView('profile');
+        return redirect('/customer');
       else
-        return $this->tellerView('teller');
+        return redirect('/teller');
 
     $this->load->view('website/header');
     $this->load->view('website/loginView');

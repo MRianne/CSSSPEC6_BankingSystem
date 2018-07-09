@@ -142,6 +142,26 @@ class AccountController extends BaseController {
 		}
 	}
 
+	public function get() {
+		if(parent::is_user('admin') || parent::is_user('teller')) {
+
+			$this->form_validation->set_rules('account_id', 'Account Number', 'trim|required|numeric|exact_length[12]');
+
+			if($this->form_validation->run()) {
+
+				$account = $this->account->get_protected($this->input->post('account_id'));
+				$customer = $this->customer->with('person')->get($account['customer_id']);
+
+				return parent::view('searchAccount', ['account' => $account, 'customer' => $customer]);
+			}
+			$data['error_message'] = validation_errors();
+		    $this->session->set_flashdata('error_message',  $data['error_message']);
+		    return redirect('account/search');
+		} else {
+			return show_error("Forbidden Access", 403, "GET OUT OF HERE!!"); // return to page
+		}
+	}
+
 	public function get_all() {
 		if(parent::is_user('admin') || parent::is_user('teller'))
 			return $this->account->get_all_protected();

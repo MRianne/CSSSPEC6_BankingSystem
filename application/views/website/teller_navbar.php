@@ -20,7 +20,7 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a class="brand-link">
+    <a href="#" class="brand-link">
       <img src="<?php echo base_url();?>resources/img/website/logo.png" class="brand-image"
            style="opacity: .8">
       <span class="brand-text font-weight-light">BankSys</span>
@@ -73,12 +73,12 @@
                   <p>View Account Types</p>
                 </a>
               </li>
-              <!-- <li class="nav-item">
+              <li class="nav-item">
                 <a href="<?php echo base_url(); ?>account/search" class="nav-link">
                   <i class="fa fa-circle-o nav-icon"></i>
                   <p>Search Account</p>
                 </a>
-              </li> -->
+              </li>
               <li class="nav-item">
                 <a href="<?php echo base_url(); ?>user/create" class="nav-link">
                   <i class="fa fa-circle-o nav-icon"></i>

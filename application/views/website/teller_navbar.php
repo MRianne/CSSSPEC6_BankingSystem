@@ -7,7 +7,7 @@
     <!-- Left userChoice links -->
     <ul class="userChoice-nav">
       <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
+        <a class="nav-link" data-widget="pushmenu" ><i class="fa fa-bars"></i></a>
       </li>
       
     </ul>
@@ -20,7 +20,7 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="#" class="brand-link">
       <img src="<?php echo base_url();?>resources/img/website/logo.png" class="brand-image"
            style="opacity: .8">
       <span class="brand-text font-weight-light">BankSys</span>
@@ -68,9 +68,9 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?php echo base_url(); ?>account/type/create" class="nav-link">
+                <a href="<?php echo base_url(); ?>account/type/view" class="nav-link">
                   <i class="fa fa-circle-o nav-icon"></i>
-                  <p>Create Account Type</p>
+                  <p>View Account Types</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -98,12 +98,12 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <a href="<?php echo base_url(); ?>teller/checkAccountBalance" class="nav-link ">
                   <i class="fa fa-circle-o nav-icon"></i>
                   <p>Check Account Balance</p>
                 </a>
-              </li>
+              </li> -->
               <li class="nav-item">
                 <a href="<?php echo base_url(); ?>teller/withdrawFromAccount" class="nav-link">
                   <i class="fa fa-circle-o nav-icon"></i>
@@ -125,6 +125,14 @@
             </ul>
           </li>
 
+          <!-- <li class="nav-item">
+            <a href="<?php echo base_url(); ?>teller/changePass" class="nav-link">
+              <i class="nav-icon fa fa-cogs"></i>
+              <p>
+                Change Password
+              </p>
+            </a>
+          </li> -->
            <li class="nav-item">
             <a href="<?php echo base_url(); ?>websitecontroller/userChoice/logout" class="nav-link">
               <i class="nav-icon fas fa-sign-out-alt"></i>

@@ -6,7 +6,7 @@
 		<div class="container-fluid">
 			<div class="row mb-2">
 				<div class="col-sm-6">
-					<h1 class="m-0 text-dark">List of Transactions</h1>
+					<h1 class="m-0 text-dark">Hello, First!</h1>
 				</div><!-- /.col -->
 
 			</div><!-- /.row -->
@@ -22,17 +22,25 @@
 					<div class="card">
 						<div class="card-body ">
 
-							<h5 class="card-title">Here is the list of your previous transactions</h5>
+							<h5 class="card-title">User Details</h5>
 							<hr>
-							<table id="tbl_transactions" class="table table-bordered table-striped dataTable">
-								<!-- <thead>
-									<tr>
-										<th>Date</th>
-										<th>Type</th>
-										<th>Amount</th>
-										<th>Status</th>
-									</tr>
-								</thead> -->
+							<table id="account_table" class="table table-bordered">
+								<tr>
+									<td colspan="2" class="table_head"><b>Account Information</b></td>
+								</tr>
+								<tr>
+									<td class="cat"><b>Number of registered accounts: </b></td>
+									<td><?= $accounts ?? 0 ?></td>
+								</tr>	
+								<tr>
+									<td class="cat"><b>Number of customers: </b></td>
+									<td><?= $customers ?? 0 ?></td>
+								</tr>
+								<tr>
+									<td class="cat"><b>Number of tellers: </b></td>
+									<td><?= $tellers ?? 0 ?></td>
+								</tr>
+								
 							</table>
 
 						</div>
@@ -61,7 +69,3 @@
 </footer>
 </div>
 <!-- ./wrapper -->
-
-<script>
-    
-</script>

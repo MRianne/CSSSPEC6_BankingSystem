@@ -56,6 +56,15 @@ class Account_Model extends BaseModel {
 		return $account;
 	}
 
+	public function protected_get_many_by($key) {
+		$accounts = $this->account->with('account_type')->get_many_by($key);
+		foreach ($accounts as $account) {
+			unset($account['account_pin']);
+		}
+
+		return $accounts;
+	}
+
 	public function get_all_protected() {
 		$accounts = $this->account->with('account_type')->get_all();
 		foreach ($accounts as $account) {

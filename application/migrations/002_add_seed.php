@@ -36,7 +36,7 @@ class Migration_Add_Seed extends CI_Migration {
         return $this->db->insert('tbl_users', [
             'username'              => 'admin',
             'password'              => 'bcc8d5747e4bd8d68dc3da36734c569e06775b6eb83db1a35d78c00c92d9fa3c41dd7e149b057ca1d7debaefbc94fda3ca9ff3b2379f85727d9869dee05fbeb5p4dSoG+RCTXs/ENauAiKcrttoOILZE/NCJapuBJBieo=',
-            'email'                 => 'admin@gmai.com',
+            'email'                 => 'admin@gmail.com',
             'person_id'             => $id,
             'user_type'             => 'admin',
             'last_login'            => NULL,

@@ -6,6 +6,7 @@ class Customer_Model extends BaseModel {
 	public $belongs_to = [
 		'person' => ['model' => 'Person_Model', 'primary_key' => 'person_id']
 	];
+	public $has_many = ['accounts' => ['model' => 'Account_model', 'primary_key' => 'customer_id']];
 
 	public $_table = 'tbl_customers';
 	public $primary_key = 'customer_id';

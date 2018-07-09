@@ -64,6 +64,7 @@ $route['transact/otc/withdraw']['GET'] = "WebsiteController/tellerView/withdrawA
 $route['transact/otc/withdraw']['POST'] = "TransactionController/otc_withdrawal";
 $route['transact/online/transfer']['GET'] = "TransactionController/online_fund_transfer_view";
 $route['transact/online/transfer']['POST'] = "TransactionController/online_fund_transfer";
+$route['transact/interest'] = "TransactionController/calculate_interest";
 /*
  * Account routes
  */

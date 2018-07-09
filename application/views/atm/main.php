@@ -47,7 +47,7 @@ h1
   margin-right: 150px;
   text-align: center;
   letter-spacing: -1px;
-  margin-top: 10px;
+  margin-top: 5px;
 }
 
 h3

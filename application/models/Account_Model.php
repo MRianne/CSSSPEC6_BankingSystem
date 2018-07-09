@@ -78,25 +78,24 @@ class Account_Model extends BaseModel {
 
 	public function atm_verification($id, $pin, $purpose){
 		$account = $this->account->get($id);
-		return $account;
-		// if ($account && $this->encryption->decrypt($account['account_pin']) === $pin) {
-		// 	if($purpose == "account"){
-		// 		$person_id = $this->customer->get($account['customer_id'])["person_id"];
-		// 		$person =  $this->person->get($person_id);
-		// 		$person["account_type"] = $account["type_id"];
-		// 		$person["account_status"] = $account["status"];
-		// 		$person["account_expiry"] = $account["date_expiry"];
-		// 		//return $person;
-		// 	}
-		// 	else if($purpose == "withdraw"){
-		// 		return true;
-		// 	}
-		// }
-		// else{
-			// $attempts = $this->_atm_invalid_attempts($account);
-			// return array('error_message' => "Invalid Pin (".$attempts.")",
-			//							'attempts' => $attempts);
-		//}
+		if ($account && $this->encryption->decrypt($account['account_pin']) === $pin) {
+			if($purpose == "account"){
+				$person_id = $this->customer->get($account['customer_id'])["person_id"];
+				$person =  $this->person->get($person_id);
+				$person["account_type"] = $account["type_id"];
+				$person["account_status"] = $account["status"];
+				$person["account_expiry"] = $account["date_expiry"];
+				return $person;
+			}
+			else if($purpose == "withdraw"){
+				return true;
+			}
+		}
+		else{
+			$attempts = $this->_atm_invalid_attempts($account);
+			return array('error_message' => "Invalid Pin (".$attempts.")",
+										'attempts' => $attempts);
+		}
 	}
 
 	private function _atm_invalid_attempts($account){

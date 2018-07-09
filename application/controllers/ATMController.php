@@ -95,22 +95,20 @@ class ATMController extends BaseController {
 							$this->session->userdata("authentication_in"),
 							$this->input->post("password"),
 							"account");
-			print_r($res);
-			echo $this->encryption->decrypt("209bb7429c74ed5ce9e132ad26b2d4effe0a348694ca377865ca10f09f289d3656093afb24fc3c8e9da8b83fbbef9ff7a76d4f68382e42fde829649e5670346bvcBd3c8+jjobQm/POJT1o1rPADdRs2T2A2OnbF9tzx4=");
 			if(!isset($res["error_message"])){
-				// $data = array(
-				// 		"account_id" => $this->session->userdata("authentication_in"),
-				// 		"person_id" => $res["person_id"],
-				// 		"first_name" => $res["first_name"],
-				// 		"middle_name" => $res["middle_name"],
-				// 		"last_name" => $res["last_name"],
-				// 		"account_type" => $res["account_type"],
-				// 		"account_expiry" => $res["account_expiry"],
-				// 		"account_status" => $res["account_status"],
-				// );
-				// $this->session->set_userdata("user_in", $data);
-				// $this->session->unset_userdata('authentication_in');
-				//redirect('ATM/main');
+				$data = array(
+						"account_id" => $this->session->userdata("authentication_in"),
+						"person_id" => $res["person_id"],
+						"first_name" => $res["first_name"],
+						"middle_name" => $res["middle_name"],
+						"last_name" => $res["last_name"],
+						"account_type" => $res["account_type"],
+						"account_expiry" => $res["account_expiry"],
+						"account_status" => $res["account_status"],
+				);
+				$this->session->set_userdata("user_in", $data);
+				$this->session->unset_userdata('authentication_in');
+				redirect('ATM/main');
 			}
 			else if(isset($res["attempts"])){
 				$this->session->set_flashdata('error_message',  $res["error_message"]);

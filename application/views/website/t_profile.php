@@ -30,15 +30,15 @@
 								</tr>
 								<tr>
 									<td class="cat"><b>Number of registered accounts: </b></td>
-									<td>2</td>
+									<td><?= $accounts ?? 0 ?></td>
 								</tr>	
 								<tr>
 									<td class="cat"><b>Number of customers: </b></td>
-									<td>3</td>
+									<td><?= $customers ?? 0 ?></td>
 								</tr>
 								<tr>
 									<td class="cat"><b>Number of tellers: </b></td>
-									<td>Savings</td>
+									<td><?= $tellers ?? 0 ?></td>
 								</tr>
 								
 							</table>

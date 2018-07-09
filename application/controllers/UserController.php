@@ -147,6 +147,18 @@ class UserController extends BaseController {
 		return redirect('user/changePass'); // render create form w/ errors
 	}
 
+	public function t_dashboard() {
+		if(parent::is_user('teller') || parent::is_user('admin')) {
+			$tellers = count($this->user->get_many_by(['user_type' => 'teller']));
+			$customers = count($this->customer->get_all());
+			$accounts = count($this->account->get_all_protected());
+			parent::view('t_profile', ['accounts' => $accounts, 'tellers' => $tellers, 'customers' => $customers]);
+		
+    	} else {
+	      show_error("Forbidden Access", 403, "GET OUT OF HERE!!");
+	    }
+	}
+
 	public function login() {
 		if (!parent::current_user()) {
 			$username = $_POST['username'] ?? null;

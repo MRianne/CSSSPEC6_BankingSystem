@@ -29,25 +29,26 @@
 							<table id="account_table" class="table table-bordered">
 								<thead>
 									<tr >
-										<td>Account Type</td>
+										<td>Account Name</td>
 										<td>Initial Deposit</td>
 										<td>Interest Rate per annum</td>
 										<td>Actions</td>
 									</tr>
 								</thead>
-								
-								<tr>
-									<td>1234567890</td>
-									<td>Savings</td>
-									<td>Savings</td>
-									<td>
-										<a href="<?php echo base_url() ?>account/type/view/asasa" class="btn border-round btn-bg"> View</a> 
-										<a href="<?php echo base_url() ?>account/type/edit/asasa" class="btn border-round btn-primary"> Edit</a> 
-										<a href="<?php echo base_url() ?>account/type/delete" class="btn border-round btn-danger"> Delete</a>
-									</td>
-									
-								</tr>
-								
+								<?php if($account_types)
+									foreach ($account_types as $account_type): ?>
+									<tr>
+										<td><?= $account_type['description'] ?></td>
+										<td><?= number_format($account_type['initial_deposit'], 2) ?></td>
+										<td><?= $account_type['interest_rate'] ?></td>
+										<td>
+											<a href="<?php echo base_url() ?>account/type/view/<?= $account_type['type_id'] ?>" class="btn border-round btn-bg"> View</a> 
+											<a href="<?php echo base_url() ?>account/type/edit/<?= $account_type['type_id'] ?>" class="btn border-round btn-primary"> Edit</a> 
+											<a href="<?php echo base_url() ?>account/type/delete/<?= $account_type['type_id'] ?>" class="btn border-round btn-danger"> Delete</a>
+										</td>
+										
+									</tr>
+								<?php endforeach; ?>
 							</table>
 
 						</div>

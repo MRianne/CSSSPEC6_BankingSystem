@@ -41,28 +41,28 @@
 								}
 								?>
 
-								<?php echo form_open('account/type/create'); ?>
+								<?php echo form_open('account/type/edit/'.$type_id); ?>
 
 								<label>Account Type Name</label>
-								<input class="form-control" type="textarea" name="description"/> <br/>
+								<input class="form-control" type="text" name="description" value="<?= $description ?>"/> <br/>
 								<div class="row">
 									<div class="col-lg-6">
 										<label>Initial Deposit</label>
-										<input class="form-control" type="number" step="0.01" name="initial_deposit" value="" />		
+										<input class="form-control" type="number" step="0.01" name="initial_deposit" value="<?= $initial_deposit ?>" />		
 									</div>
 									<div class="col-lg-6">
 										<label>Required Minimum Monthly ADB</label>
-										<input class="form-control" type="number" step="0.01" name="min_monthly_adb" value="" />		
+										<input class="form-control" type="number" step="0.01" name="min_monthly_adb" value="<?= $min_monthly_adb ?>" />		
 									</div>
 								</div><br/>
 								<div class="row">
 									<div class="col-lg-6">
 										<label>Required Minimum Daily Balance to Earn Interest</label>
-										<input class="form-control" type="number" step="0.01" name="req_daily_bal" value="" />		
+										<input class="form-control" type="number" step="0.01" name="req_daily_bal" value="<?= $req_daily_bal ?>" />		
 									</div>
 									<div class="col-lg-6">
 										<label>Interest Rate per annum</label>
-										<input class="form-control" type="number" step="0.01" name="interest_rate" value="" />		
+										<input class="form-control" type="number" step="0.01" name="interest_rate" value="<?= $interest_rate ?>" />		
 									</div>
 								</div><br/>
 								

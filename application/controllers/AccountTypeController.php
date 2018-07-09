@@ -14,10 +14,10 @@ class AccountTypeController extends BaseController {
 
 			// $this->form_validation->set_rules('type_id', 'ID', 'trim|required|is_unique[tbl_account_types.type_id]');
 			$this->form_validation->set_rules('description', 'Name', 'trim|required|alpha_numeric_spaces');
-			$this->form_validation->set_rules('initial_deposit', 'Initial Deposit', 'trim|required|decimal');
-			$this->form_validation->set_rules('min_monthly_adb', 'Required Minimum Monthly ADB', 'trim|required|decimal');
-			$this->form_validation->set_rules('req_daily_bal', 'Required Daily Balance to Earn Interest', 'trim|required|decimal');
-			$this->form_validation->set_rules('interest_rate', 'Interest Rate (Per Annum)', 'trim|required|decimal');
+			$this->form_validation->set_rules('initial_deposit', 'Initial Deposit', 'trim|required|numeric');
+			$this->form_validation->set_rules('min_monthly_adb', 'Required Minimum Monthly ADB', 'trim|required|numeric');
+			$this->form_validation->set_rules('req_daily_bal', 'Required Daily Balance to Earn Interest', 'trim|required|numeric');
+			$this->form_validation->set_rules('interest_rate', 'Interest Rate (Per Annum)', 'trim|required|numeric');
 
 			if ($this->form_validation->run()) {
 				$this->account_type->insert([
@@ -48,11 +48,11 @@ class AccountTypeController extends BaseController {
 			$current_user = parent::current_user();
 			$account_type = $this->account_type->get($id);
 			
-			$this->form_validation->set_rules('description', 'Name', 'trim|required|alpha_numeric_spaces');
-			$this->form_validation->set_rules('initial_deposit', 'Initial Deposit', 'trim|required|decimal');
-			$this->form_validation->set_rules('min_monthly_adb', 'Required Minimum Monthly ADB', 'trim|required|decimal');
-			$this->form_validation->set_rules('req_daily_bal', 'Required Daily Balance to Earn Interest', 'trim|required|decimal');
-			$this->form_validation->set_rules('interest_rate', 'Interest Rate (Per Annum)', 'trim|required|decimal');
+			$this->form_validation->set_rules('description', 'Account Name', 'trim|required|alpha_numeric_spaces');
+			$this->form_validation->set_rules('initial_deposit', 'Initial Deposit', 'trim|required|numeric');
+			$this->form_validation->set_rules('min_monthly_adb', 'Required Minimum Monthly ADB', 'trim|required|numeric');
+			$this->form_validation->set_rules('req_daily_bal', 'Required Daily Balance to Earn Interest', 'trim|required|numeric');
+			$this->form_validation->set_rules('interest_rate', 'Interest Rate (Per Annum)', 'trim|required|numeric');
 
 			if ($this->form_validation->run()) {
 				$this->account_type->update($id, [
@@ -62,12 +62,44 @@ class AccountTypeController extends BaseController {
 					'req_daily_bal' => $this->input->post('req_daily_bal'),
 					'interest_rate' => $this->input->post('interest_rate')
 				]);
-				return TRUE; // redirect to success
+				
+				$this->session->set_flashdata('message', 'Account Type Successfully Updated.');
+				return redirect('account/type/edit/'.$id); // redirect to success
 			}
+	      	$data['error_message'] = validation_errors();
+		    //$data['error_message'] = explode("</p>", $data['error_message']);
+		    $this->session->set_flashdata('error_message',  $data['error_message']);
 
-			return FALSE; // render create form w/ errors
+			return redirect('account/type/edit/'.$id); // render create form w/ errors
 		} else {
-			return FALSE; // return to page
+			return show_error("Forbidden Access", 403, "GET OUT OF HERE!!"); // return to page
+		}
+	}
+
+	public function listAccountTypes() {
+		if(parent::is_user('admin')) {
+			$account_types = $this->account_type->get_all();
+			return parent::view('listAccountTypes', ['account_types' => $account_types]);
+		} else {
+			return show_error("Forbidden Access", 403, "GET OUT OF HERE!!"); // return to page
+		}
+	}
+
+	public function viewAccountType($id) {
+		if(parent::is_user('admin')) {
+			$account_type = $this->account_type->get($id);
+			return parent::view('viewAccountType', $account_type);
+		} else {
+			return show_error("Forbidden Access", 403, "GET OUT OF HERE!!"); // return to page
+		}
+	}
+
+	public function editAccountType($id) {
+		if(parent::is_user('admin')) {
+			$account_type = $this->account_type->get($id);
+			return parent::view('editAccountType', $account_type);
+		} else {
+			return show_error("Forbidden Access", 403, "GET OUT OF HERE!!"); // return to page
 		}
 	}
 
@@ -78,8 +110,13 @@ class AccountTypeController extends BaseController {
 	}
 
 	public function delete($id) {
-		if(parent::is_user('admin'))
-			return $this->account_type->delete($id);
-		return FALSE;
+		if(parent::is_user('admin')){
+			$this->account_type->delete($id);
+			$this->session->set_flashdata('message', 'Account Type Successfully Deleted.');
+			return redirect('account/type/view'); // redirect to success
+
+		} else {
+			return show_error("Forbidden Access", 403, "GET OUT OF HERE!!"); // return to page
+		}
 	}
 }

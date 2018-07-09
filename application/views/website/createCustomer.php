@@ -45,17 +45,17 @@
 								<div class="row">
 									<div class="col-lg-6">
 										<label for="first_name">First Name</label>
-										<input type="text" class="form-control" name="first_name" >
+										<input type="text" class="form-control" name="first_name"  required="true">
 									</div>
 									<div class="col-lg-6">
 										<label>Middle Name</label>
-										<input class="form-control" type="text" name="middle_name"/>
+										<input class="form-control" type="text" name="middle_name" required="true"/>
 									</div>
 								</div><br/>
 								<div class="row">
 									<div class="col-lg-6">
 										<label>Last Name</label>
-										<input class="form-control" type="text" name="last_name" />
+										<input class="form-control" type="text" name="last_name"  required="true"/>
 									</div>
 									<div class="col-lg-6">
 										<label>Gender</label>
@@ -70,39 +70,39 @@
 								
 								
 								<label>Present Address</label>
-								<textarea class="form-control" name="present_address" rows="5" style="resize: none;" ></textarea><br/>
+								<textarea class="form-control" name="present_address" rows="5" style="resize: none;"  required="true"></textarea><br/>
 								<label>Permanent Address</label>
-								<textarea class="form-control" name="permanent_address" rows="5" style="resize: none;" ></textarea><br/>
+								<textarea class="form-control" name="permanent_address" rows="5" style="resize: none;"  required="true"></textarea><br/>
 								<div class="row">
 									<div class="col-lg-6">
 										<label>Email Address</label>
-										<input class="form-control" type="email" name="email"/>
+										<input class="form-control" type="email" name="email" required="true"/>
 									</div>
 									<div class="col-lg-6">
 										<label>Contact no.</label>
-										<input class="form-control" type="text" name="contact_no" />
+										<input class="form-control" type="text" name="contact_no"  required="true"/>
 									</div>
 								</div><br/>
 
 								<div class="row">
 									<div class="col-lg-6">
 										<label>Date of Birth</label>
-										<input class="form-control" type="date" name="birth_date" />
+										<input class="form-control" type="date" name="birth_date" required="true" />
 									</div>
 									<div class="col-lg-6">
 										<label>Place of Birth</label>
-										<input class="form-control" type="text" name="birth_place"/>
+										<input class="form-control" type="text" name="birth_place" required="true" />
 									</div>
 								</div><br/>
 
 								<div class="row">
 									<div class="col-lg-6">
 										<label>Nationality</label>
-										<input class="form-control" type="text" name="nationality"/>
+										<input class="form-control" type="text" name="nationality" required="true" />
 									</div>
 									<div class="col-lg-6">
 										<label>Citizenship</label>
-										<input class="form-control" type="text" name="citizenship"/>
+										<input class="form-control" type="text" name="citizenship" required="true" />
 									</div>
 								</div><br/>
 
@@ -125,12 +125,12 @@
 									<div class="col-lg-4">
 
 										<label>SSS No.</label>
-										<input class="form-control" type="text" name="sss_no"/>
+										<input class="form-control" type="text" name="sss_no" required="true"/>
 										<small>Please put N/A if it is not applicable to you.</small>
 									</div>
 									<div class="col-lg-4">
 										<label>TIN No.</label>
-										<input class="form-control" type="text" name="tin_no"/>
+										<input class="form-control" type="text" name="tin_no" required="true"/>
 										<small>Please put N/A if it is not applicable to you.</small>
 									</div>
 								</div><br/>

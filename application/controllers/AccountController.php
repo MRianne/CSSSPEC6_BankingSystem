@@ -122,4 +122,39 @@ class AccountController extends BaseController {
 			return $this->account->delete($id);
 		return FALSE;
 	}
+
+	public function atm_change_pin(){
+		$this->form_validation->set_rules('newpin','New Pin','trim|required|exact_length[6]|numeric');
+		$this->form_validation->set_rules('vernewpin','Verification Pin','trim|required|exact_length[6]|numeric');
+		if($this->session->userdata("atm_user") && $this->form_validation->run()){
+			$newpin = $this->input->post("newpin");
+			$vernewpin = $this->input->post("vernewpin");
+			$id = $this->session->userdata("atm_user")["account_id"];
+			if($newpin == $vernewpin){
+				if($this->account->authenticate_account($id, $newpin)){
+					$this->session->set_flashdata('error_message', 'New pin should not match old pin');
+				}
+				else{
+					$this->account->update($id, [
+						'account_pin' => $this->encryption->encrypt($newpin)
+					]);
+
+					$this->session->unset_userdata('atm_user');
+					$this->session->unset_userdata('atm_transaction');
+					$this->session->set_flashdata('error_message', 'Pin has been changed');
+
+					redirect("ATM");
+				}
+			}
+			else{
+				$this->session->set_flashdata('error_message', 'new 6 - digit pin did not match');
+			}
+		}
+		else{
+      $data['error_message'] = validation_errors();
+      $data['error_message'] = explode("</p>", $data['error_message']);
+      $this->session->set_flashdata('error_message', substr($data['error_message'][0],3));
+    }
+		redirect('ATM/pin');
+	}
 }

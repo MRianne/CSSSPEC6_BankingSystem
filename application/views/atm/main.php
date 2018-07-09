@@ -107,8 +107,8 @@ input[type=submit]
 {
   background-color: white;
   border: none;
-  height: 70px;
-  width: 400px;
+  height: 60px;
+  width: 300px;
   margin: auto;
   display: block;
   margin-top: 0px;
@@ -158,7 +158,8 @@ input:focus {
     <a id="buttons" href="verify/deposit"><input type="submit" value="Deposit"></a>
     <br>
     <a id="buttons" href="verify/balance"><input type="submit" value="Balance"></a>
-
+		<br>
+		<a id="buttons" href="verify/pin"><input type="submit" value="Change Pin"></a>
 
 </section>
 

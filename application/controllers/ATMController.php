@@ -122,6 +122,19 @@ class ATMController extends BaseController {
 			redirect('ATM');
 	}
 
+	public function viewChangePin(){
+		if($this->session->userdata("atm_user")){
+			if($this->session->userdata("atm_user")["action"] == "pin")
+				$this->load->view('atm/pin');
+			else if($this->session->userdata("atm_user")["action"] == "authenticate")
+				redirect('ATM/verify/pin');
+			else
+				redirect('ATM/main');
+		}
+		else
+			redirect('ATM');
+	}
+
 	public function viewNext(){
 		// delete receipt
 		if($this->session->userdata("atm_transaction")){
@@ -177,9 +190,8 @@ class ATMController extends BaseController {
 	public function signOut(){
 		if($this->session->userdata("atm_user"))
 			$this->session->unset_userdata('atm_user');
-		if($this->session->userdata("atm_transaction")){
+		if($this->session->userdata("atm_transaction"))
 			$this->session->unset_userdata('atm_transaction');
-		}
 		redirect('ATM');
 	}
 

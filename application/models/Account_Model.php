@@ -56,42 +56,6 @@ class Account_Model extends BaseModel {
 		return $account;
 	}
 
-	public function atm_verification($id, $pin, $purpose){
-		$account = $this->account->get($id);
-		if ($account && $this->encryption->decrypt($account['account_pin']) === $pin) {
-			if($purpose == "account"){
-				$person_id = $this->customer->get($account['customer_id'])["person_id"];
-				$person =  $this->person->get($person_id);
-				$person["account_type"] = $account["type_id"];
-				$person["account_status"] = $account["status"];
-				$person["account_expiry"] = $account["date_expiry"];
-				return $person;
-			}
-			else if($purpose == "withdraw"){
-				return true;
-			}
-		}
-		else{
-			$attempts = $this->_atm_invalid_attempts($account);
-			return array('error_message' => "Invalid Pin (".$attempts.")",
-										'attempts' => $attempts);
-		}
-	}
-
-	private function _atm_invalid_attempts($account){
-		$data = array();
-		$data["invalid_attempts"] = $account["invalid_attempts"] + 1;
-
-		if($data["invalid_attempts"] % 5 == 0) $data["status"] = "locked";
-
-		$this->db->set($data);
-		$this->db->where('account_id', $account["account_id"]);
-		$this->db->update('tbl_accounts');
-
-		if($this->db->affected_rows() == 1)	return $data["invalid_attempts"];
-		else return $account["invalid_attempts"];
-	}
-
 	public function get_all_protected() {
 		$accounts = $this->account->with('account_type')->get_all();
 		foreach ($accounts as $account) {

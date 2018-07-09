@@ -128,7 +128,7 @@ class CustomerController extends BaseController {
 	      	$data['error_message'] = validation_errors();
 		    //$data['error_message'] = explode("</p>", $data['error_message']);
 		    $this->session->set_flashdata('error_message', $data['error_message']);
-				return redirect('customer/search'); // render create form w/ errors
+			return redirect('customer/search'); // render create form w/ errors
 
 		} else {
 			return show_error("Forbidden Access", 403, "GET OUT OF HERE!!"); // return to page

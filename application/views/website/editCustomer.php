@@ -42,7 +42,7 @@
 				$this->session->flashdata('error_message')
 				.'</div>';
 			}
-			if($this->session->flashdata('message' !== null)){
+			if($this->session->flashdata('message') !== null){
 				echo '<div class="alert alert-success ">
 				<h5><i class="icon fa fa-check"></i> Success!</h5>'.
 				$this->session->flashdata('message')

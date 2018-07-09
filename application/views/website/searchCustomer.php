@@ -22,38 +22,16 @@
 					<div class="card">
 						<div class="card-header">
 							<div class="row">
-								<form class="form-inline">
-									<input class="form-control col-lg-9" type="text" name="customer_name" placeholder="Enter customer name">
+								<form class="form-inline" action="search" method="POST">
+									<input class="form-control col-lg-9" type="email" name="email" placeholder="Enter customer email">
 									<button class="btn btn-rounded btn-bg col-lg-3"  type="submit" > Search</button>
 								</form>
 							</div>
 						</div>
 					</div>
-					<div class="card" style="display: <?php //if( walang results) echo none; ?>">
-						<div class="card-body">
-							<table class="table table-bordered">
-								<tbody>
-									<tr>
-										<th>Last Name</th>
-										<th>First Name</th>
-										<th style="width: 40%">Actions</th>
-									</tr>
-									<tr>
-										<td></td>
-										<td></td>
-										<td>
-											<a href="<?php echo base_url(); ?>account/create/meow" class="btn btn-bg btn-sm"> Open Account</a>
-											<a href="<?php echo base_url(); ?>user/create/" class="btn btn-bg btn-sm"> Add User account</a>
-											
-											<a href="<?php echo base_url(); ?>customer/edit/??" class="btn btn-primary btn-sm"> View Details</a>
-											<a href="" class="btn btn-danger btn-sm"> Delete</a>
-										</td>
-									</tr>
-								</tbody></table>
-							</div>
-						</div>
-
-
+					<?php //if()
+						include('editCustomer.php')
+					 ?>
 					</div>
 
 				</div>

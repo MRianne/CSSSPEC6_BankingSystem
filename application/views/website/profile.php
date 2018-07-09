@@ -1,4 +1,4 @@
-
+<?php $user = $this->session->user ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 	<!-- Content Header (Page header) -->
@@ -6,7 +6,7 @@
 		<div class="container-fluid">
 			<div class="row mb-2">
 				<div class="col-sm-6">
-					<h1 class="m-0 text-dark">Hello, First!</h1>
+					<h1 class="m-0 text-dark">Hello, <?= $user->person['first_name'] ?>!</h1>
 				</div><!-- /.col -->
 
 			</div><!-- /.row -->
@@ -26,99 +26,30 @@
 							<hr>
 							<table id="account_table" class="table table-bordered">
 								<tr>
-									<td colspan="2" class="table_head"><b>General Information</b></td>
+									<td colspan="3" class="table_head"><b>Account Information</b></td>
+								</tr>
+								<tr>
+									<td class="cat" colspan="2"><b>Number of accounts: </b></td>
+									<td><?= $no_of_accounts ?></td>
 								</tr>	
 								<tr>
-									<td class="cat"><b>First Name: </b></td>
-									<td>First</td>
-								</tr>	
-								<tr>
-									<td class="cat"><b>Last Name: </b></td>
-									<td>Last</td>
+									<td class="cat"><b>Account Number</b></td>
+									<td class="cat"><b>Account Type</b></td>
+									<!-- <td class="cat"><b>Account Type</b></td> -->
+									<td class="cat"><b>Actions</b></td>
 								</tr>
-								<tr>
-									<td class="cat"><b>Middle Name: </b></td>
-									<td>Middle</td>
-								</tr>	
-								<tr>
-									<td class="cat"><b>Gender: </b></td>
-									<td>F/M</td>
-								</tr>
-								<tr>
-									<td class="cat"><b>Birthday: </b></td>
-									<td>01/01/1990</td>
-								</tr><tr>
-									<td class="cat"><b>Birthplace: </b></td>
-									<td>Dito</td>
-								</tr>
-								<tr>
-									<td class="cat"><b>Nationality & Citizenship: </b></td>
-									<td>Peenoise, Peenoise</td>
-								</tr>
-
-								<tr>
-									<td colspan="2" class="table_head"><b>Website Information</b></td>
-								</tr>	
-								<tr>
-									<td class="cat"><b>Username: </b></td>
-									<td>uname</td>
-								</tr>	
-
-								<tr>
-									<td colspan="2" class="table_head"><b>Contact Information</b></td>
-								</tr>
-								<tr>
-									<td class="cat"><b>Present Address: </b></td>
-									<td>address</td>
-								</tr>	
-								<tr>
-									<td class="cat"><b>Email Address: </b></td>
-									<td>address</td>
-								</tr>	
-								<tr>
-									<td class="cat"><b>Contact Number: </b></td>
-									<td>09271234567</td>
-								</tr>	
-
-								<tr>
-									<td colspan="2" class="table_head"><b>Employment Information</b></td>
-								</tr>
-								<tr>
-									<td class="cat"><b>Employment Status: </b></td>
-									<td>Employee</td>
-								</tr>	
-								<tr>
-									<td class="cat"><b>Nature of Employement: </b></td>
-									<td>Full Time</td>
-								</tr>
-								<tr>
-									<td class="cat"><b>Source of Funds: </b></td>
-									<td>Salary</td>
-								</tr>
-
-								<tr>
-									<td colspan="2" class="table_head"><b>Account Information</b></td>
-								</tr>
-								<tr>
-									<td class="cat"><b>Number of accounts: </b></td>
-									<td>2</td>
-								</tr>	
-								<tr>
-									<td class="cat"><b>Account Number : </b></td>
-									<td>1234567890</td>
-								</tr>
-								<tr>
-									<td class="cat"><b>Account Type : </b></td>
-									<td>Savings</td>
-								</tr>
-								<tr>
-									<td class="cat"><b>Account Number : </b></td>
-									<td>1234567890</td>
-								</tr>
-								<tr>
-									<td class="cat"><b>Account Type : </b></td>
-									<td>Deposit</td>
-								</tr>
+								<?php foreach ($accounts as $account): ?>
+									<tr>
+										<td><?= $account['account_id'] ?></td>
+										<td><?= $account['account_type']['description'] ?></td>
+										<!-- <td> balance here </td> -->
+										<td>
+											<a href="<?php echo base_url() ?>account/viewBalance/<?=$account['account_id']?>" class="btn border-round btn-bg" > View Balance</a> 
+											<a href="<?php echo base_url() ?>account/viewTransactionHist/<?=$account['account_id']?>" class="btn border-round btn-primary	" > View Transaction History</a>
+										</td>
+										
+									</tr>
+								<?php endforeach; ?>								
 							</table>
 
 						</div>

@@ -6,7 +6,7 @@
 		<div class="container-fluid">
 			<div class="row mb-2">
 				<div class="col-sm-6">
-					<h1 class="m-0 text-dark">List of Transactions</h1>
+					<h1 class="m-0 text-dark">Account Balance</h1>
 				</div><!-- /.col -->
 
 			</div><!-- /.row -->
@@ -22,19 +22,20 @@
 					<div class="card">
 						<div class="card-body ">
 
-							<h5 class="card-title">Here is the list of your previous transactions</h5>
+							<h5 class="card-title">Account Information</h5>
 							<hr>
-							<table id="tbl_transactions" class="table table-bordered table-striped dataTable">
-								<!-- <thead>
-									<tr>
-										<th>Date</th>
-										<th>Type</th>
-										<th>Amount</th>
-										<th>Status</th>
-									</tr>
-								</thead> -->
-							</table>
+							<div class="form-group col-lg-6">
+								<label for="accountNum">Account Number:</label>
+								<input type="text" class="form-control" id="accountNum" value="<?= $account_id ?>" disabled="true">
+							</div>
+							<div class="form-group col-lg-6">
+								<label for="balance">Balance:</label>
+								<input type="text" class="form-control" id="balance" value="Php. <?= number_format($balance, 2) ?>" disabled="true">
+							</div>
 
+						</div>
+						<div class="card-footer">
+							<a href="<?php echo base_url(); ?>user/profile" class="btn btn-bg border-btn btn-xs"> Back to Profile </a>
 						</div>
 					</div>
 
@@ -61,7 +62,3 @@
 </footer>
 </div>
 <!-- ./wrapper -->
-
-<script>
-    
-</script>

@@ -23,7 +23,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
+<<<<<<< HEAD
 $config['base_url'] = 'http://localhost:8000/BankingSystem';
+=======
+$config['base_url'] = 'http://localhost/BankingSystem/';
+>>>>>>> f8729dd50f1405d464eeecaf19526e1e3e9ecb9e
 
 /*
 |--------------------------------------------------------------------------

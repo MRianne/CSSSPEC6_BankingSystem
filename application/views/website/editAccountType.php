@@ -6,7 +6,7 @@
 		<div class="container-fluid">
 			<div class="row mb-2">
 				<div class="col-sm-6">
-					<h1 class="m-0 text-dark">Search Account</h1>
+					<h1 class="m-0 text-dark"></h1>
 				</div><!-- /.col -->
 
 			</div><!-- /.row -->
@@ -21,12 +21,7 @@
 				<div class="col-lg-12">
 					<div class="card">
 						<div class="card-header">
-							<div class="row">
-								<form class="form-inline" method="POST" action="">
-									<input class="form-control col-lg-9" type="text" name="account_id" placeholder="Enter account no.">
-									<button class="btn btn-rounded btn-bg col-lg-3"  type="submit" > Search</button>
-								</form>
-							</div>
+							<h3 class="card-title"><b>Edit Account Type</b></h3>
 						</div>
 						<div class="card-body ">
 							<div class="form-group">
@@ -46,41 +41,41 @@
 								}
 								?>
 
-								<?php echo form_open('customer/search'); ?>
+								<?php echo form_open('account/type/edit/'.$type_id); ?>
+
+								<label>Account Type Name</label>
+								<input class="form-control" type="text" name="description" value="<?= $description ?>"/> <br/>
 								<div class="row">
 									<div class="col-lg-6">
-										<label>Account Owner</label>
-										<input class="form-control" type="text" disabled="true" value="<?= ($customer['person']['first_name'] ?? null) . ' ' . ($customer['person']['last_name'] ?? null)  ?>" />
-										<input type="hidden" name="email" value="<?= $customer['email'] ?? null ?>" />
-										<small><input class="btn btn-link btn-sm" type="<?= ($customer ?? null) == null ? "hidden" : "submit" ?>" value="Go to Customer Profile"></small>
+										<label>Initial Deposit</label>
+										<input class="form-control" type="number" step="0.01" name="initial_deposit" value="<?= $initial_deposit ?>" />		
 									</div>
 									<div class="col-lg-6">
-										<label>Account ID</label>
-										<input class="form-control" type="text" disabled="true" value="<?= $account['account_id'] ?? null ?>" /> <br/>
+										<label>Required Minimum Monthly ADB</label>
+										<input class="form-control" type="number" step="0.01" name="min_monthly_adb" value="<?= $min_monthly_adb ?>" />		
+									</div>
+								</div><br/>
+								<div class="row">
+									<div class="col-lg-6">
+										<label>Required Minimum Daily Balance to Earn Interest</label>
+										<input class="form-control" type="number" step="0.01" name="req_daily_bal" value="<?= $req_daily_bal ?>" />		
+									</div>
+									<div class="col-lg-6">
+										<label>Interest Rate per annum</label>
+										<input class="form-control" type="number" step="0.01" name="interest_rate" value="<?= $interest_rate ?>" />		
 									</div>
 								</div><br/>
 								
 								
-								<div class="row">
-									<div class="col-lg-6">
-										<label>Account Type</label>
-										<input class="form-control" type="text" value="<?= $account['account_type']['description'] ?? null ?>" disabled="true">
-									</div>
-									<div class="col-lg-6">
-										<label>Balance</label>
-										<input class="form-control" type="text" value="<?= number_format(($account['balance'] ?? null), 2) ?>" disabled="true" />		
-									</div>
-								</div><br/>
-								<div class="row">
-									<div class="col-lg-6">
-									
-									</div>
-									<div class="col-lg-6">
-										
-									</div>
-								</div><br/>
-							</form>
+								
+							
 						</div>
+						<div class="card-footer">
+							<a href="<?php echo base_url();?>account/type/view" class="btn border-round btn-danger pull-left">  Back to list</a>
+							<input class="btn border-round btn-bg pull-right" type="submit" value="Save" />
+							<button class="btn btn-warning border-round pull-right" type="reset"> Reset</button>
+						</div>
+						</form>
 					</div>
 				</div>
 

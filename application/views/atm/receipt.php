@@ -152,7 +152,7 @@ h4
   font-family: 'Montserrat light';
   font-size: 20px;
   color: #24dfda;
-  margin-left: 160px;
+  margin-left: 100px;
   margin-top: -20px;
   letter-spacing: 0px;
   float: left;
@@ -257,12 +257,12 @@ input:focus {
       <h4>Location</h4>
       <br>
       <p style="margin-left: 160px;"><?=$receipt["date"]?></p>
-      <p style="margin-left: 132px;"><?=$receipt["time"]?></p>
-      <p style="margin-left: 160px;">ATM</p>
+      <p style="margin-left: 80px;"><?=$receipt["time"]?></p>
+      <p style="margin-left: 80px;">ATM</p>
 
       <br>
 
-      <h4 style="margin-top: -10px;">Account #</h4>
+      <h4 style="margin-top: -10px; margin-left: 100px;">Account #</h4>
 
       <br>
 
@@ -272,9 +272,9 @@ input:focus {
       <br>
 
       <h4 style="margin-top: -5px; margin-left: -140px">Transaction Type</h4>
-      <h4 style="margin-top: -5px; margin-left: 10px; color: white;"><?=$receipt["description"]?></h4>
+      <p style="margin-top: -5px; margin-left: 10px; color: white;"><?=$receipt["description"]?></p>
       <h4 style="margin-top: -5px; margin-left: 10px;"> from</h4>
-      <h4 style="margin-top: -5px; margin-left: 10px; color: white;"><?=$receipt["type"]?></h4>
+      <p style="margin-top: -5px; margin-left: 10px; color: white;"><?=$receipt["type"]?></p>
 
       <br>
 
@@ -284,15 +284,17 @@ input:focus {
       <br>
 
       <h4 style="margin-top: 20px; margin-left: -265px;">Amount</h4>
-      <p style="margin-left: 135; margin-top: 20px;">Php. <?=floatval($receipt["amount"])?></p>
+      <p style="margin-left: 135px; margin-top: 1px;">Php. <?=floatval($receipt["amount"])?></p>
 
       <br>
 
-      <h4 style="margin-top: 40px; margin-left: -490px;">Available Balance</h4>
-      <p style="margin-left: 275px; margin-top: -11px;">Php. <?=floatval($receipt["balance"])?></p>
+      <h4 style="margin-top: 30px; margin-left: -320px;">Available Balance</h4>
+      <p style="margin-left: 355px; margin-top: -47px;">Php. <?=floatval($receipt["balance"])?></p>
+
       <br>
-      <h4 style="margin-top: 20px; margin-left: -490px;">Total Balance</h4>
-      <p style="margin-left: 275px; margin-top: -11px;">Php. <?=floatval($receipt["balance"])?></p>
+
+      <h4 style="margin-left: 98px;">Total Balance</h4>
+      <p style="margin-left: 355px; margin-top: -46px;">Php. <?=floatval($receipt["balance"])?></p>
 
       <a href="<?=base_url()?>ATM/next" style = "margin-top: 120px;margin-right: -40px;">Another Transaction</a>
       <img id="logout-logo" style = "margin-right: -70px;"

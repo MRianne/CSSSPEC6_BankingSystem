@@ -206,7 +206,7 @@ class ATMController extends BaseController {
 			$account_id = $this->session->userdata("atm_user")["account_id"];
 			$pin = $this->input->post("password");
 			if($this->account->authenticate_account($account_id, $pin)){
-				//locked in withdraw
+				//locked in a action
 				$user = $this->session->userdata("atm_user");
 				$user["action"] = $action;
 				$this->session->set_userdata("atm_user", $user);

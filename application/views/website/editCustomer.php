@@ -49,11 +49,11 @@
 				<div class="col-lg-6">
 					<label>Gender</label>
 					<div class="form-check">
-						<input class="form-check-input" type="radio" name="gender" value="M" <?= $gender ?? null =='M' ? 'checked="true"' : null ?> />
+						<input class="form-check-input" type="radio" name="gender" value="M" <?= ($gender ?? null) =='M' ? 'checked="true"' : null ?> />
 						<label class="form-check-label" style="margin-left: 5px;">Male</label> 
 
 						<div style="margin-left: 5%; display: inline">
-							<input class="form-check-input" type="radio" name="gender" value="F" <?= $gender ?? null =='F' ? 'checked="true"' : null ?>/>
+							<input class="form-check-input" type="radio" name="gender" value="F" <?= ($gender ?? null) =='F' ? 'checked="true"' : null ?>/>
 							<label class="form-check-label" style="margin-left: 5px;">Female</label>
 						</div>
 					</div>

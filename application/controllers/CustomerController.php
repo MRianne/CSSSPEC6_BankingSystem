@@ -141,17 +141,21 @@ class CustomerController extends BaseController {
 			$this->form_validation->set_rules('email', 'E-mail address', 'trim|required|valid_email');
 			if ($this->form_validation->run()) {
 				$customer = $this->customer->with('person')->get_by(['email' => $this->input->post('email')]);
-				foreach ($customer['person'] as $key => $value) {
-					$customer[$key] = $value;
+				if($customer) {
+					foreach ($customer['person'] as $key => $value) {
+						$customer[$key] = $value;
+					}
+					unset($customer['person']);
+					return parent::view('searchCustomer', $customer);
 				}
-				unset($customer['person']);
-				return parent::view('searchCustomer', $customer);
+			    $this->session->set_flashdata('error_message', 'Customer not found.');
+			    return redirect('customer/search');
 			}
 
 	      	$data['error_message'] = validation_errors();
 		    $this->session->set_flashdata('error_message', $data['error_message']);
 
-			// return redirect('customer/search'); // render create form w/ errors
+			return redirect('customer/search'); // render create form w/ errors
 
 		} else {
 			return show_error("Forbidden Access", 403, "GET OUT OF HERE!!"); // return to page

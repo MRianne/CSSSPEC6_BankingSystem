@@ -8,29 +8,40 @@ class ATMController extends BaseController {
 	}
 
 	public function index(){
-		if(!$this->session->userdata("authentication_in") && !$this->session->userdata("user_in"))
+		if(!$this->session->userdata("atm_user"))
     	$this->load->view('atm/login');
-		else if($this->session->userdata("authentication_in"))
-			redirect('ATM/verify');
-		else if($this->session->userdata("user_in"))
+		else
 			redirect('ATM/main');
 	}
 
 	public function test(){
-		echo $this->encryption->decrypt("0349d4fee90cc321ecd0389a576c50a5934bbf724e610f29e1552810b59013fa99e4f50840f859f0ff56ba74ad90b55b4b140aeda738d90ccbead4f437ccb7b5Js78Z2yVFuPgrZ18icaXJASRgpCRTnMorEV+akrGT70=");
-		echo $this->encryption->encrypt("030298");
+		// $this->setting->validate_daily_withdraw($this->session->userdata("atm_user")["account_id"], 40000);
+		// $data["user"] = $this->customer->with("person")->get($this->session->userdata("atm_user")["customer_id"]);
+		// print_r($data["user"]);
+		// $this->load->view("ATM/main");
 	}
 
-	public function viewVerification(){
-		if($this->session->userdata("authentication_in")){
-			$data["action"] = "accountVerification";
+	public function viewVerification($action = ""){
+
+		if($this->session->userdata("atm_user") && $this->session->userdata("atm_user")["action"] != ""){
+			if($this->session->userdata("atm_user")["action"] == "authenticate"){
+				$data["action"] = $action;
+				$this->load->view('atm/password', $data);
+			}
+			else{
+				redirect("ATM/".$this->session->userdata("atm_user")["action"]);
+			}
+		}
+		else if($this->session->userdata("atm_user") && !empty($action)){
+			//locked in verification
+			$user = $this->session->userdata("atm_user");
+			$user["action"] = "authenticate";
+			$this->session->set_userdata("atm_user", $user);
+			//go to pin verification
+			$data["action"] = $action;
 			$this->load->view('atm/password', $data);
 		}
-		else if($this->session->userdata("user_in") && $this->session->userdata("action")){
-			$data["action"] = $this->session->userdata("action")."Verification";
-			$this->load->view('atm/password', $data);
-		}
-		else if($this->session->userdata("user_in")){
+		else if($this->session->userdata("atm_user")){
 			redirect('ATM/main');
 		}
 		else
@@ -38,37 +49,120 @@ class ATMController extends BaseController {
 	}
 
 	public function viewMain(){
-		if($this->session->userdata("user_in"))
-			$this->load->view('atm/main');
-		else
-			redirect('ATM');
-	}
+		if($this->session->userdata("atm_user")){
+			$person = $this->customer->with("person")->get($this->session->userdata("atm_user")["customer_id"])["person"];
+			if($this->session->userdata("atm_user")["action"] == "")
+				$this->load->view('atm/main', array("user" => $person["first_name"]));
+			else if($this->session->userdata("atm_user")["action"] == "authenticate" || $this->session->userdata("error_message")){
+				// cancel Authentication
+				$user = $this->session->userdata("atm_user");
+				$user["action"] = "";
+				$this->session->set_userdata("atm_user", $user);
 
-	public function viewWithdraw(){
-		if($this->session->userdata("user_in")){
-			if($this->session->userdata("verification")){
-				$this->load->view('atm/withdraw');
+				$this->load->view('atm/main', array("user" => $person["first_name"]));
 			}
-			else{
-				$this->session->set_flashdata('action', "withdraw");
-				redirect('ATM/withdraw/verify');
-			}
+			else if ($this->session->userdata("atm_user")["action"] != "")
+				redirect('ATM/'.$this->session->userdata("atm_user")["action"]);
 		}
 		else
 			redirect('ATM');
 	}
 
+	public function viewTransaction($action){
+		if($this->session->userdata("atm_user")){
+			if($this->session->userdata("atm_user")["action"] == $action)
+				$this->load->view('atm/'.$action);
+			else if($this->session->userdata("atm_user")["action"] == "authenticate")
+				redirect('ATM/verify/'.$action);
+			else
+				redirect('ATM/main');
+		}
+		else
+			redirect('ATM');
+	}
+
+	public function viewBalance(){
+		if($this->session->userdata("atm_user")){
+			if($this->session->userdata("atm_user")["action"] == "balance"){
+				//update atm_user
+				$user =  $this->account->get_protected($this->session->userdata("atm_user")["account_id"]);
+				$user["action"] = "balance";
+				$this->session->set_userdata('atm_user', $user);
+
+				// set balance details
+				$data["account"] = substr($user["account_id"],8);
+				$data["balance"] = $user["balance"];
+
+				$this->load->view("atm/balance", $data);
+				}
+				else if($this->session->userdata("atm_user")["action"] == "authenticate")
+					redirect('ATM/verify/balance');
+				else
+					redirect('ATM/main');
+		}
+		else {
+			redirect('ATM');
+		}
+	}
+
+	public function viewReceipt(){
+		if($this->session->userdata("atm_user")){
+			if($this->session->userdata("atm_transaction")){
+				$data["receipt"] = $this->session->userdata("atm_transaction");
+				$d = new DateTime($data["receipt"]["date"]);
+
+				$data["receipt"]["time"] = $d->format('H:i:s');
+				$data["receipt"]["date"] = $d->format('y/m/d');
+				$this->load->view('atm/receipt', $data);
+			}
+			else
+				redirect('ATM/main');
+		}
+		else
+			redirect('ATM');
+	}
+
+	public function viewNext(){
+		// delete receipt
+		if($this->session->userdata("atm_transaction")){
+			$this->session->unset_userdata('atm_transaction');
+		}
+		// reset actions
+		$user = $this->session->userdata("atm_user");
+		$user["action"] = "";
+		$this->session->set_userdata("atm_user", $user);
+		redirect("ATM/main");
+	}
+
   public function signIn(){
-    $this->form_validation->set_rules('accountnum','Account Number','required|exact_length[12]');
+    $this->form_validation->set_rules('accountnum','Account Number','required|exact_length[12]|numeric');
 
     if($this->form_validation->run()){
-			$res = $this->account->atm_login($this->input->post("accountnum"));
-			if(is_array($res)){
-				$this->session->set_userdata('authentication_in', $this->input->post("accountnum"));
-				redirect("ATM/verify");
+			if($this->account->validate_account($this->input->post("accountnum"))){
+				$user =  $this->account->get_protected($this->input->post("accountnum"));
+				if($user["status"] == "locked"){
+					$this->session->set_flashdata('error_message', "Your account is curretly locked.
+																				<br>Please go to our nearest branch to unlock your account. ");
+					redirect('ATM');
+				}
+				else if($user["status"] == "deactivated"){
+					$this->session->set_flashdata('error_message', "Your account is curretly deactivated.
+																				<br>Please go to our nearest branch to re-activate your account. ");
+					redirect('ATM');
+				}
+				else if($account["date_expiry"] >=  new DateTime('now', new DateTimeZone('Asia/Manila'))){
+					$this->session->set_flashdata('error_message', "Your account is expired.
+																				<br>Please go to our nearest branch to resolve your account. ");
+					redirect('ATM');
+				}
+				else{
+					$user["action"] = "";
+					$this->session->set_userdata('atm_user', $user);
+					redirect("ATM/main");
+				}
 			}
 			else{
-				$this->session->set_flashdata('error_message',  $res);
+				$this->session->set_flashdata('error_message',  "Account Authentication Error");
 				redirect('ATM');
 			}
     }
@@ -81,44 +175,49 @@ class ATMController extends BaseController {
   }
 
 	public function signOut(){
-		if($this->session->userdata("user_in"))
-			$this->session->unset_userdata('user_in');
-
+		if($this->session->userdata("atm_user"))
+			$this->session->unset_userdata('atm_user');
+		if($this->session->userdata("atm_transaction")){
+			$this->session->unset_userdata('atm_transaction');
+		}
 		redirect('ATM');
 	}
 
-	public function accountVerification(){
-	  $this->form_validation->set_rules('password','Pin','required|exact_length[6]|numeric');
-
-    if($this->form_validation->run()){
-			$res = $this->account->atm_verification(
-							$this->session->userdata("authentication_in"),
-							$this->input->post("password"),
-							"account");
-			if(!isset($res["error_message"])){
-				$data = array(
-						"account_id" => $this->session->userdata("authentication_in"),
-						"person_id" => $res["person_id"],
-						"first_name" => $res["first_name"],
-						"middle_name" => $res["middle_name"],
-						"last_name" => $res["last_name"],
-						"account_type" => $res["account_type"],
-						"account_expiry" => $res["account_expiry"],
-						"account_status" => $res["account_status"],
-				);
-				$this->session->set_userdata("user_in", $data);
-				$this->session->unset_userdata('authentication_in');
-				redirect('ATM/main');
-			}
-			else if(isset($res["attempts"])){
-				$this->session->set_flashdata('error_message',  $res["error_message"]);
-				if($res["attempts"] % 5 == 0) {
-					$this->session->unset_userdata('authentication_in');
-					redirect('ATM');
-				}
+	public function verification(){
+		$this->form_validation->set_rules('password','Pin','trim|required|exact_length[6]|numeric');
+		$action = $this->input->post("action");
+		echo $action;
+		if($this->input->post("cancel") != null){
+			$this->viewNext();
+		}
+    if($this->session->userdata("atm_user") && $this->form_validation->run()){
+			$account_id = $this->session->userdata("atm_user")["account_id"];
+			$pin = $this->input->post("password");
+			if($this->account->authenticate_account($account_id, $pin)){
+				//locked in withdraw
+				$user = $this->session->userdata("atm_user");
+				$user["action"] = $action;
+				$this->session->set_userdata("atm_user", $user);
+				redirect('ATM/'.$action);
 			}
 			else{
-				$this->session->set_flashdata('error_message',  $res["error_message"]);
+				// count invalid attempts
+				$account = $this->session->userdata("atm_user");
+				$update = array('invalid_attempts' => $account['invalid_attempts'] + 1);
+				if(($account['invalid_attempts'] + 1) % 5 == 0){
+					$update["status"] = "locked";
+					$this->account->update($account["account_id"], $update);
+					$this->session->unset_userdata('atm_user');
+					$this->session->set_flashdata('error_message', 'Invalid Pin attempt exceeded allowable count. Account Locked.');
+					redirect('ATM');
+				}
+				else{
+					$this->account->update($account["account_id"], $update);
+					$updated_account = $this->account->get_protected($account["account_id"]);
+					$updated_account["action"] = "";
+					$this->session->set_userdata('atm_user', $updated_account);
+					$this->session->set_flashdata('error_message', 'Invalid Pin (' . $updated_account["invalid_attempts"] . ')');
+				}
 			}
 		}
 		else{
@@ -126,66 +225,7 @@ class ATMController extends BaseController {
       $data['error_message'] = explode("</p>", $data['error_message']);
       $this->session->set_flashdata('error_message', substr($data['error_message'][0],3));
     }
-		//redirect('ATM/verify');
+		redirect('ATM/verify/'.$action);
 	}
 
-	public function withdrawVerification(){
-	  $this->form_validation->set_rules('password','Pin','required|exact_length[6]|numeric');
-
-    if($this->form_validation->run()){
-			$res = $this->account->atm_verification(
-							$this->session->userdata("user_in"),
-							$this->input->post("password"),
-							"withdraw");
-			if(!isset($res["error_message"])){
-				$this->session->set_flashdata('verification',  $res);
-				redirect('ATM/withdraw');
-			}
-			else{
-				$this->session->set_flashdata('error_message',  $res["error_message"]);
-				if($res["attempts"] % 5 == 0) {
-					$this->session->unset_userdata('user_in');
-					redirect('ATM');
-				}
-			}
-		}
-		else{
-      $data['error_message'] = validation_errors();
-      $data['error_message'] = explode("</p>", $data['error_message']);
-      $this->session->set_flashdata('error_message', substr($data['error_message'][0],3));
-			redirect('ATM/withdraw/verify');
-    }
-		redirect('ATM/withdraw/verify');
-	}
-
-	public function withdraw(){
-		$this->form_validation->set_rules('amount','amount','trim|required|decimal');
-		if($this->form_validation->run()){
-			$params = $this->setting->withdrawParams();
-			if(floatval($this->input->post("amount")) > $params["max"]){
-				$data['error_message'] = 'Transaction cannot be processed.<br>Maximum amount per transaction in reached.';
-	      $this->session->set_flashdata('error_message', $data['error_message']);
-			}
-			else if(floatval($this->input->post("amount")) < $params["min"]){
-				$data['error_message'] = 'Amount should be divisible by 100 / 200 / 500 / 1000.';
-	      $this->session->set_flashdata('error_message', $data['error_message']);
-			}
-			else{
-				$res = $this->transaction->createTransaction($this->input->post("amount"), $this->session->userdata("user_in"));
-				if(is_array($res)){
-					$this->session->set_flashdata("transaction", $res);
-					redirect("ATM/withdraw/receipt");
-				}
-				else
-					$this->session->set_flashdata("error_message", $res);
-
-			}
-		}
-		else{
-			$data['error_message'] = validation_errors();
-      $data['error_message'] = explode("</p>", $data['error_message']);
-      $this->session->set_flashdata('error_message', substr($data['error_message'][0],3));
-		}
-		redirect("ATM/main");
-	}
 }

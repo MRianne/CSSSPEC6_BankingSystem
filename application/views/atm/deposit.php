@@ -4,7 +4,7 @@
 <style type="text/css">
 
 body{
-	background-image: url("bg2.png");
+	background-image: url("<?=base_url()?>resources/img/atm/bg2.png");
   background-size: 1430px 700px;
 }
 .container{
@@ -12,15 +12,15 @@ body{
     height:80%;
     position: absolute;
     top:0;
-    bottom: 0;  
+    bottom: 0;
     left: 0;
-    right: 0;  
+    right: 0;
     position: fixed;
     margin: auto;
     background-color: white;
     z-index: 1;
     overflow-x: hidden;
-    background-image: url("main bg.png");
+    background-image: url("<?=base_url()?>resources/img/atm/main bg.png");
     background-size: 1000px 600px;
     background-position: bottom;
     border-radius: 5px;
@@ -45,9 +45,9 @@ h1
   font-size: 40px;
   color: white;
   text-align: center;
-  margin-right: 150px;
+
   letter-spacing: -1px;
-  margin-top: 10px;
+  margin-top: 50px;
 }
 
 h3
@@ -91,8 +91,7 @@ a:hover
   width:25px;
   display: block;
   float: right;
-  margin-top: -24px;
-  margin-right: 30px;
+	margin-left: 5px;
 }
 
 input[type=submit]
@@ -170,19 +169,19 @@ h5
 p
 {
   font-family: 'Montserrat semibold';
-  font-size: 25px;
+  font-size: 20px;
   color: white;
-  margin-top: 103px;
-  margin-left: 10px;
-  float: left;  
+  margin-top: 120px;
+  float: right;
 }
 
 #back-btn
 {
-  width:40px;
-  float: left;
-  margin-top: 100px;
-  margin-left: 340px;
+  width:25px;
+  display: block;
+  float: right;
+	margin-left: 5px;
+	margin-top: 120px;
 }
 
 input[type=text]
@@ -200,7 +199,7 @@ input[type=text]
   font-size: 15pt;
 }
 
-input[type=button]
+input[type=submit]
 {
   background-color: #3cb878;
   border: none;
@@ -218,7 +217,7 @@ input[type=button]
   cursor: pointer;
 }
 
-input[type=button]:hover
+input[type=submit]:hover
 {
   background-color: #2fa166;
 }
@@ -230,24 +229,39 @@ input:focus {
 </style>
 <body>
 <section class="container">
-		<img id="main-logo" src="atm-machine2.png">
+		<img id="main-logo" src="<?=base_url()?>resources/img/atm/atm-machine2.png">
     <h2>ATM</h2>
 
-    <a href="login.html">logout</a>
-    <img id="logout-logo" src="logout2.png">
+    <a href="login.html">End Transaction
+    	<img id="logout-logo" src="<?=base_url()?>resources/img/atm/logout2.png">
+		</a>
+
 
     <h1>Deposit</h1>
-    <h3>enter amount to deposit</h3>
+    <h3>Enter amount to deposit</h3><br>
+		<h3>(Php.)</h3>
+		<?=form_open("TransactionController/atm_deposit")?>
+	    	<input id="amount" type="text" name="amount" value="0.00"/>
+				<?php
+					if (isset($this->session->userdata['error_message'])) {
+			        echo "<span style=\"color: red;text-align: center; font-weight: bold\" id = \"result\" name = \"result\">
+			                <div>
+			                  <small>".$this->session->userdata['error_message']."</small>
+			                </div>
+			              </span>";
+			    }
+					?>
+	    <br>
+	    <input type="submit" value="submit">
+		</form>
+		<a href="<?=base_url()?>ATM/next">
+			<img id="back-btn" src="<?=base_url()?>resources/img/atm/restart.png">
+			<p>Cancel</p>
+		</a>
 
-    <input type="text" name="accountnum" value="P 0.00">
-    <br>
-    <input type="button" value="submit">
-
-    <a href="main page.html"><img id="back-btn" src="restart.png"></a>
-    <p>another transaction</p>
 
 
 </section>
-	
+
 </body>
 </html>

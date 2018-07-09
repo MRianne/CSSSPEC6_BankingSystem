@@ -99,11 +99,14 @@ $route["migrate/(:any)/(:num)"] = "MigrationController/index/$1/$2";
 *ATM Routes
 */
 $route["ATM"] = "ATMController";
-$route["ATM/verify"] = "ATMController/viewVerification";
+$route["ATM/verify/(:any)"] = "ATMController/viewVerification/$1";
 $route["ATM/main"] = "ATMController/viewMain";
-$route["ATM/withdraw"] = "ATMController/viewWithdraw";
-$route["ATM/withdraw/receipt"] = "ATMController/viewVerification";
-$route["ATM/withdraw/verify"] = "ATMController/viewVerification";
+$route["ATM/withdraw"] = "ATMController/viewTransaction/withdraw";
+$route["ATM/withdraw/receipt"] = "ATMController/viewReceipt";
+$route["ATM/deposit"] = "ATMController/viewTransaction/deposit";
+$route["ATM/deposit/receipt"] = "ATMController/viewReceipt";
+$route["ATM/balance"] = "ATMController/viewBalance";
+$route["ATM/next"] = "ATMController/viewNext";
 $route["ATM/signOut"] = "ATMController/signOut";
 /*
 *Website Routes

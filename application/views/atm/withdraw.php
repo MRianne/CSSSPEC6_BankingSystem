@@ -92,8 +92,7 @@ a:hover
   width:25px;
   display: block;
   float: right;
-  margin-top: -24px;
-  margin-right: 30px;
+	margin-left: 5px;
 }
 
 input[type=submit]
@@ -173,17 +172,17 @@ p
   font-family: 'Montserrat semibold';
   font-size: 20px;
   color: white;
-  margin-top: 150px;
-  margin-right: -90px;
+  margin-top: 120px;
   float: right;
 }
 
 #back-btn
 {
-  width:30px;
+  width:25px;
+  display: block;
   float: right;
-  margin-top: 150px;
-  margin-right: 35px;
+	margin-left: 5px;
+	margin-top: 120px;
 }
 
 input[type=text]
@@ -202,7 +201,7 @@ input[type=text]
 	text-align: center;
 }
 
-input[type=button]
+input[type=submit]
 {
   background-color: #3cb878;
   border: none;
@@ -220,7 +219,7 @@ input[type=button]
   cursor: pointer;
 }
 
-input[type=button]:hover
+input[type=submit]:hover
 {
   background-color: #2fa166;
 }
@@ -230,33 +229,20 @@ input:focus {
 }
 
 </style>
-<script type="text/javascript">
-  var readOnlyLength = $('#field').val().length;
-
-$('#output').text(readOnlyLength);
-
-$('#field').on('keypress, keydown', function(event) {
-  var $field = $(this);
-  $('#output').text(event.which + '-' + this.selectionStart);
-  if ((event.which != 37 && (event.which != 39)) &&
-    ((this.selectionStart < readOnlyLength) ||
-      ((this.selectionStart == readOnlyLength) && (event.which == 8)))) {
-    return false;
-  }
-});
-</script>
 <body>
 <section class="container">
 		<img id="main-logo" src="<?=base_url()?>resources/img/atm/atm-machine2.png">
     <h2>ATM</h2>
 
-    <a href="login.html">logout</a>
-    <img id="logout-logo" src="<?=base_url()?>resources/img/atm/logout2.png">
+    <a href="<?=base_url()?>ATM/signOut">
+			End Transaction
+    	<img id="logout-logo" src="<?=base_url()?>resources/img/atm/logout2.png">
+		</a>
 
     <h1>Withdraw</h1>
     <h3>Enter amount to withdraw</h3><br>
 		<h3>(Php.)</h3>
-		<?=form_open("ATMController/withdraw")?>
+		<?=form_open("TransactionController/atm_withdraw")?>
 	    	<input id="amount" type="text" name="amount" value="0.00"/>
 				<?php
 					if (isset($this->session->userdata['error_message'])) {
@@ -270,7 +256,7 @@ $('#field').on('keypress, keydown', function(event) {
 	    <br>
 	    <input type="submit" value="submit">
 		</form>
-    <a href="main page.html">
+    <a href="<?=base_url()?>ATM/next">
 			<img id="back-btn" src="<?=base_url()?>resources/img/atm/restart.png">
 			<p>Cancel</p>
 		</a>

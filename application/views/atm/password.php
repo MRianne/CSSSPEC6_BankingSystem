@@ -96,9 +96,9 @@ input:focus {
 <body>
   <img src="<?=base_url();?>resources/img/atm/atm-machine.png" id="atm-logo">
   <h1>Welcome to the ATM</h1>
-  <p>Enter your pin for verification</p>
-	<?=	form_open('ATMController/'.$action);	?>
-	<input type="password" name="password"  id="password"	value="password">
+  <p>Enter your 6-digit pin for verification</p>
+	<?=	form_open('ATMController/verification', '', array('action' => $action));	?>
+	<input type="password" name="password"  id="password"	value="">
 	<?php
 		if (isset($this->session->userdata['error_message'])) {
         echo "<span style=\"color: red;text-align: center; font-weight: bold\" id = \"result\" name = \"result\">
@@ -110,7 +110,13 @@ input:focus {
 		?>
 	<br>
 	<br>
-	<input type="submit" value="Continue" name="confirm"  id="confirm">
+	<div class = "row">
+		<center>
+			<input type="submit" value="Continue" name="confirm"  id="confirm">
+			<input type="submit" value="Cancel" name="cancel"  id="cancel">
+		</center>
+	</div>
+
   </form>
 
 	<!-- jQuery 3.2.1 -->

@@ -16,8 +16,8 @@ class User_Model extends BaseModel {
 
 	public function authenticate_user($username, $password) {
 		$user = $this->user->as_object()->with('person')->get_by(['username' => $username]);
-		$user->customer_id = $this->customer->get_by(['person_id' => $user->person['person_id']])['customer_id'];
 		if ($user && $this->encryption->decrypt($user->password) === $password) {
+			$user->customer_id = $this->customer->get_by(['person_id' => $user->person['person_id']])['customer_id'];
 			unset($user->password);
 			$this->session->set_userdata("user", $user);
 			$this->user->update($user->username, ['last_login' => date("Y-m-d H:i:s")]);

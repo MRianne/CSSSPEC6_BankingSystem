@@ -64,9 +64,9 @@ class UserController extends BaseController {
 			$user = $this->user->get($id);
 			$current_user = parent::current_user();
 
-			$this->form_validation->set_rules('first_name', 'First name', 'trim|required|alpha');
-			$this->form_validation->set_rules('middle_name', 'Middle name', 'trim|required|alpha');
-			$this->form_validation->set_rules('last_name', 'Last name', 'trim|required|alpha');
+			$this->form_validation->set_rules('first_name', 'First name', "trim|required|regex_match[/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u]");
+			$this->form_validation->set_rules('middle_name', 'Middle name', "trim|required|regex_match[/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u]");
+			$this->form_validation->set_rules('last_name', 'Last name', "trim|required|regex_match[/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u]");
 			$this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[4]|max_length[50]');
 			if($user['email'] === $this->input->post('email'))
 				$this->form_validation->set_rules('email', 'E-mail address', 'trim|required|valid_email');
